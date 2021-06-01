@@ -16,6 +16,11 @@ func initUsers() {
 	users := apiGroupe.Group("/users")
 	users.GET("/", getUsers, isAdmin)
 	users.GET("/:username", getUser, isAdminOrLoggedIn)
+	users.PATCH("/:username", updateUser, isAdminOrLoggedIn)
+	users.POST("/:username", updateAccessLvl, isAdmin)
+	users.POST("/:username/ban", banUser, isAdmin)
+	users.DELETE("/:username/ban", banUser, isAdmin)
+	users.DELETE("/:username", deleteUser, isAdminOrLoggedIn)
 }
 
 // @Summary Get User
@@ -71,7 +76,7 @@ func getUsers(c echo.Context) error {
 // @Failure 404	"NotFound"
 // @Failure 500 "Server error"
 // @Router /users/{username} [PATCH]
-func UpdateUser(c echo.Context) error {
+func updateUser(c echo.Context) error {
 	var user models.User
 	username := c.Param("username")
 
@@ -105,7 +110,7 @@ func UpdateUser(c echo.Context) error {
 		user.Salt = string(salt)
 	}
 
-	_, err := db.DB.Query(models.UpdateUserQuery, user)
+	_, err := db.DB.Exec(models.UpdateUserQuery, user)
 	if err != nil {
 		log.Warn("UpdateUser/ Error updating member: ", err)
 		return c.JSON(http.StatusInternalServerError, "Error saving data.")
@@ -124,7 +129,7 @@ func UpdateUser(c echo.Context) error {
 // @Failure 404	"NotFound"
 // @Failure 500 "Server error"
 // @Router /users/{username} [POST]
-func UpdateAccessLvl(c echo.Context) error {
+func updateAccessLvl(c echo.Context) error {
 	lvl, err := strconv.Atoi(c.QueryParam("access_level"))
 	if err != nil || lvl > 2 || lvl < 0 {
 		return echo.NewHTTPError(http.StatusBadRequest, "invalid access_level")
@@ -140,7 +145,7 @@ func UpdateAccessLvl(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
-	_, err = db.DB.Queryx("UPDATE user SET access_lvl=? WHERE username=?", lvl, username)
+	_, err = db.DB.Exec("UPDATE user SET access_lvl=? WHERE username=?", lvl, username)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return c.JSON(http.StatusNotFound, echo.Map{"error": "user " + username + " not found."})
@@ -152,4 +157,59 @@ func UpdateAccessLvl(c echo.Context) error {
 	user.AccessLvl = lvl
 
 	return c.JSON(http.StatusOK, user)
+}
+
+// @Summary Ban User
+// @Tags Users
+// @Description Update User ban. POST to unbann, DELETE to ban.
+// @Param   username		path	string	true	"username"
+// @Success 200	"OK"
+// @Failure 403	"Forbidden"
+// @Failure 404	"NotFound"
+// @Failure 500 "Server error"
+// @Router /users/{username}/ban [POST]
+// @Router /users/{username}/ban [DELETE]
+func banUser(c echo.Context) error {
+	username := c.Param("username")
+	var tmp int
+	if err := db.DB.Get(&tmp, "SELECT 1 FROM user WHERE username=?", username); err != nil {
+		if err == sql.ErrNoRows {
+			return c.JSON(http.StatusNotFound, echo.Map{"error": "user " + username + " not found."})
+		}
+		log.Warn("GetUser/ Error getting user: ", err)
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	ban := c.Request().Method == "POST"
+	_, err := db.DB.Exec("UPDATE user SET banned=? WHERE username=?", ban)
+	if err != nil {
+		log.Warn("BanUser/error: ", err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	return c.JSON(http.StatusOK, nil)
+}
+
+// @Summary Delete User
+// @Tags Users
+// @Description Delete definitively the user.
+// @Param   username		path	string	true	"username"
+// @Success 200	"OK"
+// @Failure 403	"Forbidden"
+// @Failure 404	"NotFound"
+// @Failure 500 "Server error"
+// @Router /users/{username} [DELETE]
+func deleteUser(c echo.Context) error {
+	username := c.Param("username")
+	res, err := db.DB.Exec("DELETE FROM user WHERE username=?", username)
+	if err != nil {
+		log.Warn("deleteUser/ err: ", err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	if r, _ := res.RowsAffected(); r == 0 {
+		return c.JSON(http.StatusNotFound, nil)
+	}
+
+	return c.JSON(http.StatusOK, nil)
 }
