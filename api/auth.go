@@ -1,8 +1,6 @@
 package api
 
 import (
-	"crypto/rand"
-	"crypto/sha256"
 	"database/sql"
 	"encoding/hex"
 	"net/http"
@@ -149,27 +147,4 @@ func loginUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, echo.Map{
 		"token": t,
 	})
-}
-
-func generateSalt() ([]byte, error) {
-	var salt = make([]byte, 16)
-
-	_, err := rand.Read(salt[:])
-
-	if err != nil {
-		log.Warn("generateSalt/:", err)
-		return nil, err
-	}
-
-	return salt, nil
-}
-
-func hashPassword(password string, salt []byte) string {
-	var passwordBytes = []byte(password)
-	passwordBytes = append(passwordBytes, salt...)
-
-	var hasher = sha256.New()
-	hasher.Write(passwordBytes)
-
-	return hex.EncodeToString(hasher.Sum(nil))
 }
