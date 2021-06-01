@@ -25,8 +25,6 @@ func InitRouter() *echo.Echo {
 	e.Use(middleware.Recover())
 	apiGroupe = e.Group("/api/" + version)
 
-	fmt.Println("Started cardinal API" + version + ", made by gyroskan!")
-
 	// swagger route
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.GET("/", func(c echo.Context) error {
@@ -34,6 +32,14 @@ func InitRouter() *echo.Echo {
 	})
 
 	initAuth()
+
+	config := middleware.JWTConfig{
+		Claims:     &JwtCustomClaims{},
+		SigningKey: []byte(secret),
+	}
+	apiGroupe.Use(middleware.JWTWithConfig(config))
+
+	initUsers()
 
 	return e
 }
@@ -44,4 +50,5 @@ func Run() {
 	if err := e.Start(":5005"); err != nil {
 		log.Fatal("unable to start api. ", err)
 	}
+	fmt.Println("Started cardinal API" + version + ", made by gyroskan!")
 }
