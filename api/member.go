@@ -26,7 +26,7 @@ func InitMemberGroup() {
 // @Tags Members
 // @Description Fetch all members of the guild.
 // @Param   guildID		path	string	true	"guild id"
-// @Success 200	"OK" {array} models.User
+// @Success 200	"OK" {array} models.Member
 // @Failure 403	"Forbidden"
 // @Failure 500 "Server error"
 // @Router /guilds/{guildID}/members [GET]
@@ -50,7 +50,7 @@ func GetGuildMembers(c echo.Context) error {
 // @Description Fetch the member of the guild.
 // @Param   guildID		path	string	true	"guild id"
 // @Param   memberID	path	string	true	"member id"
-// @Success 200	"OK" {object} models.User
+// @Success 200	"OK" {object} models.Member
 // @Failure 403	"Forbidden"
 // @Failure 404	"Not Found"
 // @Failure 500 "Server error"
