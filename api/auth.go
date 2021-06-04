@@ -43,7 +43,7 @@ func initAuth() {
 // @Success 201 {object} models.User "Created user"
 // @Failure 400 "Wrong values"
 // @Failure 500 "Server Error"
-// @Router /register [POST]
+// @Router /users/register [POST]
 func registerUser(c echo.Context) error {
 	var userCreate models.UserCreation
 
@@ -95,10 +95,10 @@ func registerUser(c echo.Context) error {
 // @Produce  json
 // @Param   username	body	string	true	"username"
 // @Param 	password	body 	string 	true 	"password"
-// @Success 200 {string} "Token"
+// @Success 200 {string} string "Token"
 // @Failure 400 "login invalid"
 // @Failure 500 "Server Error"
-// @Router /login [POST]
+// @Router /users/login [POST]
 func loginUser(c echo.Context) error {
 	type userLog struct {
 		Username string `json:"username" form:"username"`
@@ -106,6 +106,7 @@ func loginUser(c echo.Context) error {
 	}
 	var logged userLog
 	if err := c.Bind(&logged); err != nil {
+		log.Warn("Login/ binding error: ", err)
 		return echo.NewHTTPError(http.StatusBadRequest, "Username or password invalid")
 	}
 	var user models.User

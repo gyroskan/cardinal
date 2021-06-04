@@ -1,0 +1,237 @@
+basePath: /api/v1
+definitions:
+  models.User:
+    properties:
+      accessLvl:
+        type: integer
+      banned:
+        type: boolean
+      createdAt:
+        type: string
+      discordID:
+        $ref: '#/definitions/nulltype.NullString'
+      email:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserCreation:
+    properties:
+      discordID:
+        $ref: '#/definitions/nulltype.NullString'
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserModification:
+    properties:
+      discordID:
+        $ref: '#/definitions/nulltype.NullString'
+      email:
+        type: string
+      oldPassword:
+        type: string
+      password:
+        type: string
+    type: object
+  nulltype.NullString:
+    type: object
+host: cardinal.gyroskan.com:5005
+info:
+  contact:
+    email: gyroskan@gmail.com
+    name: API Support
+  description: The API to interact with cardinal discord bot database.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Cardinal API
+  version: "0.1"
+paths:
+  /users/:
+    get:
+      description: Get a list of existing users
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Users
+      tags:
+      - Users
+  /users/{username}:
+    delete:
+      description: Delete definitively the user.
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: NotFound
+        "500":
+          description: Server error
+      summary: Delete User
+      tags:
+      - Users
+    get:
+      description: Get a specific user
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not found
+        "500":
+          description: Server error
+      summary: Get User
+      tags:
+      - Users
+    patch:
+      description: Update specified User fields
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: fields to modify
+        in: body
+        name: userModif
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserModification'
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Invalid values
+        "403":
+          description: Forbidden
+        "404":
+          description: NotFound
+        "500":
+          description: Server error
+      summary: Update User
+      tags:
+      - Users
+    post:
+      description: Update User access level
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: access_level
+        in: query
+        name: access_level
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: NotFound
+        "500":
+          description: Server error
+      summary: Update User access level
+      tags:
+      - Users
+  /users/{username}/ban:
+    delete:
+      description: Update User ban. POST to unbann, DELETE to ban.
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: NotFound
+        "500":
+          description: Server error
+      summary: Ban User
+      tags:
+      - Users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      - application/x-www-form-urlencoded
+      description: Login to get user token
+      parameters:
+      - description: username
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token
+          schema:
+            type: string
+        "400":
+          description: login invalid
+        "500":
+          description: Server Error
+      summary: Login user
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: User values
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreation'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created user
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Wrong values
+        "500":
+          description: Server Error
+      summary: Register user
+swagger: "2.0"

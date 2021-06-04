@@ -68,8 +68,8 @@ func getUsers(c echo.Context) error {
 // @Summary Update User
 // @Tags Users
 // @Description Update specified User fields
-// @Param   username		path	string	true	"username"
-// @Param   userModif		body	{object} models.UserModification	true	"fields to modify"
+// @Param   username	path	string	true	"username"
+// @Param   userModif 	body 	models.UserModification	true	"fields to modify"
 // @Success 200	"OK" {object} models.User
 // @Failure 400 "Invalid values"
 // @Failure 403	"Forbidden"
