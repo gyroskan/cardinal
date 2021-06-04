@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
+	"github.com/dgrijalva/jwt-go"
 	_ "github.com/gyroskan/cardinal/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -51,13 +53,24 @@ func InitRouter() *echo.Echo {
 		Claims:     &JwtCustomClaims{},
 		SigningKey: []byte(secret),
 		Skipper: func(c echo.Context) bool {
-			return c.Request().URL.Path == base_path+"/users/register" ||
-				c.Request().URL.Path == base_path+"/users/login"
+			if c.Request().URL.Path == base_path+"/users/register" ||
+				c.Request().URL.Path == base_path+"/users/login" {
+				return true
+			}
+			user := c.Get("user").(*jwt.Token)
+			claims := user.Claims.(JwtCustomClaims)
+			accessLevel := claims.Access_level
+			if c.Request().Method == "GET" {
+				return accessLevel <= 2
+			}
+
+			return strings.HasPrefix(c.Request().URL.Path, "/users") || accessLevel <= 1
 		},
 	}
 	apiGroupe.Use(middleware.JWTWithConfig(config))
 
 	initUsers()
+	InitMemberGroup()
 
 	return e
 }

@@ -21,9 +21,11 @@ const (
 			(:username,:email,:discord_id,:pwd_hash,:salt,:access_lvl,:created_at,:banned)
 			`
 	UpdateUserQuery = `
-		UPDATE user 
-		SET email=:email, discord_id=:discord_id, pwd_hash=:pwd_hash, salt=:salt
-		WHERE username=:username`
+		UPDATE user SET
+			email=:email, discord_id=:discord_id, pwd_hash=:pwd_hash, salt=:salt
+		WHERE 
+			username=:username
+			`
 )
 
 type (
