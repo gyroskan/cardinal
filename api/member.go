@@ -164,7 +164,7 @@ func resetMember(c echo.Context) error {
 // @Produce  json
 // @Param	guildID 	path	string	true	"Guild id"
 // @Param	memberID	path	string	true	"Guild id"
-// @Success 201 "Member updated" {object} models.Member
+// @Success 200 "OK" {object} models.Member
 // @Failure 403	"Forbidden"
 // @Failure 404	"Not Fountd"
 // @Failure 500 "Server Error"
@@ -185,8 +185,10 @@ func updateMember(c echo.Context) error {
 	if err := json.NewDecoder(c.Request().Body).Decode(&member); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
+	member.GuildID = guildID
+	member.MemberID = id
 
-	err := db.DB.Get(&member, models.UpdateMemberQuery, member)
+	_, err := db.DB.NamedExec(models.UpdateMemberQuery, member)
 	if err != nil {
 		log.Warn("UpdateMember/ Error updating member: ", err)
 		return c.JSON(http.StatusInternalServerError, nil)

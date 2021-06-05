@@ -2,6 +2,7 @@ package api
 
 import (
 	"database/sql"
+	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -16,9 +17,9 @@ func initGuildGroup() {
 	g.GET("/", getGuilds).Name = "Fetch All Guilds."
 	g.GET("/:id", getGuild).Name = "Fetch Guild by id."
 	g.POST("/", createGuild).Name = "Create new guild."
-	// g.PATCH("/:id", updateGuild).Name = "Update guild."
-	// g.POST("/:id/reset", resetGuild).Name = "Reset guild."
-	// g.DELETE("/:id", hardDeleteGuild).Name = "Hard Delete guild."
+	g.PATCH("/:id", updateGuild).Name = "Update guild."
+	g.POST("/:id/reset", resetGuild).Name = "Reset guild."
+	g.DELETE("/:id", hardDeleteGuild).Name = "Hard Delete guild."
 }
 
 // @Summary Get Guilds
@@ -119,4 +120,105 @@ func createGuild(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusCreated, guild)
+}
+
+// @Summary Update guild values
+// @Tag Members
+// @Description Update fields of a guild
+// @Accept  json
+// @Produce  json
+// @Param	guildID 	path	string			true	"Guild id"
+// @Param	guild 		body	models.Guild	true	"Guild modifications"
+// @Success 200 "OK" {object} models.Member
+// @Failure 403	"Forbidden"
+// @Failure 404	"Not Fountd"
+// @Failure 500 "Server Error"
+// @Router /guilds/{guildID} [PATCH]
+func updateGuild(c echo.Context) error {
+	id := c.Param("id")
+	var guild models.Guild
+
+	if err := db.DB.Get(&guild, "SELECT * FROM guild WHERE `guild_id`=?", id); err != nil {
+		if err == sql.ErrNoRows {
+			return c.JSON(http.StatusNotFound, echo.Map{"error": "Guild with id`" + id + "` not found."})
+		}
+		log.Warn("UpdateGuild/ Error while retrieving guild: ", err)
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	if err := json.NewDecoder(c.Request().Body).Decode(&guild); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err)
+	}
+	guild.GuildID = id
+
+	_, err := db.DB.NamedExec(models.UpdateGuildQuery, guild)
+
+	if err != nil {
+		log.Warn("UpdateGuild/ Error while Updating DB: ", err)
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, guild)
+}
+
+// @Summary Reset guild
+// @Tag Members
+// @Description Reset guild parameters to default values. Do not change members values.
+// @Accept  json
+// @Produce  json
+// @Param	guildID 	path	string	true	"Guild id"
+// @Success 200 "OK" {object} models.Guild
+// @Failure 403	"Forbidden"
+// @Failure 500 "Server Error"
+// @Router /guilds/{guildID}/reset [POST]
+func resetGuild(c echo.Context) error {
+	guildID := c.Param("guildID")
+
+	_, err := db.DB.Exec(models.ResetGuildQuery, guildID)
+
+	if err != nil {
+		if err == sql.ErrNoRows { //should not happened
+			return c.JSON(http.StatusNotFound, "Guild with id "+guildID+" not found.")
+		}
+		log.Error("ResetGuild/ Error updating guild: ", err)
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	var guild models.Guild
+	err = db.DB.Get(&guild, "SELECT * FROM guild WHERE `guild_id`=?", guildID)
+
+	if err != nil {
+		log.Error("GetGuild/ error retrieving guild: ", err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	return c.JSON(http.StatusOK, guild)
+}
+
+// @Summary Delte guild
+// @Tag Members
+// @Description Delete a guild
+// @Accept  json
+// @Produce  json
+// @Param	guildID 	path	string	true	"Guild id"
+// @Success 206 "No Content"
+// @Failure 403	"Forbidden"
+// @Failure 404	"Not Fountd"
+// @Failure 500 "Server Error"
+// @Router /guilds/{guildID} [DELETE]
+func hardDeleteGuild(c echo.Context) error {
+	id := c.Param("id")
+
+	res, err := db.DB.Exec("DELETE FROM guild WHERE guild_id = ?", id)
+
+	if err != nil {
+		log.Error("HardDeleteGuild/ Error while deleting guild from db: ", err)
+		return c.JSON(http.StatusInternalServerError, echo.Map{"error": "Could not delete the guild."})
+	}
+
+	if r, _ := res.RowsAffected(); r == 0 {
+		return c.JSON(http.StatusNotFound, nil)
+	}
+
+	return c.JSON(http.StatusNoContent, nil)
 }
