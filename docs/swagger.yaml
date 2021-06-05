@@ -1,5 +1,55 @@
 basePath: /api/v1
 definitions:
+  models.Guild:
+    properties:
+      allowModeration:
+        type: boolean
+      banTime:
+        type: integer
+      disabledCommands:
+        $ref: '#/definitions/nulltype.NullString'
+      guildID:
+        type: string
+      guildName:
+        type: string
+      lvlChannel:
+        $ref: '#/definitions/nulltype.NullString'
+      lvlReplace:
+        type: boolean
+      lvlResponse:
+        type: integer
+      maxWarns:
+        type: integer
+      members:
+        items:
+          $ref: '#/definitions/models.Member'
+        type: array
+      prefix:
+        type: string
+      privateWelcomeMsg:
+        $ref: '#/definitions/nulltype.NullString'
+      reportChannel:
+        $ref: '#/definitions/nulltype.NullString'
+      welcomeChannel:
+        $ref: '#/definitions/nulltype.NullString'
+      welcomeMsg:
+        $ref: '#/definitions/nulltype.NullString'
+    type: object
+  models.Member:
+    properties:
+      guildID:
+        type: string
+      joinedAt:
+        $ref: '#/definitions/nulltype.NullTime'
+      left:
+        type: integer
+      level:
+        type: integer
+      memberID:
+        type: string
+      xp:
+        type: integer
+    type: object
   models.User:
     properties:
       accessLvl:
@@ -39,6 +89,8 @@ definitions:
     type: object
   nulltype.NullString:
     type: object
+  nulltype.NullTime:
+    type: object
 host: cardinal.gyroskan.com:5005
 info:
   contact:
@@ -51,6 +103,304 @@ info:
   title: Cardinal API
   version: "0.1"
 paths:
+  /guilds:
+    get:
+      description: Fetch all guilds.
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Guilds
+      tags:
+      - Guilds
+  /guilds/:
+    post:
+      description: Create a new Guild
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "403":
+          description: Forbidden
+        "409":
+          description: Conflict
+        "500":
+          description: Server error
+      summary: Create guild
+      tags:
+      - Guilds
+  /guilds/{guildID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a guild
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "206":
+          description: No Content
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Fountd
+        "500":
+          description: Server Error
+      summary: Delte guild
+    get:
+      description: Fetch a specific guild
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: fetch members
+        in: query
+        name: members
+        type: boolean
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server error
+      summary: Get guild
+      tags:
+      - Guilds
+    patch:
+      consumes:
+      - application/json
+      description: Update fields of a guild
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: Guild modifications
+        in: body
+        name: guild
+        required: true
+        schema:
+          $ref: '#/definitions/models.Guild'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Fountd
+        "500":
+          description: Server Error
+      summary: Update guild values
+  /guilds/{guildID}/members:
+    get:
+      description: Fetch all members of the guild.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Guild Members
+      tags:
+      - Members
+    post:
+      consumes:
+      - application/json
+      description: Create a new member from a guild.
+      parameters:
+      - description: Member values
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.Member'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created member
+          schema:
+            $ref: '#/definitions/models.Member'
+        "400":
+          description: Wrong values
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Create member
+  /guilds/{guildID}/members/{memberID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a guild member
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: Guild id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "206":
+          description: No Content
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Fountd
+        "500":
+          description: Server Error
+      summary: Delte guild member
+    get:
+      description: Fetch the member of the guild.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server error
+      summary: Get one Guild Member
+      tags:
+      - Members
+    patch:
+      consumes:
+      - application/json
+      description: Update fields of a guild's member
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: Guild id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Fountd
+        "500":
+          description: Server Error
+      summary: Update member value
+  /guilds/{guildID}/members/{memberID}/reset:
+    post:
+      consumes:
+      - application/json
+      description: Reset level and xp for the specific guild's members.
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: Guild id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Member reset
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Reset member from a guild
+  /guilds/{guildID}/members/reset:
+    post:
+      consumes:
+      - application/json
+      description: Reset level and xp for all guild's members.
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Member reset
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Reset guild's members
+  /guilds/{guildID}/reset:
+    post:
+      consumes:
+      - application/json
+      description: Reset guild parameters to default values. Do not change members
+        values.
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Reset guild
   /users/:
     get:
       description: Get a list of existing users

@@ -16,6 +16,454 @@
     "host": "cardinal.gyroskan.com:5005",
     "basePath": "/api/v1",
     "paths": {
+        "/guilds": {
+            "get": {
+                "description": "Fetch all guilds.",
+                "tags": [
+                    "Guilds"
+                ],
+                "summary": "Get Guilds",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/guilds/": {
+            "post": {
+                "description": "Create a new Guild",
+                "tags": [
+                    "Guilds"
+                ],
+                "summary": "Create guild",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}": {
+            "get": {
+                "description": "Fetch a specific guild",
+                "tags": [
+                    "Guilds"
+                ],
+                "summary": "Get guild",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "fetch members",
+                        "name": "members",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a guild",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delte guild",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update fields of a guild",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update guild values",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Guild modifications",
+                        "name": "guild",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Guild"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/members": {
+            "get": {
+                "description": "Fetch all members of the guild.",
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Get Guild Members",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new member from a guild.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create member",
+                "parameters": [
+                    {
+                        "description": "Member values",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created member",
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
+                    },
+                    "400": {
+                        "description": "Wrong values"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/members/reset": {
+            "post": {
+                "description": "Reset level and xp for all guild's members.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Reset guild's members",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Member reset"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/members/{memberID}": {
+            "get": {
+                "description": "Fetch the member of the guild.",
+                "tags": [
+                    "Members"
+                ],
+                "summary": "Get one Guild Member",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a guild member",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delte guild member",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update fields of a guild's member",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update member value",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/members/{memberID}/reset": {
+            "post": {
+                "description": "Reset level and xp for the specific guild's members.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Reset member from a guild",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Member reset"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/reset": {
+            "post": {
+                "description": "Reset guild parameters to default values. Do not change members values.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Reset guild",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/users/": {
             "get": {
                 "description": "Get a list of existing users",
@@ -295,6 +743,82 @@
         }
     },
     "definitions": {
+        "models.Guild": {
+            "type": "object",
+            "properties": {
+                "allowModeration": {
+                    "type": "boolean"
+                },
+                "banTime": {
+                    "type": "integer"
+                },
+                "disabledCommands": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "guildID": {
+                    "type": "string"
+                },
+                "guildName": {
+                    "type": "string"
+                },
+                "lvlChannel": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "lvlReplace": {
+                    "type": "boolean"
+                },
+                "lvlResponse": {
+                    "type": "integer"
+                },
+                "maxWarns": {
+                    "type": "integer"
+                },
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Member"
+                    }
+                },
+                "prefix": {
+                    "type": "string"
+                },
+                "privateWelcomeMsg": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "reportChannel": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "welcomeChannel": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "welcomeMsg": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                }
+            }
+        },
+        "models.Member": {
+            "type": "object",
+            "properties": {
+                "guildID": {
+                    "type": "string"
+                },
+                "joinedAt": {
+                    "$ref": "#/definitions/nulltype.NullTime"
+                },
+                "left": {
+                    "type": "integer"
+                },
+                "level": {
+                    "type": "integer"
+                },
+                "memberID": {
+                    "type": "string"
+                },
+                "xp": {
+                    "type": "integer"
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -353,6 +877,9 @@
             }
         },
         "nulltype.NullString": {
+            "type": "object"
+        },
+        "nulltype.NullTime": {
             "type": "object"
         }
     }
