@@ -99,7 +99,9 @@ func GetMember(c echo.Context) error {
 // @Router /guilds/{guildID}/members [POST]
 func createMember(c echo.Context) error {
 	var member models.Member
-	if err := c.Bind(&member); err != nil {
+	guildID := c.Param("guildID")
+
+	if err := c.Bind(&member); err != nil || member.GuildID != guildID {
 		return echo.NewHTTPError(http.StatusBadRequest, member)
 	}
 
