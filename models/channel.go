@@ -1,6 +1,19 @@
 package models
 
-const ()
+const (
+	CreateChannelQuery = `
+		INSERT INTO channel
+			(channel_id, guild_id, ignored, xp_blacklisted)
+		VALUES
+			(:channel_id, :guild_id, :ignored, :xp_blacklisted)
+	`
+	UpdateChannelQuery = `
+		UPDATE channel SET
+			ignored=:ignored, xp_blacklisted=:xp_blacklisted
+		WHERE
+			guild_id=:guild_id,channel_id=:channel_id
+	`
+)
 
 type (
 	Channel struct {
