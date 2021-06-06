@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
@@ -26,16 +27,27 @@ func InitMembers() {
 // @Tags Members
 // @Description Fetch all members of the guild.
 // @Param   guildID		path	string	true	"guild id"
+// @Param   limit		query	int		false	"limit to fetch" default(1)
+// @Param   after		query	string	false	"higher last id fetched" default(0)
 // @Success 200	"OK" {array} models.Member
 // @Failure 403	"Forbidden"
 // @Failure 500 "Server error"
 // @Router /guilds/{guildID}/members [GET]
 func GetGuildMembers(c echo.Context) error {
 	guildID := c.Param("guildID")
+	lastID := c.QueryParam("after")
+	if lastID == "" {
+		lastID = "0"
+	}
+
+	limit, err := strconv.Atoi(c.QueryParam("limit"))
+	if err != nil {
+		limit = 1
+	}
 
 	members := []models.Member{}
 
-	err := db.DB.Select(&members, "SELECT * FROM `member` WHERE guild_id=?", guildID)
+	err = db.DB.Select(&members, models.SelectGuildMembersQuery, guildID, lastID, limit)
 
 	if err != nil {
 		log.Warn("GetGuildMembers/ Error retrieving members from guildID: ", err)

@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
@@ -54,14 +53,14 @@ func getGuilds(c echo.Context) error {
 // @Router /guilds/{guildID} [GET]
 func getGuild(c echo.Context) error {
 	id := c.Param("id")
-	members, err := strconv.ParseBool(c.QueryParam("members"))
+	// members, err := strconv.ParseBool(c.QueryParam("members"))
 
-	if err != nil {
-		members = false
-	}
+	// if err != nil {
+	// 	members = false
+	// }
 
 	var guild models.Guild
-	err = db.DB.Get(&guild, "SELECT * FROM guild WHERE `guild_id`=?", id)
+	err := db.DB.Get(&guild, "SELECT * FROM guild WHERE `guild_id`=?", id)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -72,14 +71,14 @@ func getGuild(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	if members {
-		err = db.DB.Select(&guild.Members, "SELECT * FROM member WHERE `guild_id`=?", id)
+	// if members {
+	// 	err = db.DB.Select(&guild.Members, "SELECT * FROM member WHERE `guild_id`=?", id)
 
-		if err != nil {
-			log.Warn("GetGuild/ Error retrieving members of guild: ", err)
-			guild.Members = nil
-		}
-	}
+	// 	if err != nil {
+	// 		log.Warn("GetGuild/ Error retrieving members of guild: ", err)
+	// 		guild.Members = nil
+	// 	}
+	// }
 
 	return c.JSON(http.StatusOK, guild)
 }

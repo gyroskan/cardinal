@@ -3,6 +3,12 @@ package models
 import "github.com/mattn/go-nulltype"
 
 const (
+	SelectGuildMembersQuery = `
+			SELECT * FROM member
+			WHERE guild_id=? AND member_id > ?
+			ORDER BY member_id ASC
+			LIMIT ?
+		`
 	CreateMemberQuery = `
 		INSERT INTO member 
 			(member_id, guild_id, joined_at, left, xp, level)
