@@ -71,8 +71,8 @@ func InitRouter() *echo.Echo {
 
 	initUsers()
 	initGuilds()
-	InitMembers()
-
+	initMembers()
+	initChannels()
 	return e
 }
 
