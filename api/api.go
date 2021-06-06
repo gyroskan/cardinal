@@ -70,8 +70,8 @@ func InitRouter() *echo.Echo {
 	apiGroupe.Use(middleware.JWTWithConfig(config))
 
 	initUsers()
-	initGuildGroup()
-	InitMemberGroup()
+	initGuilds()
+	InitMembers()
 
 	return e
 }

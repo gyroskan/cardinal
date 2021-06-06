@@ -12,7 +12,7 @@ import (
 	"github.com/labstack/gommon/log"
 )
 
-func initGuildGroup() {
+func initGuilds() {
 	g := apiGroupe.Group("/guild")
 	g.GET("/", getGuilds).Name = "Fetch All Guilds."
 	g.GET("/:id", getGuild).Name = "Fetch Guild by id."
