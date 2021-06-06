@@ -190,6 +190,199 @@ var doc = `{
                 }
             }
         },
+        "/guilds/{guildID}/channels": {
+            "get": {
+                "description": "Fetch all channels of the guild.",
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Get Guild channels",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new channel for a guild.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create channel",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Channel values",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Channel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created member",
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
+                    },
+                    "400": {
+                        "description": "Wrong values"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/channels/{channelID}": {
+            "get": {
+                "description": "Fetch the channel of the guild.",
+                "tags": [
+                    "Channels"
+                ],
+                "summary": "Get one Guild Channel",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "channel id",
+                        "name": "channelID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a guild channel",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete guild channel",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Channel id",
+                        "name": "channelID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update fields of a guild's channel",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update channel values",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Channel id",
+                        "name": "channelID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/guilds/{guildID}/members": {
             "get": {
                 "description": "Fetch all members of the guild.",
@@ -204,6 +397,20 @@ var doc = `{
                         "name": "guildID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "limit to fetch",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "0",
+                        "description": "higher last id fetched",
+                        "name": "after",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -228,6 +435,13 @@ var doc = `{
                 ],
                 "summary": "Create member",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "description": "Member values",
                         "name": "user",
@@ -335,7 +549,7 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Delte guild member",
+                "summary": "Delete guild member",
                 "parameters": [
                     {
                         "type": "string",
@@ -346,7 +560,7 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "Guild id",
+                        "description": "Member id",
                         "name": "memberID",
                         "in": "path",
                         "required": true
@@ -758,6 +972,23 @@ var doc = `{
         }
     },
     "definitions": {
+        "models.Channel": {
+            "type": "object",
+            "properties": {
+                "channelID": {
+                    "type": "string"
+                },
+                "guildID": {
+                    "type": "string"
+                },
+                "ignored": {
+                    "type": "boolean"
+                },
+                "wpBlacklisted": {
+                    "type": "boolean"
+                }
+            }
+        },
         "models.Guild": {
             "type": "object",
             "properties": {

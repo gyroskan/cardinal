@@ -91,7 +91,8 @@ func GetMember(c echo.Context) error {
 // @Description Create a new member from a guild.
 // @Accept  json
 // @Produce  json
-// @Param user body models.Member true "Member values"
+// @Param guildID	path	string			true	"guild id"
+// @Param user 		body 	models.Member 	true 	"Member values"
 // @Success 201 {object} models.Member "Created member"
 // @Failure 400 "Wrong values"
 // @Failure 403	"Forbidden"
@@ -211,13 +212,13 @@ func updateMember(c echo.Context) error {
 	return c.JSON(http.StatusOK, member)
 }
 
-// @Summary Delte guild member
+// @Summary Delete guild member
 // @Tag Members
 // @Description Delete a guild member
 // @Accept  json
 // @Produce  json
 // @Param	guildID 	path	string	true	"Guild id"
-// @Param	memberID	path	string	true	"Guild id"
+// @Param	memberID	path	string	true	"Member id"
 // @Success 206 "No Content"
 // @Failure 403	"Forbidden"
 // @Failure 404	"Not Fountd"
