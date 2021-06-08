@@ -57,6 +57,9 @@ func InitRouter() *echo.Echo {
 				c.Request().URL.Path == base_path+"/users/login" {
 				return true
 			}
+			if c.Get("user") == nil {
+				return false
+			}
 			user := c.Get("user").(*jwt.Token)
 			claims := user.Claims.(JwtCustomClaims)
 			accessLevel := claims.Access_level
@@ -73,6 +76,8 @@ func InitRouter() *echo.Echo {
 	initGuilds()
 	initMembers()
 	initChannels()
+	initRoles()
+
 	return e
 }
 
