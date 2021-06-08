@@ -77,8 +77,8 @@ func getChannel(c echo.Context) error {
 // @Accept  json
 // @Produce  json
 // @Param   guildID	path	string			true	"guild id"
-// @Param 	user	body 	models.Channel 	true 	"Channel values"
-// @Success 201 {object} models.Member "Created member"
+// @Param 	channel	body 	models.Channel 	true 	"Channel values"
+// @Success 201 {object} models.Channel "Created channel"
 // @Failure 400 "Wrong values"
 // @Failure 403	"Forbidden"
 // @Failure 500 "Server Error"

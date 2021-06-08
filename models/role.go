@@ -1,5 +1,14 @@
 package models
 
+const (
+	CreateRoleQuery = `
+		INSERT INTO role
+			(role_id, guild_id, is_default, ignored, reward, xp_blacklisted)
+		VALUES
+			(:role_id, :guild_id, :is_default, :ignored, :reward, :xp_blacklisted)
+	`
+)
+
 type (
 	Role struct {
 		RoleID        string `json:"roleID" db:"role_id"`
