@@ -30,7 +30,7 @@ func initChannels() {
 // @Router /guilds/{guildID}/channels [GET]
 func getChannels(c echo.Context) error {
 	guildID := c.Param("guildID")
-	var channels models.Channel
+	var channels []models.Channel
 
 	err := db.DB.Select(&channels, "SELECT * FROM channel WHERE guild_id=?", guildID)
 

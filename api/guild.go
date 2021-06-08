@@ -12,7 +12,7 @@ import (
 )
 
 func initGuilds() {
-	g := apiGroupe.Group("/guild")
+	g := apiGroupe.Group("/guilds")
 	g.GET("/", getGuilds).Name = "Fetch All Guilds."
 	g.GET("/:id", getGuild).Name = "Fetch Guild by id."
 	g.POST("/", createGuild).Name = "Create new guild."

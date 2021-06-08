@@ -43,7 +43,7 @@ type (
 		WelcomeMsg        nulltype.NullString `json:"welcomeMsg" db:"welcome_message"`
 		PrivateWelcomeMsg nulltype.NullString `json:"privateWelcomeMsg" db:"private_welcome_msg"`
 		LvlChannel        nulltype.NullString `json:"lvlChannel" db:"level_channel"`
-		LvlReplace        bool                `json:"lvlReplace" db:"lvl_replace"`
+		LvlReplace        bool                `json:"lvlReplace" db:"level_replace"`
 		LvlResponse       int                 `json:"lvlResponse" db:"level_response"`
 		DisabledCommands  nulltype.NullString `json:"disabledCommands" db:"disabled_commands"`
 		AllowModeration   bool                `json:"allowModeration" db:"allow_moderation"`
