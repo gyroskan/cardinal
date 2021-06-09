@@ -77,6 +77,7 @@ func InitRouter() *echo.Echo {
 	initMembers()
 	initChannels()
 	initRoles()
+	initBans()
 
 	return e
 }
