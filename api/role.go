@@ -134,7 +134,7 @@ func updateRole(c echo.Context) error {
 	role.GuildID = guildID
 	role.RoleID = roleID
 
-	_, err = db.DB.NamedExec(models.UpdateChannelQuery, role)
+	_, err = db.DB.NamedExec(models.UpdateRoleQuery, role)
 	if err != nil {
 		log.Error("UpdateRole/ Error updating role: ", err)
 		return c.JSON(http.StatusInternalServerError, nil)
