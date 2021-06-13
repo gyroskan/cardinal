@@ -237,7 +237,7 @@ var doc = `{
                     },
                     {
                         "description": "Channel values",
-                        "name": "user",
+                        "name": "channel",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -247,9 +247,9 @@ var doc = `{
                 ],
                 "responses": {
                     "201": {
-                        "description": "Created member",
+                        "description": "Created channel",
                         "schema": {
-                            "$ref": "#/definitions/models.Member"
+                            "$ref": "#/definitions/models.Channel"
                         }
                     },
                     "400": {
@@ -622,6 +622,178 @@ var doc = `{
                 }
             }
         },
+        "/guilds/{guildID}/members/{memberID}/bans": {
+            "get": {
+                "description": "Fetch all bans of the member.",
+                "tags": [
+                    "Bans"
+                ],
+                "summary": "Get Member Bans",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new ban for a member.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create ban",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created role",
+                        "schema": {
+                            "$ref": "#/definitions/models.Ban"
+                        }
+                    },
+                    "400": {
+                        "description": "Wrong values"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/members/{memberID}/bans/{banID}": {
+            "get": {
+                "description": "Fetch the ban of the member.",
+                "tags": [
+                    "Bans"
+                ],
+                "summary": "Get one ban",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ban id",
+                        "name": "banID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a member's ban",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete member's ban",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ban id",
+                        "name": "banID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/guilds/{guildID}/members/{memberID}/reset": {
             "post": {
                 "description": "Reset level and xp for the specific guild's members.",
@@ -661,6 +833,178 @@ var doc = `{
                 }
             }
         },
+        "/guilds/{guildID}/members/{memberID}/warns": {
+            "get": {
+                "description": "Fetch all warns of the member.",
+                "tags": [
+                    "Warns"
+                ],
+                "summary": "Get Member Warns",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new warn for a member.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create warn",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created warn",
+                        "schema": {
+                            "$ref": "#/definitions/models.Warn"
+                        }
+                    },
+                    "400": {
+                        "description": "Wrong values"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/members/{memberID}/warns/{warnID}": {
+            "get": {
+                "description": "Fetch the warn of the member.",
+                "tags": [
+                    "Warns"
+                ],
+                "summary": "Get one warn",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "warn id",
+                        "name": "warnID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a member's warn",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete member's warn",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "member id",
+                        "name": "memberID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "warn id",
+                        "name": "warnID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
         "/guilds/{guildID}/reset": {
             "post": {
                 "description": "Reset guild parameters to default values. Do not change members values.",
@@ -686,6 +1030,199 @@ var doc = `{
                     },
                     "403": {
                         "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/roles": {
+            "get": {
+                "description": "Fetch all roles of the guild.",
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get Guild roles",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new role for a guild.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Role values",
+                        "name": "role",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Role"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created role",
+                        "schema": {
+                            "$ref": "#/definitions/models.Role"
+                        }
+                    },
+                    "400": {
+                        "description": "Wrong values"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            }
+        },
+        "/guilds/{guildID}/roles/{roleID}": {
+            "get": {
+                "description": "Fetch the role of the guild.",
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Get one Guild role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "role id",
+                        "name": "roleID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete a guild role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete guild role",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "role id",
+                        "name": "roleID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "206": {
+                        "description": "No Content"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    }
+                }
+            },
+            "patch": {
+                "description": "Update fields of a guild's role",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update role values",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Guild id",
+                        "name": "guildID",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "role id",
+                        "name": "roleID",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Fountd"
                     },
                     "500": {
                         "description": "Server Error"
@@ -972,6 +1509,32 @@ var doc = `{
         }
     },
     "definitions": {
+        "models.Ban": {
+            "type": "object",
+            "properties": {
+                "autoBan": {
+                    "type": "boolean"
+                },
+                "banID": {
+                    "type": "integer"
+                },
+                "banReason": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "bannedAt": {
+                    "type": "string"
+                },
+                "bannerID": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "guildID": {
+                    "type": "string"
+                },
+                "memberID": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Channel": {
             "type": "object",
             "properties": {
@@ -1065,6 +1628,29 @@ var doc = `{
                 }
             }
         },
+        "models.Role": {
+            "type": "object",
+            "properties": {
+                "guildID": {
+                    "type": "string"
+                },
+                "ignored": {
+                    "type": "boolean"
+                },
+                "isDefault": {
+                    "type": "boolean"
+                },
+                "reward": {
+                    "type": "integer"
+                },
+                "roleID": {
+                    "type": "string"
+                },
+                "wpBlacklisted": {
+                    "type": "boolean"
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -1119,6 +1705,29 @@ var doc = `{
                 },
                 "password": {
                     "type": "string"
+                }
+            }
+        },
+        "models.Warn": {
+            "type": "object",
+            "properties": {
+                "guildID": {
+                    "type": "string"
+                },
+                "memberID": {
+                    "type": "string"
+                },
+                "warnID": {
+                    "type": "integer"
+                },
+                "warnReason": {
+                    "$ref": "#/definitions/nulltype.NullString"
+                },
+                "warnedAt": {
+                    "type": "string"
+                },
+                "warnerID": {
+                    "$ref": "#/definitions/nulltype.NullString"
                 }
             }
         },

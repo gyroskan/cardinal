@@ -1,5 +1,22 @@
 basePath: /api/v1
 definitions:
+  models.Ban:
+    properties:
+      autoBan:
+        type: boolean
+      banID:
+        type: integer
+      banReason:
+        $ref: '#/definitions/nulltype.NullString'
+      bannedAt:
+        type: string
+      bannerID:
+        $ref: '#/definitions/nulltype.NullString'
+      guildID:
+        type: string
+      memberID:
+        type: string
+    type: object
   models.Channel:
     properties:
       channelID:
@@ -61,6 +78,21 @@ definitions:
       xp:
         type: integer
     type: object
+  models.Role:
+    properties:
+      guildID:
+        type: string
+      ignored:
+        type: boolean
+      isDefault:
+        type: boolean
+      reward:
+        type: integer
+      roleID:
+        type: string
+      wpBlacklisted:
+        type: boolean
+    type: object
   models.User:
     properties:
       accessLvl:
@@ -97,6 +129,21 @@ definitions:
         type: string
       password:
         type: string
+    type: object
+  models.Warn:
+    properties:
+      guildID:
+        type: string
+      memberID:
+        type: string
+      warnID:
+        type: integer
+      warnReason:
+        $ref: '#/definitions/nulltype.NullString'
+      warnedAt:
+        type: string
+      warnerID:
+        $ref: '#/definitions/nulltype.NullString'
     type: object
   nulltype.NullString:
     type: object
@@ -250,7 +297,7 @@ paths:
         type: string
       - description: Channel values
         in: body
-        name: user
+        name: channel
         required: true
         schema:
           $ref: '#/definitions/models.Channel'
@@ -258,9 +305,9 @@ paths:
       - application/json
       responses:
         "201":
-          description: Created member
+          description: Created channel
           schema:
-            $ref: '#/definitions/models.Member'
+            $ref: '#/definitions/models.Channel'
         "400":
           description: Wrong values
         "403":
@@ -487,6 +534,122 @@ paths:
         "500":
           description: Server Error
       summary: Update member value
+  /guilds/{guildID}/members/{memberID}/bans:
+    get:
+      description: Fetch all bans of the member.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Member Bans
+      tags:
+      - Bans
+    post:
+      consumes:
+      - application/json
+      description: Create a new ban for a member.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created role
+          schema:
+            $ref: '#/definitions/models.Ban'
+        "400":
+          description: Wrong values
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Create ban
+  /guilds/{guildID}/members/{memberID}/bans/{banID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a member's ban
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      - description: ban id
+        in: path
+        name: banID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "206":
+          description: No Content
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+      summary: Delete member's ban
+    get:
+      description: Fetch the ban of the member.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      - description: ban id
+        in: path
+        name: banID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server error
+      summary: Get one ban
+      tags:
+      - Bans
   /guilds/{guildID}/members/{memberID}/reset:
     post:
       consumes:
@@ -513,6 +676,122 @@ paths:
         "500":
           description: Server Error
       summary: Reset member from a guild
+  /guilds/{guildID}/members/{memberID}/warns:
+    get:
+      description: Fetch all warns of the member.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Member Warns
+      tags:
+      - Warns
+    post:
+      consumes:
+      - application/json
+      description: Create a new warn for a member.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created warn
+          schema:
+            $ref: '#/definitions/models.Warn'
+        "400":
+          description: Wrong values
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Create warn
+  /guilds/{guildID}/members/{memberID}/warns/{warnID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a member's warn
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      - description: warn id
+        in: path
+        name: warnID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "206":
+          description: No Content
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server Error
+      summary: Delete member's warn
+    get:
+      description: Fetch the warn of the member.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: member id
+        in: path
+        name: memberID
+        required: true
+        type: string
+      - description: warn id
+        in: path
+        name: warnID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server error
+      summary: Get one warn
+      tags:
+      - Warns
   /guilds/{guildID}/members/reset:
     post:
       consumes:
@@ -556,6 +835,135 @@ paths:
         "500":
           description: Server Error
       summary: Reset guild
+  /guilds/{guildID}/roles:
+    get:
+      description: Fetch all roles of the guild.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Guild roles
+      tags:
+      - Roles
+    post:
+      consumes:
+      - application/json
+      description: Create a new role for a guild.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: Role values
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created role
+          schema:
+            $ref: '#/definitions/models.Role'
+        "400":
+          description: Wrong values
+        "403":
+          description: Forbidden
+        "500":
+          description: Server Error
+      summary: Create role
+  /guilds/{guildID}/roles/{roleID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a guild role
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: role id
+        in: path
+        name: roleID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "206":
+          description: No Content
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Fountd
+        "500":
+          description: Server Error
+      summary: Delete guild role
+    get:
+      description: Fetch the role of the guild.
+      parameters:
+      - description: guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: role id
+        in: path
+        name: roleID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Server error
+      summary: Get one Guild role
+      tags:
+      - Roles
+    patch:
+      consumes:
+      - application/json
+      description: Update fields of a guild's role
+      parameters:
+      - description: Guild id
+        in: path
+        name: guildID
+        required: true
+        type: string
+      - description: role id
+        in: path
+        name: roleID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Fountd
+        "500":
+          description: Server Error
+      summary: Update role values
   /users/:
     get:
       description: Get a list of existing users
