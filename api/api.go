@@ -78,6 +78,7 @@ func InitRouter() *echo.Echo {
 	initChannels()
 	initRoles()
 	initBans()
+	initWarn()
 
 	return e
 }
