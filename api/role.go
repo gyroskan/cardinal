@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
@@ -24,15 +25,33 @@ func initRoles() {
 // @Tags Roles
 // @Description Fetch all roles of the guild.
 // @Param   guildID		path	string	true	"guild id"
+// @Param   ignored		query	bool	false	"ignored roles only" 		default(false)
+// @Param   xpBlacklist	query	bool	false	"xpBlacklist roles only"	default(false)
 // @Success 200	"OK" {array} models.Roles
 // @Failure 403	"Forbidden"
 // @Failure 500 "Server error"
 // @Router /guilds/{guildID}/roles [GET]
 func getRoles(c echo.Context) error {
 	guildID := c.Param("guildID")
+	ignored := false
+	xpBlacklisted := false
+	if c.QueryParam("ignored") != "" {
+		ignored, _ = strconv.ParseBool(c.QueryParam("ignored"))
+	}
+	if c.QueryParam("xpBlacklist") != "" {
+		xpBlacklisted, _ = strconv.ParseBool(c.QueryParam("xpBlacklist"))
+	}
 	var roles []models.Role
 
-	err := db.DB.Select(&roles, "SELECT * FROM role WHERE guild_id=?", guildID)
+	query := "SELECT * FROM role WHERE guild_id=?"
+	if ignored {
+		query += " AND ignored=true"
+	}
+	if xpBlacklisted {
+		query += " AND xp_blacklisted=true"
+	}
+
+	err := db.DB.Select(&roles, query, guildID)
 
 	if err != nil {
 		log.Warn("GetRoles/ Error retrieving roles: ", err)
@@ -57,7 +76,7 @@ func getRole(c echo.Context) error {
 	roleID := c.Param("id")
 	var role models.Role
 
-	err := db.DB.Get(&role, "SELECT * FROM role WHERE guild_id=?,role_id=?", guildID, roleID)
+	err := db.DB.Get(&role, "SELECT * FROM role WHERE guild_id=? AND role_id=?", guildID, roleID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -117,7 +136,7 @@ func updateRole(c echo.Context) error {
 	roleID := c.Param("id")
 	var role models.Role
 
-	err := db.DB.Get(&role, "SELECT * FROM role WHERE guild_id=?,role_id=?", guildID, roleID)
+	err := db.DB.Get(&role, "SELECT * FROM role WHERE guild_id=? AND role_id=?", guildID, roleID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -159,7 +178,7 @@ func deleteRole(c echo.Context) error {
 	guildID := c.Param("guildID")
 	roleID := c.Param("id")
 
-	res, err := db.DB.Exec("DELETE FROM role WHERE guild_id = ?,role_id = ?", guildID, roleID)
+	res, err := db.DB.Exec("DELETE FROM role WHERE guild_id = ? AND role_id = ?", guildID, roleID)
 
 	if err != nil {
 		log.Error("HardDeleteRole/ Error while deleting role from db: ", err)

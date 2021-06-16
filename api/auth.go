@@ -130,9 +130,11 @@ func loginUser(c echo.Context) error {
 
 	// Set custom claims
 	claims := &JwtCustomClaims{
-		Username:       user.Username,
-		Access_level:   user.AccessLvl,
-		StandardClaims: jwt.StandardClaims{},
+		Username:     user.Username,
+		Access_level: user.AccessLvl,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: 0,
+		},
 	}
 
 	// Create token with claims

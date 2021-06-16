@@ -32,7 +32,7 @@ func getWarns(c echo.Context) error {
 	memberID := c.Param("guildID")
 	var bans []models.Warn
 
-	err := db.DB.Select(&bans, "SELECT * FROM warn WHERE guild_id=?, member_id=?", guildID, memberID)
+	err := db.DB.Select(&bans, "SELECT * FROM warn WHERE guild_id=? AND member_id=?", guildID, memberID)
 
 	if err != nil {
 		log.Warn("GetWarns/ Error retrieving warns: ", err)
@@ -59,7 +59,7 @@ func getWarn(c echo.Context) error {
 	warnID := c.Param("warnID")
 	var warn models.Warn
 
-	err := db.DB.Get(&warn, "SELECT * FROM warn WHERE guild_id=?, member_id=?, warn_id=?", guildID, memberID, warnID)
+	err := db.DB.Get(&warn, "SELECT * FROM warn WHERE guild_id=? AND member_id=? AND warn_id=?", guildID, memberID, warnID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -127,7 +127,7 @@ func deleteWarn(c echo.Context) error {
 	memberID := c.Param("guildID")
 	warnID := c.Param("warnID")
 
-	res, err := db.DB.Exec("DELETE FROM warn WHERE guild_id=?, member_id=?, warn_id=?", guildID, memberID, warnID)
+	res, err := db.DB.Exec("DELETE FROM warn WHERE guild_id=? AND member_id=? AND warn_id=?", guildID, memberID, warnID)
 
 	if err != nil {
 		log.Error("DeleteWarn/ Error while deleting warn from db: ", err)

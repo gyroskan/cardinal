@@ -11,7 +11,7 @@ const (
 		UPDATE channel SET
 			ignored=:ignored, xp_blacklisted=:xp_blacklisted
 		WHERE
-			guild_id=:guild_id,channel_id=:channel_id
+			guild_id=:guild_id AND channel_id=:channel_id
 	`
 )
 

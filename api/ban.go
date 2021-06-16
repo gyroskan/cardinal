@@ -32,7 +32,7 @@ func getBans(c echo.Context) error {
 	memberID := c.Param("guildID")
 	var bans []models.Ban
 
-	err := db.DB.Select(&bans, "SELECT * FROM ban WHERE guild_id=?, member_id=?", guildID, memberID)
+	err := db.DB.Select(&bans, "SELECT * FROM ban WHERE guild_id=? AND member_id=?", guildID, memberID)
 
 	if err != nil {
 		log.Warn("GetBans/ Error retrieving bans: ", err)
@@ -59,7 +59,7 @@ func getBan(c echo.Context) error {
 	banID := c.Param("banID")
 	var ban models.Ban
 
-	err := db.DB.Get(&ban, "SELECT * FROM ban WHERE guild_id=?, member_id=?, ban_id=?", guildID, memberID, banID)
+	err := db.DB.Get(&ban, "SELECT * FROM ban WHERE guild_id=? AND member_id=? AND ban_id=?", guildID, memberID, banID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -127,7 +127,7 @@ func deleteBan(c echo.Context) error {
 	memberID := c.Param("guildID")
 	banID := c.Param("banID")
 
-	res, err := db.DB.Exec("DELETE FROM ban WHERE guild_id = ?, member_id= ?, ban_id=?", guildID, memberID, banID)
+	res, err := db.DB.Exec("DELETE FROM ban WHERE guild_id = ? AND member_id= ? AND ban_id=?", guildID, memberID, banID)
 
 	if err != nil {
 		log.Error("DeleteBan/ Error while deleting ban from db: ", err)

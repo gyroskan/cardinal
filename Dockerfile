@@ -6,7 +6,7 @@ COPY go.sum go.sum
 RUN go mod download
 
 COPY . .
-RUN go build -o cardinal
+RUN CGO_ENABLED=0 go build -o cardinal
 
 FROM scratch
 COPY --from=build /src/cardinal /cardinal

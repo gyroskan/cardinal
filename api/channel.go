@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
@@ -24,15 +25,33 @@ func initChannels() {
 // @Tags Channels
 // @Description Fetch all channels of the guild.
 // @Param   guildID		path	string	true	"guild id"
+// @Param   ignored		query	bool	false	"ignored channels only" 	default(false)
+// @Param   xpBlacklist	query	bool	false	"xpBlacklist channels only" default(false)
 // @Success 200	"OK" {array} models.Channel
 // @Failure 403	"Forbidden"
 // @Failure 500 "Server error"
 // @Router /guilds/{guildID}/channels [GET]
 func getChannels(c echo.Context) error {
 	guildID := c.Param("guildID")
+	ignored := false
+	xpBlacklisted := false
+	if c.QueryParam("ignored") != "" {
+		ignored, _ = strconv.ParseBool(c.QueryParam("ignored"))
+	}
+	if c.QueryParam("xpBlacklist") != "" {
+		xpBlacklisted, _ = strconv.ParseBool(c.QueryParam("xpBlacklist"))
+	}
 	var channels []models.Channel
 
-	err := db.DB.Select(&channels, "SELECT * FROM channel WHERE guild_id=?", guildID)
+	query := `SELECT * FROM channel WHERE guild_id=?`
+	if ignored {
+		query += " AND ignored=true"
+	}
+	if xpBlacklisted {
+		query += " AND xp_blacklisted=true"
+	}
+
+	err := db.DB.Select(&channels, query, guildID)
 
 	if err != nil {
 		log.Warn("GetChannels/ Error retrieving channels from guildID: ", err)
@@ -58,7 +77,7 @@ func getChannel(c echo.Context) error {
 
 	var chann models.Channel
 
-	err := db.DB.Get(&chann, "SELECT * FROM channel WHERE guild_id=?,channel_id=?", guildID, chanID)
+	err := db.DB.Get(&chann, "SELECT * FROM channel WHERE guild_id=? AND channel_id=?", guildID, chanID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -119,7 +138,7 @@ func updateChannel(c echo.Context) error {
 
 	var channel models.Channel
 
-	err := db.DB.Get(&channel, "SELECT * FROM channel WHERE guild_id=?,channel_id=?", guildID, chanID)
+	err := db.DB.Get(&channel, "SELECT * FROM channel WHERE guild_id=? AND channel_id=?", guildID, chanID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -161,7 +180,7 @@ func deleteChannel(c echo.Context) error {
 	guildID := c.Param("guildID")
 	chanID := c.Param("id")
 
-	res, err := db.DB.Exec("DELETE FROM channel WHERE guild_id = ?,channel_id = ?", guildID, chanID)
+	res, err := db.DB.Exec("DELETE FROM channel WHERE guild_id = ? AND channel_id = ?", guildID, chanID)
 
 	if err != nil {
 		log.Warn("HardDeleteMember/ Error while deleting member from db: ", err)

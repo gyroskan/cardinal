@@ -19,7 +19,7 @@ const (
 		UPDATE member SET
 			left=DEFAULT, xp=DEFAULT, level=DEFAULT
 		WHERE
-			guild_id=?, member_id=?
+			guild_id=? AND member_id=?
 		`
 	ResetGuildMembersQuery = `
 		UPDATE member SET
@@ -31,7 +31,7 @@ const (
 		UPDATE member SET 
 			left=:left, xp=:xp, level=:level
 		WHERE 
-			guild_id=:guild_id, member_id=:member_id
+			guild_id=:guild_id AND member_id=:member_id
 		`
 )
 

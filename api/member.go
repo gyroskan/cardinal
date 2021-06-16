@@ -73,7 +73,7 @@ func GetMember(c echo.Context) error {
 
 	var member models.Member
 
-	err := db.DB.Get(&member, "SELECT * FROM `member` WHERE member_id=?,guild_id=?", id, guildID)
+	err := db.DB.Get(&member, "SELECT * FROM `member` WHERE member_id=? AND guild_id=?", id, guildID)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -163,7 +163,7 @@ func resetMember(c echo.Context) error {
 	}
 
 	var memb models.Member
-	err = db.DB.Get(&memb, "SELECT * FROM `member` WHERE member_id=?,guild_id=?", id, guildID)
+	err = db.DB.Get(&memb, "SELECT * FROM `member` WHERE member_id=? AND guild_id=?", id, guildID)
 	if err != nil {
 		log.Warn("ResetMember/ Error getting member: ", err)
 		return c.JSON(http.StatusInternalServerError, nil)
@@ -189,7 +189,7 @@ func updateMember(c echo.Context) error {
 	guildID := c.Param("guildID")
 	id := c.Param("id")
 
-	if err := db.DB.Get(&member, "SELECT * FROM `member` WHERE member_id=?,guild_id=?", id, guildID); err != nil {
+	if err := db.DB.Get(&member, "SELECT * FROM `member` WHERE member_id=? AND guild_id=?", id, guildID); err != nil {
 		if err == sql.ErrNoRows {
 			return c.JSON(http.StatusNotFound, echo.Map{"message": "Member with id " + id + " not found in guild " + guildID})
 		}
@@ -228,7 +228,7 @@ func hardDeleteMember(c echo.Context) error {
 	guildID := c.Param("guildID")
 	id := c.Param("id")
 
-	res, err := db.DB.Exec("DELETE FROM member WHERE guild_id = ?,member_id = ?", guildID, id)
+	res, err := db.DB.Exec("DELETE FROM member WHERE guild_id = ? AND member_id = ?", guildID, id)
 
 	if err != nil {
 		log.Warn("HardDeleteMember/ Error while deleting member from db: ", err)
