@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
 	"github.com/labstack/echo/v4"
@@ -56,8 +57,8 @@ func getUser(c echo.Context) error {
 // @Failure 500 "Server error"
 // @Router /users/me [GET]
 func getLoggedUser(c echo.Context) error {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(JwtCustomClaims)
+	u := c.Get("user").(*jwt.Token)
+	claims := u.Claims.(*JwtCustomClaims)
 	username := claims.Username
 	var user models.User
 
