@@ -15,6 +15,7 @@ import (
 func initUsers() {
 	users := apiGroupe.Group("/users")
 	users.GET("/", getUsers, isAdmin)
+	users.GET("/me", getLoggedUser)
 	users.GET("/:username", getUser, isAdminOrLoggedIn)
 	users.PATCH("/:username", updateUser, isAdminOrLoggedIn)
 	users.POST("/:username", updateAccessLvl, isAdmin)
@@ -41,6 +42,27 @@ func getUser(c echo.Context) error {
 			return c.JSON(http.StatusNotFound, echo.Map{"error": "user " + username + " not found."})
 		}
 		log.Warn("GetUser/ Error getting user: ", err)
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, user)
+}
+
+// @Summary Get Logged in User
+// @Tags Users
+// @Description Get the logged in user
+// @Success 200	"OK" {object} models.User
+// @Failure 403	"Forbidden"
+// @Failure 500 "Server error"
+// @Router /users/me [GET]
+func getLoggedUser(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(JwtCustomClaims)
+	username := claims.Username
+	var user models.User
+
+	if err := db.DB.Get(&user, "SELECT * FROM user WHERE username=?", username); err != nil {
+		log.Warn("GetLoggedUser/ Error getting user: ", err)
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
