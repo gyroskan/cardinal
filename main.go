@@ -13,6 +13,5 @@ func main() {
 	}
 
 	db.Connect()
-	api.InitRouter()
 	api.Run()
 }

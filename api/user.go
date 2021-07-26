@@ -203,8 +203,8 @@ func banUser(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
-	ban := c.Request().Method == "POST"
-	_, err := db.DB.Exec("UPDATE user SET banned=? WHERE username=?", ban)
+	ban := c.Request().Method != "POST"
+	_, err := db.DB.Exec("UPDATE user SET banned=? WHERE username=?", ban, username)
 	if err != nil {
 		log.Warn("BanUser/error: ", err)
 		return c.JSON(http.StatusInternalServerError, nil)
@@ -234,5 +234,5 @@ func deleteUser(c echo.Context) error {
 		return c.JSON(http.StatusNotFound, nil)
 	}
 
-	return c.JSON(http.StatusOK, nil)
+	return c.JSON(http.StatusNoContent, nil)
 }

@@ -22,6 +22,6 @@ type (
 		IsDefault     bool   `json:"isDefault" db:"is_default"`
 		Reward        int    `json:"reward" db:"reward"`
 		Ignored       bool   `json:"ignored" db:"ignored"`
-		XpBlacklisted bool   `json:"wpBlacklisted" db:"xp_blacklisted"`
+		XpBlacklisted bool   `json:"xpBlacklisted" db:"xp_blacklisted"`
 	}
 )

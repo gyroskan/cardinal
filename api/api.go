@@ -63,6 +63,7 @@ func InitRouter() *echo.Echo {
 			user := c.Get("user").(*jwt.Token)
 			claims := user.Claims.(*JwtCustomClaims)
 			accessLevel := claims.Access_level
+
 			if c.Request().Method == "GET" {
 				return accessLevel <= 2
 			}

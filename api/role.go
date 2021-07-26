@@ -3,6 +3,7 @@ package api
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -25,6 +26,7 @@ func initRoles() {
 // @Tags Roles
 // @Description Fetch all roles of the guild.
 // @Param   guildID		path	string	true	"guild id"
+// @Param   reward		query	bool	false	"reward from this lvl only" default(false)
 // @Param   ignored		query	bool	false	"ignored roles only" 		default(false)
 // @Param   xpBlacklist	query	bool	false	"xpBlacklist roles only"	default(false)
 // @Success 200	"OK" {array} models.Roles
@@ -35,11 +37,15 @@ func getRoles(c echo.Context) error {
 	guildID := c.Param("guildID")
 	ignored := false
 	xpBlacklisted := false
+	reward := 0
 	if c.QueryParam("ignored") != "" {
 		ignored, _ = strconv.ParseBool(c.QueryParam("ignored"))
 	}
 	if c.QueryParam("xpBlacklist") != "" {
 		xpBlacklisted, _ = strconv.ParseBool(c.QueryParam("xpBlacklist"))
+	}
+	if c.QueryParam("reward") != "" {
+		reward, _ = strconv.Atoi(c.QueryParam("reward"))
 	}
 	var roles []models.Role
 
@@ -49,6 +55,9 @@ func getRoles(c echo.Context) error {
 	}
 	if xpBlacklisted {
 		query += " AND xp_blacklisted=true"
+	}
+	if reward != 0 {
+		query += fmt.Sprintf(" AND reward=%d", reward)
 	}
 
 	err := db.DB.Select(&roles, query, guildID)
