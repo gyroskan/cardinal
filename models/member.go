@@ -11,8 +11,8 @@ const (
 		`
 	CreateMemberQuery = `
 		INSERT INTO member 
-			(member_id, guild_id, joined_at, left, xp, level)
-		VALUES 
+			(member_id, guild_id, joined_at, ` + "`left`" + `, xp, level)
+		VALUES
 			(:member_id, :guild_id, :joined_at, :left, :xp, :level)
 		`
 	ResetMemberQuery = `

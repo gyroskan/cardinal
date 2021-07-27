@@ -109,6 +109,7 @@ func createMember(c echo.Context) error {
 	_, err := db.DB.NamedExec(models.CreateMemberQuery, member)
 	if err != nil {
 		// TODO switch case of sql errors.
+		log.Warn("createMember/ Error creating member: ", err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
