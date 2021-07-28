@@ -107,7 +107,7 @@ func createChannel(c echo.Context) error {
 	guildID := c.Param("guildID")
 
 	if err := c.Bind(&channel); err != nil || channel.GuildID != guildID {
-		return echo.NewHTTPError(http.StatusBadRequest, channel)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "channel": channel})
 	}
 
 	_, err := db.DB.NamedExec(models.CreateChannelQuery, channel)

@@ -12,8 +12,6 @@ const (
 			(member_id, guild_id, warner_id, warned_at, warn_reason)
 		VALUES
 			(:member_id, :guild_id, :warner_id, :warned_at, :warn_reason)
-		RETURNING
-			warn_id
 	`
 )
 

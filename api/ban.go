@@ -90,22 +90,32 @@ func createBan(c echo.Context) error {
 	var ban models.Ban
 
 	if err := c.Bind(&ban); err != nil || ban.GuildID != guildID || ban.MemberID != memberID {
-		return echo.NewHTTPError(http.StatusBadRequest, ban)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "ban": ban})
 	}
 
 	query, err := db.DB.PrepareNamed(models.CreateBanQuery)
 
 	if err != nil {
+		log.Error("CreateBan/ error while preparing query:", err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	err = query.Get(&ban.BanID, ban)
+	res, err := query.Exec(ban)
 
 	if err != nil {
+		log.Error("CreateBan/ error while executing query:", err)
 		// TODO switch case of sql errors.
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
+	id, err := res.LastInsertId()
+	if err != nil {
+		log.Error("CreateBan/ Error while getting last index: ", err)
+		// TODO switch case of sql errors.
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	ban.BanID = int(id)
 	return c.JSON(http.StatusCreated, ban)
 }
 

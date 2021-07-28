@@ -29,7 +29,7 @@ func initWarn() {
 // @Router /guilds/{guildID}/members/{memberID}/warns [GET]
 func getWarns(c echo.Context) error {
 	guildID := c.Param("guildID")
-	memberID := c.Param("guildID")
+	memberID := c.Param("memberID")
 	var bans []models.Warn
 
 	err := db.DB.Select(&bans, "SELECT * FROM warn WHERE guild_id=? AND member_id=?", guildID, memberID)
@@ -55,7 +55,7 @@ func getWarns(c echo.Context) error {
 // @Router /guilds/{guildID}/members/{memberID}/warns/{warnID} [GET]
 func getWarn(c echo.Context) error {
 	guildID := c.Param("guildID")
-	memberID := c.Param("guildID")
+	memberID := c.Param("memberID")
 	warnID := c.Param("warnID")
 	var warn models.Warn
 
@@ -86,25 +86,34 @@ func getWarn(c echo.Context) error {
 // @Router /guilds/{guildID}/members/{memberID}/warns [POST]
 func createWarn(c echo.Context) error {
 	guildID := c.Param("guildID")
-	memberID := c.Param("guildID")
+	memberID := c.Param("memberID")
 	var warn models.Warn
 
 	if err := c.Bind(&warn); err != nil || warn.GuildID != guildID || warn.MemberID != memberID {
-		return echo.NewHTTPError(http.StatusBadRequest, warn)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "warnObj": warn})
 	}
 
 	query, err := db.DB.PrepareNamed(models.CreateWarnQuery)
 
 	if err != nil {
+		log.Error("CreateWarn/ error while preparing query:", err)
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	err = query.Get(&warn.WarnID, warn)
+	res, err := query.Exec(models.CreateWarnQuery)
 
 	if err != nil {
+		log.Error("CreateWarn/ Error while inserting warn: ", err)
+		return c.JSON(http.StatusInternalServerError, nil)
+	}
+
+	id, err := res.LastInsertId()
+	if err != nil {
+		log.Error("CreateWarn/ Error while getting last index: ", err)
 		// TODO switch case of sql errors.
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
+	warn.WarnID = int(id)
 
 	return c.JSON(http.StatusCreated, warn)
 }
@@ -124,7 +133,7 @@ func createWarn(c echo.Context) error {
 // @Router /guilds/{guildID}/members/{memberID}/warns/{warnID} [DELETE]
 func deleteWarn(c echo.Context) error {
 	guildID := c.Param("guildID")
-	memberID := c.Param("guildID")
+	memberID := c.Param("memberID")
 	warnID := c.Param("warnID")
 
 	res, err := db.DB.Exec("DELETE FROM warn WHERE guild_id=? AND member_id=? AND warn_id=?", guildID, memberID, warnID)

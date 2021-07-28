@@ -103,7 +103,7 @@ func createMember(c echo.Context) error {
 	guildID := c.Param("guildID")
 
 	if err := c.Bind(&member); err != nil || member.GuildID != guildID {
-		return echo.NewHTTPError(http.StatusBadRequest, member)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "member": member})
 	}
 
 	_, err := db.DB.NamedExec(models.CreateMemberQuery, member)

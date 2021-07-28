@@ -95,7 +95,7 @@ func getGuild(c echo.Context) error {
 func createGuild(c echo.Context) error {
 	guild := new(models.Guild)
 	if err := c.Bind(&guild); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, guild)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "guild": guild})
 	}
 
 	_, err := db.DB.NamedExec(models.CreateGuildQuery, guild)

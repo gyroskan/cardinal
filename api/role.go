@@ -115,7 +115,7 @@ func createRole(c echo.Context) error {
 	guildID := c.Param("guildID")
 
 	if err := c.Bind(&role); err != nil || role.GuildID != guildID {
-		return echo.NewHTTPError(http.StatusBadRequest, role)
+		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "role": role})
 	}
 
 	_, err := db.DB.NamedExec(models.CreateRoleQuery, role)

@@ -12,8 +12,6 @@ const (
 			(member_id, guild_id, banner_id, banned_at, ban_reason, auto_ban)
 		VALUES
 			(:member_id, :guild_id, :banner_id, :banned_at, :ban_reason, :auto_ban)
-		RETURNING
-			ban_id
 	`
 )
 
