@@ -49,7 +49,7 @@ type (
 		AllowModeration   bool                `json:"allowModeration" db:"allow_moderation"`
 		MaxWarns          int                 `json:"maxWarns" db:"max_warns"`
 		BanTime           int                 `json:"banTime" db:"ban_time"`
-		Members           []Member            `json:"members" db:"-"`
+		// TODO is Members field needed?
 	}
 
 	GuildPres struct {

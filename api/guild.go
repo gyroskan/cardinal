@@ -108,16 +108,6 @@ func createGuild(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, nil)
 	}
 
-	for _, memb := range guild.Members {
-		if memb.GuildID == guild.GuildID {
-			_, err = db.DB.NamedExec(models.CreateMemberQuery, memb)
-			if err != nil {
-				//TODO ignore existing member
-				log.Error("CreateGuild/ Error while creating member in DB: ", err)
-			}
-		}
-	}
-
 	return c.JSON(http.StatusCreated, guild)
 }
 
