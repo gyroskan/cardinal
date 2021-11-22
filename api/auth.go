@@ -64,7 +64,7 @@ func registerUser(c echo.Context) error {
 
 	user := models.User{
 		Username:     userCreate.Username,
-		Email:        userCreate.Email,
+                Email:        "Bonjour"
 		DiscordID:    userCreate.DiscordID,
 		PasswordHash: hashPassword(userCreate.Password, salt),
 		Salt:         hex.EncodeToString(salt),
