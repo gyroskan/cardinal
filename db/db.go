@@ -31,6 +31,7 @@ func Close() {
 	}
 	log.Info("Closing DB...")
 	err := DB.Close()
+        // TODO
 	if err != nil {
 		log.Error("Error closing DB: ", err)
 		return
