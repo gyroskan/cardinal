@@ -10,6 +10,7 @@ import (
 func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Warn("Error loading .env file", err)
+                log.Warn("Bonjour", err)
 	}
 
 	db.Connect()
