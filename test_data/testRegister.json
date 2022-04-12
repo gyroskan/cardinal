@@ -1,0 +1,22 @@
+{
+    "tests": [
+        {
+            "name": "basic",
+            "user": {
+                "username": "test1",
+                "email": "test1@gmail.com",
+                "discordID": null,
+                "password": "123"
+            },
+            "expected": {
+                "username": "test1",
+                "email": "test1@gmail.com",
+                "discordID": null,
+                "accessLvl": 2,
+                "createdAt": "2022-10-10",
+                "banned": false
+            },
+            "status": 200
+        }
+    ]
+}
