@@ -13,10 +13,10 @@
                 "email": "test1@gmail.com",
                 "discordID": null,
                 "accessLvl": 2,
-                "createdAt": "2022-10-10",
+                "createdAt": "1985-04-12T23:20:50.52Z",
                 "banned": false
             },
-            "status": 200
+            "status": 201
         }
     ]
 }

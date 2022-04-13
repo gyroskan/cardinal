@@ -13,16 +13,21 @@ var (
 )
 
 func Connect() {
+	connect(os.Getenv("DB_USER"), os.Getenv("DB_PWD"), os.Getenv("DB_HOST"), os.Getenv("DB_NAME"))
+}
+
+func connect(db_user string , db_pwd string , db_host string, db_name string) {
 	log.Info("Connecting to database...")
 	var err error
-	dbString := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PWD") + "@tcp(" + os.Getenv("DB_HOST") + ")/" + os.Getenv("DB_NAME") + "?parseTime=true"
-	fmt.Println(dbString)
-	DB, err = sqlx.Open("mysql", dbString)
+	dbString := fmt.Sprintf("%s:%s@tcp(%s)/%s?parseTime=true", db_user, db_pwd, db_host, db_name)
+	log.Debug("Connecting with string: ", dbString)
+	DB, err = sqlx.Connect("mysql", dbString)
 	if err != nil {
 		log.Fatal("Connection to database failed: ", err)
 		return
 	}
 	log.Info("Connected to database.")
+
 }
 
 func Close() {
