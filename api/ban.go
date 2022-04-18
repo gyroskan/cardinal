@@ -18,15 +18,15 @@ func initBans() {
 	b.DELETE("/:banID", deleteBan).Name = "Delete a ban of a member."
 }
 
-// @Summary Get Member Bans
-// @Tags Bans
-// @Description Fetch all bans of the member.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Success 200	"OK" {array} models.Ban
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/members/{memberID}/bans [GET]
+// @Summary      Get Member Bans
+// @Tags         Bans
+// @Description  Fetch all bans of the member.
+// @Param        guildID         path     string  true  "guild id"
+// @Param        memberID  path  string   true    "member id"
+// @Success      200       "OK"  {array}  models.Ban
+// @Failure      403       "Forbidden"
+// @Failure      500       "Server error"
+// @Router       /guilds/{guildID}/members/{memberID}/bans [GET]
 func getBans(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("guildID")
@@ -42,17 +42,17 @@ func getBans(c echo.Context) error {
 	return c.JSON(http.StatusOK, bans)
 }
 
-// @Summary Get one ban
-// @Tags Bans
-// @Description Fetch the ban of the member.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Param   banID		path	string	true	"ban id"
-// @Success 200	"OK" {object} models.Ban
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/members/{memberID}/bans/{banID} [GET]
+// @Summary      Get one ban
+// @Tags         Bans
+// @Description  Fetch the ban of the member.
+// @Param        guildID         path      string  true  "guild id"
+// @Param        memberID  path  string    true    "member id"
+// @Param        banID           path      string  true  "ban id"
+// @Success      200       "OK"  {object}  models.Ban
+// @Failure      403       "Forbidden"
+// @Failure      404       "Not Found"
+// @Failure      500       "Server error"
+// @Router       /guilds/{guildID}/members/{memberID}/bans/{banID} [GET]
 func getBan(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("guildID")
@@ -72,18 +72,18 @@ func getBan(c echo.Context) error {
 	return c.JSON(http.StatusOK, ban)
 }
 
-// @Summary Create ban
-// @Tag Bans
-// @Description Create a new ban for a member.
-// @Accept  json
-// @Produce  json
-// @Param   guildID		path	string	true	"guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Success 201 {object} models.Ban "Created role"
-// @Failure 400 "Wrong values"
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/members/{memberID}/bans [POST]
+// @Summary      Create ban
+// @Tag          Bans
+// @Description  Create a new ban for a member.
+// @Accept       json
+// @Produce      json
+// @Param        guildID             path        string  true  "guild id"
+// @Param        memberID  path      string      true    "member id"
+// @Success      201       {object}  models.Ban  "Created role"
+// @Failure      400       "Wrong values"
+// @Failure      403       "Forbidden"
+// @Failure      500       "Server Error"
+// @Router       /guilds/{guildID}/members/{memberID}/bans [POST]
 func createBan(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("guildID")
@@ -119,19 +119,19 @@ func createBan(c echo.Context) error {
 	return c.JSON(http.StatusCreated, ban)
 }
 
-// @Summary Delete member's ban
-// @Tag Bans
-// @Description Delete a member's ban
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Param   banID		path	string	true	"ban id"
-// @Success 206 "No Content"
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/members/{memberID}/bans/{banID} [DELETE]
+// @Summary      Delete member's ban
+// @Tag          Bans
+// @Description  Delete a member's ban
+// @Accept       json
+// @Produce      json
+// @Param        guildID         path    string  true  "Guild id"
+// @Param        memberID  path  string  true    "member id"
+// @Param        banID           path    string  true  "ban id"
+// @Success      206       "No Content"
+// @Failure      403       "Forbidden"
+// @Failure      404       "Not Found"
+// @Failure      500       "Server Error"
+// @Router       /guilds/{guildID}/members/{memberID}/bans/{banID} [DELETE]
 func deleteBan(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("guildID")

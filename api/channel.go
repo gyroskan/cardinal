@@ -21,16 +21,16 @@ func initChannels() {
 	chans.DELETE("/:id", deleteChannel).Name = "Delete channel."
 }
 
-// @Summary Get Guild channels
-// @Tags Channels
-// @Description Fetch all channels of the guild.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   ignored		query	bool	false	"ignored channels only" 	default(false)
-// @Param   xpBlacklist	query	bool	false	"xpBlacklist channels only" default(false)
-// @Success 200	"OK" {array} models.Channel
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/channels [GET]
+// @Summary      Get Guild channels
+// @Tags         Channels
+// @Description  Fetch all channels of the guild.
+// @Param        guildID             path     string  true                         "guild id"
+// @Param        ignored             query    bool    false                        "ignored channels only"    default(false)
+// @Param        xpBlacklist  query  bool     false   "xpBlacklist channels only"  default(false)
+// @Success      200          "OK"   {array}  models.Channel
+// @Failure      403          "Forbidden"
+// @Failure      500          "Server error"
+// @Router       /guilds/{guildID}/channels [GET]
 func getChannels(c echo.Context) error {
 	guildID := c.Param("guildID")
 	ignored := false
@@ -61,16 +61,16 @@ func getChannels(c echo.Context) error {
 	return c.JSON(http.StatusOK, channels)
 }
 
-// @Summary Get one Guild Channel
-// @Tags Channels
-// @Description Fetch the channel of the guild.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   channelID	path	string	true	"channel id"
-// @Success 200	"OK" {object} models.Channel
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/channels/{channelID} [GET]
+// @Summary      Get one Guild Channel
+// @Tags         Channels
+// @Description  Fetch the channel of the guild.
+// @Param        guildID          path      string  true  "guild id"
+// @Param        channelID  path  string    true    "channel id"
+// @Success      200        "OK"  {object}  models.Channel
+// @Failure      403        "Forbidden"
+// @Failure      404        "Not Found"
+// @Failure      500        "Server error"
+// @Router       /guilds/{guildID}/channels/{channelID} [GET]
 func getChannel(c echo.Context) error {
 	guildID := c.Param("guildID")
 	chanID := c.Param("id")
@@ -90,18 +90,18 @@ func getChannel(c echo.Context) error {
 	return c.JSON(http.StatusOK, chann)
 }
 
-// @Summary Create channel
-// @Tag Channels
-// @Description Create a new channel for a guild.
-// @Accept  json
-// @Produce  json
-// @Param   guildID	path	string			true	"guild id"
-// @Param 	channel	body 	models.Channel 	true 	"Channel values"
-// @Success 201 {object} models.Channel "Created channel"
-// @Failure 400 "Wrong values"
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/channels [POST]
+// @Summary      Create channel
+// @Tag          Channels
+// @Description  Create a new channel for a guild.
+// @Accept       json
+// @Produce      json
+// @Param        guildID  path      string                            true  "guild id"
+// @Param                 channel   body              models.Channel        true    "Channel values"
+// @Success      201      {object}  models.Channel  "Created channel"
+// @Failure      400      "Wrong values"
+// @Failure      403      "Forbidden"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID}/channels [POST]
 func createChannel(c echo.Context) error {
 	var channel models.Channel
 	guildID := c.Param("guildID")
@@ -120,18 +120,18 @@ func createChannel(c echo.Context) error {
 	return c.JSON(http.StatusCreated, channel)
 }
 
-// @Summary Update channel values
-// @Tag Channel
-// @Description Update fields of a guild's channel
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Param	channelID	path	string	true	"Channel id"
-// @Success 200 "OK" {object} models.Channel
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Fountd"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/channels/{channelID} [PATCH]
+// @Summary      Update channel values
+// @Tag          Channel
+// @Description  Update fields of a guild's channel
+// @Accept       json
+// @Produce      json
+// @Param        guildID          path      string  true  "Guild id"
+// @Param        channelID  path  string    true    "Channel id"
+// @Success      200        "OK"  {object}  models.Channel
+// @Failure      403        "Forbidden"
+// @Failure      404        "Not Fountd"
+// @Failure      500        "Server Error"
+// @Router       /guilds/{guildID}/channels/{channelID} [PATCH]
 func updateChannel(c echo.Context) error {
 	guildID := c.Param("guildID")
 	chanID := c.Param("id")
@@ -164,18 +164,18 @@ func updateChannel(c echo.Context) error {
 	return c.JSON(http.StatusOK, channel)
 }
 
-// @Summary Delete guild channel
-// @Tag Channels
-// @Description Delete a guild channel
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Param	channelID	path	string	true	"Channel id"
-// @Success 206 "No Content"
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Fountd"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/channels/{channelID} [DELETE]
+// @Summary      Delete guild channel
+// @Tag          Channels
+// @Description  Delete a guild channel
+// @Accept       json
+// @Produce      json
+// @Param        guildID          path    string  true  "Guild id"
+// @Param        channelID  path  string  true    "Channel id"
+// @Success      206        "No Content"
+// @Failure      403        "Forbidden"
+// @Failure      404        "Not Fountd"
+// @Failure      500        "Server Error"
+// @Router       /guilds/{guildID}/channels/{channelID} [DELETE]
 func deleteChannel(c echo.Context) error {
 	guildID := c.Param("guildID")
 	chanID := c.Param("id")

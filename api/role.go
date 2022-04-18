@@ -22,17 +22,17 @@ func initRoles() {
 	r.DELETE("/:id", deleteRole).Name = "Delete a guild role."
 }
 
-// @Summary Get Guild roles
-// @Tags Roles
-// @Description Fetch all roles of the guild.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   reward		query	bool	false	"reward from this lvl only" default(false)
-// @Param   ignored		query	bool	false	"ignored roles only" 		default(false)
-// @Param   xpBlacklist	query	bool	false	"xpBlacklist roles only"	default(false)
-// @Success 200	"OK" {array} models.Roles
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/roles [GET]
+// @Summary      Get Guild roles
+// @Tags         Roles
+// @Description  Fetch all roles of the guild.
+// @Param        guildID             path     string  true                      "guild id"
+// @Param        reward              query    bool    false                     "reward from this lvl only"  default(false)
+// @Param        ignored             query    bool    false                     "ignored roles only"             default(false)
+// @Param        xpBlacklist  query  bool     false   "xpBlacklist roles only"  default(false)
+// @Success      200          "OK"   {array}  models.Roles
+// @Failure      403          "Forbidden"
+// @Failure      500          "Server error"
+// @Router       /guilds/{guildID}/roles [GET]
 func getRoles(c echo.Context) error {
 	guildID := c.Param("guildID")
 	ignored := false
@@ -70,16 +70,16 @@ func getRoles(c echo.Context) error {
 	return c.JSON(http.StatusOK, roles)
 }
 
-// @Summary Get one Guild role
-// @Tags Roles
-// @Description Fetch the role of the guild.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   roleID	path	string	true	"role id"
-// @Success 200	"OK" {object} models.Role
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/roles/{roleID} [GET]
+// @Summary      Get one Guild role
+// @Tags         Roles
+// @Description  Fetch the role of the guild.
+// @Param        guildID        path      string  true  "guild id"
+// @Param        roleID   path  string    true    "role id"
+// @Success      200      "OK"  {object}  models.Role
+// @Failure      403      "Forbidden"
+// @Failure      404      "Not Found"
+// @Failure      500      "Server error"
+// @Router       /guilds/{guildID}/roles/{roleID} [GET]
 func getRole(c echo.Context) error {
 	guildID := c.Param("guildID")
 	roleID := c.Param("id")
@@ -98,18 +98,18 @@ func getRole(c echo.Context) error {
 	return c.JSON(http.StatusOK, role)
 }
 
-// @Summary Create role
-// @Tag Roles
-// @Description Create a new role for a guild.
-// @Accept  json
-// @Produce  json
-// @Param   guildID	path	string			true	"guild id"
-// @Param 	role	body 	models.Role 	true 	"Role values"
-// @Success 201 {object} models.Role "Created role"
-// @Failure 400 "Wrong values"
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/roles [POST]
+// @Summary      Create role
+// @Tag          Roles
+// @Description  Create a new role for a guild.
+// @Accept       json
+// @Produce      json
+// @Param        guildID  path      string                      true  "guild id"
+// @Param                 role      body           models.Role        true    "Role values"
+// @Success      201      {object}  models.Role  "Created role"
+// @Failure      400      "Wrong values"
+// @Failure      403      "Forbidden"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID}/roles [POST]
 func createRole(c echo.Context) error {
 	var role models.Role
 	guildID := c.Param("guildID")
@@ -128,18 +128,18 @@ func createRole(c echo.Context) error {
 	return c.JSON(http.StatusCreated, role)
 }
 
-// @Summary Update role values
-// @Tag Roles
-// @Description Update fields of a guild's role
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Param	roleID	path	string	true	"role id"
-// @Success 200 "OK" {object} models.Role
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Fountd"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/roles/{roleID} [PATCH]
+// @Summary      Update role values
+// @Tag          Roles
+// @Description  Update fields of a guild's role
+// @Accept       json
+// @Produce      json
+// @Param        guildID        path      string  true  "Guild id"
+// @Param        roleID   path  string    true    "role id"
+// @Success      200      "OK"  {object}  models.Role
+// @Failure      403      "Forbidden"
+// @Failure      404      "Not Fountd"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID}/roles/{roleID} [PATCH]
 func updateRole(c echo.Context) error {
 	guildID := c.Param("guildID")
 	roleID := c.Param("id")
@@ -171,18 +171,18 @@ func updateRole(c echo.Context) error {
 	return c.JSON(http.StatusOK, role)
 }
 
-// @Summary Delete guild role
-// @Tag Roles
-// @Description Delete a guild role
-// @Accept  json
-// @Produce  json
-// @Param	guildID path	string	true	"Guild id"
-// @Param	roleID	path	string	true	"role id"
-// @Success 206 "No Content"
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Fountd"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/roles/{roleID} [DELETE]
+// @Summary      Delete guild role
+// @Tag          Roles
+// @Description  Delete a guild role
+// @Accept       json
+// @Produce      json
+// @Param        guildID  path  string  true  "Guild id"
+// @Param        roleID   path  string  true  "role id"
+// @Success      206      "No Content"
+// @Failure      403      "Forbidden"
+// @Failure      404      "Not Fountd"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID}/roles/{roleID} [DELETE]
 func deleteRole(c echo.Context) error {
 	guildID := c.Param("guildID")
 	roleID := c.Param("id")

@@ -25,15 +25,15 @@ func initUsers() {
 	users.DELETE("/:username", deleteUser, isAdminOrLoggedIn)
 }
 
-// @Summary Get User
-// @Tags Users
-// @Description Get a specific user
-// @Param   username	path	string	true	"username"
-// @Success 200	"OK" {object} models.User
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not found"
-// @Failure 500 "Server error"
-// @Router /users/{username} [GET]
+// @Summary      Get User
+// @Tags         Users
+// @Description  Get a specific user
+// @Param        username  path  string    true  "username"
+// @Success      200       "OK"  {object}  models.User
+// @Failure      403       "Forbidden"
+// @Failure      404       "Not found"
+// @Failure      500       "Server error"
+// @Router       /users/{username} [GET]
 func getUser(c echo.Context) error {
 	username := c.Param("username")
 	var user models.User
@@ -49,13 +49,13 @@ func getUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-// @Summary Get Logged in User
-// @Tags Users
-// @Description Get the logged in user
-// @Success 200	"OK" {object} models.User
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /users/me [GET]
+// @Summary      Get Logged in User
+// @Tags         Users
+// @Description  Get the logged in user
+// @Success      200  "OK"  {object}  models.User
+// @Failure      403  "Forbidden"
+// @Failure      500  "Server error"
+// @Router       /users/me [GET]
 func getLoggedUser(c echo.Context) error {
 	u := c.Get("user").(*jwt.Token)
 	claims := u.Claims.(*JwtCustomClaims)
@@ -70,13 +70,13 @@ func getLoggedUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-// @Summary Get Users
-// @Tags Users
-// @Description Get a list of existing users
-// @Success 200	"OK" {array} models.User
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /users/ [GET]
+// @Summary      Get Users
+// @Tags         Users
+// @Description  Get a list of existing users
+// @Success      200  "OK"  {array}  models.User
+// @Failure      403  "Forbidden"
+// @Failure      500  "Server error"
+// @Router       /users/ [GET]
 func getUsers(c echo.Context) error {
 	var users []models.User
 
@@ -88,17 +88,17 @@ func getUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
-// @Summary Update User
-// @Tags Users
-// @Description Update specified User fields
-// @Param   username	path	string	true	"username"
-// @Param   userModif 	body 	models.UserModification	true	"fields to modify"
-// @Success 200	"OK" {object} models.User
-// @Failure 400 "Invalid values"
-// @Failure 403	"Forbidden"
-// @Failure 404	"NotFound"
-// @Failure 500 "Server error"
-// @Router /users/{username} [PATCH]
+// @Summary      Update User
+// @Tags         Users
+// @Description  Update specified User fields
+// @Param        username   path  string    true  "username"
+// @Param        userModif        body            models.UserModification  true  "fields to modify"
+// @Success      200        "OK"  {object}  models.User
+// @Failure      400        "Invalid values"
+// @Failure      403        "Forbidden"
+// @Failure      404        "NotFound"
+// @Failure      500        "Server error"
+// @Router       /users/{username} [PATCH]
 func updateUser(c echo.Context) error {
 	var user models.User
 	username := c.Param("username")
@@ -142,16 +142,16 @@ func updateUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-// @Summary Update User access level
-// @Tags Users
-// @Description Update User access level
-// @Param   username		path	string	true	"username"
-// @Param   access_level	query	int		true	"access_level"
-// @Success 200	"OK" {object} models.User
-// @Failure 403	"Forbidden"
-// @Failure 404	"NotFound"
-// @Failure 500 "Server error"
-// @Router /users/{username} [POST]
+// @Summary      Update User access level
+// @Tags         Users
+// @Description  Update User access level
+// @Param        username             path      string  true  "username"
+// @Param        access_level  query  int               true  "access_level"
+// @Success      200           "OK"   {object}  models.User
+// @Failure      403           "Forbidden"
+// @Failure      404           "NotFound"
+// @Failure      500           "Server error"
+// @Router       /users/{username} [POST]
 func updateAccessLvl(c echo.Context) error {
 	lvl, err := strconv.Atoi(c.QueryParam("access_level"))
 	if err != nil || lvl > 2 || lvl < 0 {
@@ -182,16 +182,16 @@ func updateAccessLvl(c echo.Context) error {
 	return c.JSON(http.StatusOK, user)
 }
 
-// @Summary Ban User
-// @Tags Users
-// @Description Update User ban. POST to unbann, DELETE to ban.
-// @Param   username		path	string	true	"username"
-// @Success 200	"OK"
-// @Failure 403	"Forbidden"
-// @Failure 404	"NotFound"
-// @Failure 500 "Server error"
-// @Router /users/{username}/ban [POST]
-// @Router /users/{username}/ban [DELETE]
+// @Summary      Ban User
+// @Tags         Users
+// @Description  Update User ban. POST to unbann, DELETE to ban.
+// @Param        username    path  string  true  "username"
+// @Success      200       "OK"
+// @Failure      403       "Forbidden"
+// @Failure      404       "NotFound"
+// @Failure      500       "Server error"
+// @Router       /users/{username}/ban [POST]
+// @Router       /users/{username}/ban [DELETE]
 func banUser(c echo.Context) error {
 	username := c.Param("username")
 	var tmp int
@@ -213,15 +213,15 @@ func banUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, nil)
 }
 
-// @Summary Delete User
-// @Tags Users
-// @Description Delete definitively the user.
-// @Param   username		path	string	true	"username"
-// @Success 200	"OK"
-// @Failure 403	"Forbidden"
-// @Failure 404	"NotFound"
-// @Failure 500 "Server error"
-// @Router /users/{username} [DELETE]
+// @Summary      Delete User
+// @Tags         Users
+// @Description  Delete definitively the user.
+// @Param        username    path  string  true  "username"
+// @Success      200       "OK"
+// @Failure      403       "Forbidden"
+// @Failure      404       "NotFound"
+// @Failure      500       "Server error"
+// @Router       /users/{username} [DELETE]
 func deleteUser(c echo.Context) error {
 	username := c.Param("username")
 	res, err := db.DB.Exec("DELETE FROM user WHERE username=?", username)

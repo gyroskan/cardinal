@@ -21,13 +21,13 @@ func initGuilds() {
 	g.DELETE("/:id", hardDeleteGuild).Name = "Hard Delete guild."
 }
 
-// @Summary Get Guilds
-// @Tags Guilds
-// @Description Fetch all guilds.
-// @Success 200	"OK" {array} models.Guild
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /guilds [GET]
+// @Summary      Get Guilds
+// @Tags         Guilds
+// @Description  Fetch all guilds.
+// @Success      200  "OK"  {array}  models.Guild
+// @Failure      403  "Forbidden"
+// @Failure      500  "Server error"
+// @Router       /guilds [GET]
 func getGuilds(c echo.Context) error {
 	var guilds []models.Guild
 
@@ -41,16 +41,16 @@ func getGuilds(c echo.Context) error {
 	return c.JSON(http.StatusOK, guilds)
 }
 
-// @Summary Get guild
-// @Tags Guilds
-// @Description Fetch a specific guild
-// @Param   guildID	path	string	true	"guild id"
-// @Param 	members	query	bool	false	"fetch members"
-// @Success 200	"OK" {object} models.Guild
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID} [GET]
+// @Summary      Get guild
+// @Tags         Guilds
+// @Description  Fetch a specific guild
+// @Param        guildID  path     string    true  "guild id"
+// @Param                 members  query     bool  false  "fetch members"
+// @Success      200      "OK"     {object}  models.Guild
+// @Failure      403      "Forbidden"
+// @Failure      404      "Not Found"
+// @Failure      500      "Server error"
+// @Router       /guilds/{guildID} [GET]
 func getGuild(c echo.Context) error {
 	id := c.Param("id")
 	// members, err := strconv.ParseBool(c.QueryParam("members"))
@@ -83,15 +83,15 @@ func getGuild(c echo.Context) error {
 	return c.JSON(http.StatusOK, guild)
 }
 
-// @Summary Create guild
-// @Tags Guilds
-// @Description Create a new Guild
-// @Success 201	"Created" {object} models.Guild
-// @Failure 400	"Bad Request"
-// @Failure 403	"Forbidden"
-// @Failure 409	"Conflict"
-// @Failure 500 "Server error"
-// @Router /guilds/ [POST]
+// @Summary      Create guild
+// @Tags         Guilds
+// @Description  Create a new Guild
+// @Success      201  "Created"  {object}  models.Guild
+// @Failure      400  "Bad Request"
+// @Failure      403  "Forbidden"
+// @Failure      409  "Conflict"
+// @Failure      500  "Server error"
+// @Router       /guilds/ [POST]
 func createGuild(c echo.Context) error {
 	guild := new(models.Guild)
 	if err := c.Bind(&guild); err != nil {
@@ -111,18 +111,18 @@ func createGuild(c echo.Context) error {
 	return c.JSON(http.StatusCreated, guild)
 }
 
-// @Summary Update guild values
-// @Tag Members
-// @Description Update fields of a guild
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string			true	"Guild id"
-// @Param	guild 		body	models.Guild	true	"Guild modifications"
-// @Success 200 "OK" {object} models.Member
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Fountd"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID} [PATCH]
+// @Summary      Update guild values
+// @Tag          Members
+// @Description  Update fields of a guild
+// @Accept       json
+// @Produce      json
+// @Param        guildID        path      string                      true  "Guild id"
+// @Param        guild                    body    models.Guild  true  "Guild modifications"
+// @Success      200      "OK"  {object}  models.Member
+// @Failure      403      "Forbidden"
+// @Failure      404      "Not Fountd"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID} [PATCH]
 func updateGuild(c echo.Context) error {
 	id := c.Param("id")
 	var guild models.Guild
@@ -150,16 +150,16 @@ func updateGuild(c echo.Context) error {
 	return c.JSON(http.StatusOK, guild)
 }
 
-// @Summary Reset guild
-// @Tag Members
-// @Description Reset guild parameters to default values. Do not change members values.
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Success 200 "OK" {object} models.Guild
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/reset [POST]
+// @Summary      Reset guild
+// @Tag          Members
+// @Description  Reset guild parameters to default values. Do not change members values.
+// @Accept       json
+// @Produce      json
+// @Param        guildID        path      string  true  "Guild id"
+// @Success      200      "OK"  {object}  models.Guild
+// @Failure      403      "Forbidden"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID}/reset [POST]
 func resetGuild(c echo.Context) error {
 	guildID := c.Param("guildID")
 
@@ -184,17 +184,17 @@ func resetGuild(c echo.Context) error {
 	return c.JSON(http.StatusOK, guild)
 }
 
-// @Summary Delte guild
-// @Tag Members
-// @Description Delete a guild
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Success 206 "No Content"
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Fountd"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID} [DELETE]
+// @Summary      Delte guild
+// @Tag          Members
+// @Description  Delete a guild
+// @Accept       json
+// @Produce      json
+// @Param        guildID    path  string  true  "Guild id"
+// @Success      206      "No Content"
+// @Failure      403      "Forbidden"
+// @Failure      404      "Not Fountd"
+// @Failure      500      "Server Error"
+// @Router       /guilds/{guildID} [DELETE]
 func hardDeleteGuild(c echo.Context) error {
 	id := c.Param("id")
 

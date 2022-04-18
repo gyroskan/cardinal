@@ -18,15 +18,15 @@ func initWarn() {
 	w.DELETE("/:warnID", deleteWarn)
 }
 
-// @Summary Get Member Warns
-// @Tags Warns
-// @Description Fetch all warns of the member.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Success 200	"OK" {array} models.Warn
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/members/{memberID}/warns [GET]
+// @Summary      Get Member Warns
+// @Tags         Warns
+// @Description  Fetch all warns of the member.
+// @Param        guildID         path     string  true  "guild id"
+// @Param        memberID  path  string   true    "member id"
+// @Success      200       "OK"  {array}  models.Warn
+// @Failure      403       "Forbidden"
+// @Failure      500       "Server error"
+// @Router       /guilds/{guildID}/members/{memberID}/warns [GET]
 func getWarns(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("memberID")
@@ -42,17 +42,17 @@ func getWarns(c echo.Context) error {
 	return c.JSON(http.StatusOK, bans)
 }
 
-// @Summary Get one warn
-// @Tags Warns
-// @Description Fetch the warn of the member.
-// @Param   guildID		path	string	true	"guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Param   warnID		path	string	true	"warn id"
-// @Success 200	"OK" {object} models.Warn
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server error"
-// @Router /guilds/{guildID}/members/{memberID}/warns/{warnID} [GET]
+// @Summary      Get one warn
+// @Tags         Warns
+// @Description  Fetch the warn of the member.
+// @Param        guildID         path      string  true  "guild id"
+// @Param        memberID  path  string    true    "member id"
+// @Param        warnID          path      string  true  "warn id"
+// @Success      200       "OK"  {object}  models.Warn
+// @Failure      403       "Forbidden"
+// @Failure      404       "Not Found"
+// @Failure      500       "Server error"
+// @Router       /guilds/{guildID}/members/{memberID}/warns/{warnID} [GET]
 func getWarn(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("memberID")
@@ -72,18 +72,18 @@ func getWarn(c echo.Context) error {
 	return c.JSON(http.StatusOK, warn)
 }
 
-// @Summary Create warn
-// @Tag Warns
-// @Description Create a new warn for a member.
-// @Accept  json
-// @Produce  json
-// @Param   guildID		path	string	true	"guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Success 201 {object} models.Warn "Created warn"
-// @Failure 400 "Wrong values"
-// @Failure 403	"Forbidden"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/members/{memberID}/warns [POST]
+// @Summary      Create warn
+// @Tag          Warns
+// @Description  Create a new warn for a member.
+// @Accept       json
+// @Produce      json
+// @Param        guildID             path         string  true  "guild id"
+// @Param        memberID  path      string       true    "member id"
+// @Success      201       {object}  models.Warn  "Created warn"
+// @Failure      400       "Wrong values"
+// @Failure      403       "Forbidden"
+// @Failure      500       "Server Error"
+// @Router       /guilds/{guildID}/members/{memberID}/warns [POST]
 func createWarn(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("memberID")
@@ -118,19 +118,19 @@ func createWarn(c echo.Context) error {
 	return c.JSON(http.StatusCreated, warn)
 }
 
-// @Summary Delete member's warn
-// @Tag Warns
-// @Description Delete a member's warn
-// @Accept  json
-// @Produce  json
-// @Param	guildID 	path	string	true	"Guild id"
-// @Param   memberID	path	string	true	"member id"
-// @Param   warnID		path	string	true	"warn id"
-// @Success 206 "No Content"
-// @Failure 403	"Forbidden"
-// @Failure 404	"Not Found"
-// @Failure 500 "Server Error"
-// @Router /guilds/{guildID}/members/{memberID}/warns/{warnID} [DELETE]
+// @Summary      Delete member's warn
+// @Tag          Warns
+// @Description  Delete a member's warn
+// @Accept       json
+// @Produce      json
+// @Param        guildID         path    string  true  "Guild id"
+// @Param        memberID  path  string  true    "member id"
+// @Param        warnID          path    string  true  "warn id"
+// @Success      206       "No Content"
+// @Failure      403       "Forbidden"
+// @Failure      404       "Not Found"
+// @Failure      500       "Server Error"
+// @Router       /guilds/{guildID}/members/{memberID}/warns/{warnID} [DELETE]
 func deleteWarn(c echo.Context) error {
 	guildID := c.Param("guildID")
 	memberID := c.Param("memberID")

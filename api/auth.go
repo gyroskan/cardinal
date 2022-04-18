@@ -34,16 +34,16 @@ func initAuth() {
 }
 
 // Register godoc
-// @Summary Register user
-// @Tag Users
-// @Description Create a new user
-// @Accept  json
-// @Produce  json
-// @Param user body models.UserCreation true "User values"
-// @Success 201 {object} models.User "Created user"
-// @Failure 400 "Wrong values"
-// @Failure 500 "Server Error"
-// @Router /users/register [POST]
+// @Summary      Register user
+// @Tag          Users
+// @Description  Create a new user
+// @Accept       json
+// @Produce      json
+// @Param        user  body      models.UserCreation  true  "User values"
+// @Success      201   {object}  models.User          "Created user"
+// @Failure      400   "Wrong values"
+// @Failure      500   "Server Error"
+// @Router       /users/register [POST]
 func registerUser(c echo.Context) error {
 	var userCreate models.UserCreation
 
@@ -87,18 +87,18 @@ func registerUser(c echo.Context) error {
 }
 
 // Login godoc
-// @Summary Login user
-// @Tag Users
-// @Description Login to get user token
-// @Accept  json
-// @Accept 	x-www-form-urlencoded
-// @Produce  json
-// @Param   username	body	string	true	"username"
-// @Param 	password	body 	string 	true 	"password"
-// @Success 200 {string} string "Token"
-// @Failure 400 "login invalid"
-// @Failure 500 "Server Error"
-// @Router /users/login [POST]
+// @Summary      Login user
+// @Tag          Users
+// @Description  Login to get user token
+// @Accept       json
+// @Accept         x-www-form-urlencoded
+// @Produce      json
+// @Param        username  body      string  true  "username"
+// @Param                  password  body          string    true    "password"
+// @Success      200       {string}  string  "Token"
+// @Failure      400       "login invalid"
+// @Failure      500       "Server Error"
+// @Router       /users/login [POST]
 func loginUser(c echo.Context) error {
 	type userLog struct {
 		Username string `json:"username" form:"username"`
