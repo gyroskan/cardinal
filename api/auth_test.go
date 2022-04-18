@@ -32,6 +32,13 @@ type TestArrayRegister struct {
 }
 
 func TestRegister(t *testing.T) {
+	sql, err := ioutil.ReadFile("../sqlScripts/builder.sql")
+	if err != nil {
+		t.Fatalf("Unable to read sql builder file. %v", err)
+	}
+
+	db.DB.MustExec(string(sql))
+
 	content, err := ioutil.ReadFile("../test_data/testRegister.json")
 	if err != nil {
 		t.Error(err)
@@ -61,6 +68,8 @@ func TestRegister(t *testing.T) {
 				End()
 		})
 	}
+
+	db.DB.MustExec(string(sql))
 }
 //
 //func TestRegisterOld(t *testing.T) {
