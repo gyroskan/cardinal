@@ -22,11 +22,11 @@ func initChannels() {
 }
 
 // @Summary      Get Guild channels
-// @Tags         Channels
+// @Tags        Channels
 // @Description  Fetch all channels of the guild.
-// @Param        guildID             path     string  true                         "guild id"
-// @Param        ignored             query    bool    false                        "ignored channels only"    default(false)
-// @Param        xpBlacklist  query  bool     false   "xpBlacklist channels only"  default(false)
+// @Param        guildID      path   string   true   "guild id"
+// @Param        ignored      query  bool     false  "ignored channels only"      default(false)
+// @Param        xpBlacklist  query  bool     false  "xpBlacklist channels only"  default(false)
 // @Success      200          "OK"   {array}  models.Channel
 // @Failure      403          "Forbidden"
 // @Failure      500          "Server error"
@@ -62,10 +62,10 @@ func getChannels(c echo.Context) error {
 }
 
 // @Summary      Get one Guild Channel
-// @Tags         Channels
+// @Tags        Channels
 // @Description  Fetch the channel of the guild.
-// @Param        guildID          path      string  true  "guild id"
-// @Param        channelID  path  string    true    "channel id"
+// @Param        guildID    path  string    true  "guild id"
+// @Param        channelID  path  string    true  "channel id"
 // @Success      200        "OK"  {object}  models.Channel
 // @Failure      403        "Forbidden"
 // @Failure      404        "Not Found"
@@ -91,12 +91,12 @@ func getChannel(c echo.Context) error {
 }
 
 // @Summary      Create channel
-// @Tag          Channels
+// @Tags         Channels
 // @Description  Create a new channel for a guild.
 // @Accept       json
 // @Produce      json
-// @Param        guildID  path      string                            true  "guild id"
-// @Param                 channel   body              models.Channel        true    "Channel values"
+// @Param        guildID  path      string          true  "guild id"
+// @Param        channel  body      models.Channel  true  "Channel values"
 // @Success      201      {object}  models.Channel  "Created channel"
 // @Failure      400      "Wrong values"
 // @Failure      403      "Forbidden"
@@ -121,12 +121,12 @@ func createChannel(c echo.Context) error {
 }
 
 // @Summary      Update channel values
-// @Tag          Channel
+// @Tags         Channels
 // @Description  Update fields of a guild's channel
 // @Accept       json
 // @Produce      json
-// @Param        guildID          path      string  true  "Guild id"
-// @Param        channelID  path  string    true    "Channel id"
+// @Param        guildID    path  string    true  "Guild id"
+// @Param        channelID  path  string    true  "Channel id"
 // @Success      200        "OK"  {object}  models.Channel
 // @Failure      403        "Forbidden"
 // @Failure      404        "Not Fountd"
@@ -165,12 +165,12 @@ func updateChannel(c echo.Context) error {
 }
 
 // @Summary      Delete guild channel
-// @Tag          Channels
+// @Tags         Channels
 // @Description  Delete a guild channel
 // @Accept       json
 // @Produce      json
-// @Param        guildID          path    string  true  "Guild id"
-// @Param        channelID  path  string  true    "Channel id"
+// @Param        guildID    path  string  true  "Guild id"
+// @Param        channelID  path  string  true  "Channel id"
 // @Success      206        "No Content"
 // @Failure      403        "Forbidden"
 // @Failure      404        "Not Fountd"

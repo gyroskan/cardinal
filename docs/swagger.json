@@ -107,7 +107,10 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Delte guild",
+                "tags": [
+                    "Guilds"
+                ],
+                "summary": "Delete guild",
                 "parameters": [
                     {
                         "type": "string",
@@ -139,6 +142,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Guilds"
                 ],
                 "summary": "Update guild values",
                 "parameters": [
@@ -225,6 +231,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Channels"
+                ],
                 "summary": "Create channel",
                 "parameters": [
                     {
@@ -309,6 +318,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Channels"
+                ],
                 "summary": "Delete guild channel",
                 "parameters": [
                     {
@@ -348,6 +360,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Channel"
                 ],
                 "summary": "Update channel values",
                 "parameters": [
@@ -432,6 +447,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Members"
+                ],
                 "summary": "Create member",
                 "parameters": [
                     {
@@ -478,6 +496,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Members"
                 ],
                 "summary": "Reset guild's members",
                 "parameters": [
@@ -548,6 +569,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Members"
+                ],
                 "summary": "Delete guild member",
                 "parameters": [
                     {
@@ -587,6 +611,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Members"
                 ],
                 "summary": "Update member value",
                 "parameters": [
@@ -663,6 +690,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Bans"
                 ],
                 "summary": "Create ban",
                 "parameters": [
@@ -753,6 +783,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Bans"
+                ],
                 "summary": "Delete member's ban",
                 "parameters": [
                     {
@@ -801,6 +834,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Members"
                 ],
                 "summary": "Reset member from a guild",
                 "parameters": [
@@ -874,6 +910,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Warns"
                 ],
                 "summary": "Create warn",
                 "parameters": [
@@ -964,6 +1003,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Warns"
+                ],
                 "summary": "Delete member's warn",
                 "parameters": [
                     {
@@ -1012,6 +1054,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Guilds"
                 ],
                 "summary": "Reset guild",
                 "parameters": [
@@ -1092,6 +1137,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Roles"
                 ],
                 "summary": "Create role",
                 "parameters": [
@@ -1177,6 +1225,9 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Roles"
+                ],
                 "summary": "Delete guild role",
                 "parameters": [
                     {
@@ -1216,6 +1267,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Roles"
                 ],
                 "summary": "Update role values",
                 "parameters": [
@@ -1279,6 +1333,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users"
                 ],
                 "summary": "Login user",
                 "parameters": [
@@ -1345,6 +1402,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users"
                 ],
                 "summary": "Register user",
                 "parameters": [

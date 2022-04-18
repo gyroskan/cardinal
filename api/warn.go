@@ -19,10 +19,10 @@ func initWarn() {
 }
 
 // @Summary      Get Member Warns
-// @Tags         Warns
+// @Tags        Warns
 // @Description  Fetch all warns of the member.
-// @Param        guildID         path     string  true  "guild id"
-// @Param        memberID  path  string   true    "member id"
+// @Param        guildID   path  string   true  "guild id"
+// @Param        memberID  path  string   true  "member id"
 // @Success      200       "OK"  {array}  models.Warn
 // @Failure      403       "Forbidden"
 // @Failure      500       "Server error"
@@ -43,11 +43,11 @@ func getWarns(c echo.Context) error {
 }
 
 // @Summary      Get one warn
-// @Tags         Warns
+// @Tags        Warns
 // @Description  Fetch the warn of the member.
-// @Param        guildID         path      string  true  "guild id"
-// @Param        memberID  path  string    true    "member id"
-// @Param        warnID          path      string  true  "warn id"
+// @Param        guildID   path  string    true  "guild id"
+// @Param        memberID  path  string    true  "member id"
+// @Param        warnID    path  string    true  "warn id"
 // @Success      200       "OK"  {object}  models.Warn
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
@@ -73,12 +73,12 @@ func getWarn(c echo.Context) error {
 }
 
 // @Summary      Create warn
-// @Tag          Warns
+// @Tags         Warns
 // @Description  Create a new warn for a member.
 // @Accept       json
 // @Produce      json
-// @Param        guildID             path         string  true  "guild id"
-// @Param        memberID  path      string       true    "member id"
+// @Param        guildID   path      string       true  "guild id"
+// @Param        memberID  path      string       true  "member id"
 // @Success      201       {object}  models.Warn  "Created warn"
 // @Failure      400       "Wrong values"
 // @Failure      403       "Forbidden"
@@ -119,13 +119,13 @@ func createWarn(c echo.Context) error {
 }
 
 // @Summary      Delete member's warn
-// @Tag          Warns
+// @Tags         Warns
 // @Description  Delete a member's warn
 // @Accept       json
 // @Produce      json
-// @Param        guildID         path    string  true  "Guild id"
-// @Param        memberID  path  string  true    "member id"
-// @Param        warnID          path    string  true  "warn id"
+// @Param        guildID   path  string  true  "Guild id"
+// @Param        memberID  path  string  true  "member id"
+// @Param        warnID    path  string  true  "warn id"
 // @Success      206       "No Content"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"

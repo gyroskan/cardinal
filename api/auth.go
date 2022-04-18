@@ -35,7 +35,7 @@ func initAuth() {
 
 // Register godoc
 // @Summary      Register user
-// @Tag          Users
+// @Tags         Users
 // @Description  Create a new user
 // @Accept       json
 // @Produce      json
@@ -88,13 +88,13 @@ func registerUser(c echo.Context) error {
 
 // Login godoc
 // @Summary      Login user
-// @Tag          Users
+// @Tags         Users
 // @Description  Login to get user token
 // @Accept       json
-// @Accept         x-www-form-urlencoded
+// @Accept       x-www-form-urlencoded
 // @Produce      json
 // @Param        username  body      string  true  "username"
-// @Param                  password  body          string    true    "password"
+// @Param        password  body      string  true  "password"
 // @Success      200       {string}  string  "Token"
 // @Failure      400       "login invalid"
 // @Failure      500       "Server Error"

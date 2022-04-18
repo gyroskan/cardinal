@@ -209,7 +209,9 @@ paths:
           description: Not Fountd
         "500":
           description: Server Error
-      summary: Delte guild
+      summary: Delete guild
+      tags:
+      - Guilds
     get:
       description: Fetch a specific guild
       parameters:
@@ -262,6 +264,8 @@ paths:
         "500":
           description: Server Error
       summary: Update guild values
+      tags:
+      - Guilds
   /guilds/{guildID}/channels:
     get:
       description: Fetch all channels of the guild.
@@ -321,6 +325,8 @@ paths:
         "500":
           description: Server Error
       summary: Create channel
+      tags:
+      - Channels
   /guilds/{guildID}/channels/{channelID}:
     delete:
       consumes:
@@ -349,6 +355,8 @@ paths:
         "500":
           description: Server Error
       summary: Delete guild channel
+      tags:
+      - Channels
     get:
       description: Fetch the channel of the guild.
       parameters:
@@ -401,6 +409,8 @@ paths:
         "500":
           description: Server Error
       summary: Update channel values
+      tags:
+      - Channel
   /guilds/{guildID}/members:
     get:
       description: Fetch all members of the guild.
@@ -460,6 +470,8 @@ paths:
         "500":
           description: Server Error
       summary: Create member
+      tags:
+      - Members
   /guilds/{guildID}/members/{memberID}:
     delete:
       consumes:
@@ -488,6 +500,8 @@ paths:
         "500":
           description: Server Error
       summary: Delete guild member
+      tags:
+      - Members
     get:
       description: Fetch the member of the guild.
       parameters:
@@ -540,6 +554,8 @@ paths:
         "500":
           description: Server Error
       summary: Update member value
+      tags:
+      - Members
   /guilds/{guildID}/members/{memberID}/bans:
     get:
       description: Fetch all bans of the member.
@@ -593,6 +609,8 @@ paths:
         "500":
           description: Server Error
       summary: Create ban
+      tags:
+      - Bans
   /guilds/{guildID}/members/{memberID}/bans/{banID}:
     delete:
       consumes:
@@ -626,6 +644,8 @@ paths:
         "500":
           description: Server Error
       summary: Delete member's ban
+      tags:
+      - Bans
     get:
       description: Fetch the ban of the member.
       parameters:
@@ -682,6 +702,8 @@ paths:
         "500":
           description: Server Error
       summary: Reset member from a guild
+      tags:
+      - Members
   /guilds/{guildID}/members/{memberID}/warns:
     get:
       description: Fetch all warns of the member.
@@ -735,6 +757,8 @@ paths:
         "500":
           description: Server Error
       summary: Create warn
+      tags:
+      - Warns
   /guilds/{guildID}/members/{memberID}/warns/{warnID}:
     delete:
       consumes:
@@ -768,6 +792,8 @@ paths:
         "500":
           description: Server Error
       summary: Delete member's warn
+      tags:
+      - Warns
     get:
       description: Fetch the warn of the member.
       parameters:
@@ -819,6 +845,8 @@ paths:
         "500":
           description: Server Error
       summary: Reset guild's members
+      tags:
+      - Members
   /guilds/{guildID}/reset:
     post:
       consumes:
@@ -841,6 +869,8 @@ paths:
         "500":
           description: Server Error
       summary: Reset guild
+      tags:
+      - Guilds
   /guilds/{guildID}/roles:
     get:
       description: Fetch all roles of the guild.
@@ -905,6 +935,8 @@ paths:
         "500":
           description: Server Error
       summary: Create role
+      tags:
+      - Roles
   /guilds/{guildID}/roles/{roleID}:
     delete:
       consumes:
@@ -933,6 +965,8 @@ paths:
         "500":
           description: Server Error
       summary: Delete guild role
+      tags:
+      - Roles
     get:
       description: Fetch the role of the guild.
       parameters:
@@ -985,6 +1019,8 @@ paths:
         "500":
           description: Server Error
       summary: Update role values
+      tags:
+      - Roles
   /users/:
     get:
       description: Get a list of existing users
@@ -1164,6 +1200,8 @@ paths:
         "500":
           description: Server Error
       summary: Login user
+      tags:
+      - Users
   /users/me:
     get:
       description: Get the logged in user
@@ -1201,4 +1239,6 @@ paths:
         "500":
           description: Server Error
       summary: Register user
+      tags:
+      - Users
 swagger: "2.0"

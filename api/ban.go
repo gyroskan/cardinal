@@ -19,10 +19,10 @@ func initBans() {
 }
 
 // @Summary      Get Member Bans
-// @Tags         Bans
+// @Tags        Bans
 // @Description  Fetch all bans of the member.
-// @Param        guildID         path     string  true  "guild id"
-// @Param        memberID  path  string   true    "member id"
+// @Param        guildID   path  string   true  "guild id"
+// @Param        memberID  path  string   true  "member id"
 // @Success      200       "OK"  {array}  models.Ban
 // @Failure      403       "Forbidden"
 // @Failure      500       "Server error"
@@ -43,11 +43,11 @@ func getBans(c echo.Context) error {
 }
 
 // @Summary      Get one ban
-// @Tags         Bans
+// @Tags        Bans
 // @Description  Fetch the ban of the member.
-// @Param        guildID         path      string  true  "guild id"
-// @Param        memberID  path  string    true    "member id"
-// @Param        banID           path      string  true  "ban id"
+// @Param        guildID   path  string    true  "guild id"
+// @Param        memberID  path  string    true  "member id"
+// @Param        banID     path  string    true  "ban id"
 // @Success      200       "OK"  {object}  models.Ban
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
@@ -73,12 +73,12 @@ func getBan(c echo.Context) error {
 }
 
 // @Summary      Create ban
-// @Tag          Bans
+// @Tags         Bans
 // @Description  Create a new ban for a member.
 // @Accept       json
 // @Produce      json
-// @Param        guildID             path        string  true  "guild id"
-// @Param        memberID  path      string      true    "member id"
+// @Param        guildID   path      string      true  "guild id"
+// @Param        memberID  path      string      true  "member id"
 // @Success      201       {object}  models.Ban  "Created role"
 // @Failure      400       "Wrong values"
 // @Failure      403       "Forbidden"
@@ -120,13 +120,13 @@ func createBan(c echo.Context) error {
 }
 
 // @Summary      Delete member's ban
-// @Tag          Bans
+// @Tags         Bans
 // @Description  Delete a member's ban
 // @Accept       json
 // @Produce      json
-// @Param        guildID         path    string  true  "Guild id"
-// @Param        memberID  path  string  true    "member id"
-// @Param        banID           path    string  true  "ban id"
+// @Param        guildID   path  string  true  "Guild id"
+// @Param        memberID  path  string  true  "member id"
+// @Param        banID     path  string  true  "ban id"
 // @Success      206       "No Content"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"

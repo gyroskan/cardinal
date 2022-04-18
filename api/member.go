@@ -24,12 +24,12 @@ func initMembers() {
 }
 
 // @Summary      Get Guild Members
-// @Tags         Members
+// @Tags        Members
 // @Description  Fetch all members of the guild.
-// @Param        guildID        path     string  true   "guild id"
-// @Param        limit          query    int            false                     "limit to fetch"  default(1)
-// @Param        after          query    string  false  "higher last id fetched"  default(0)
-// @Success      200      "OK"  {array}  models.Member
+// @Param        guildID  path   string   true   "guild id"
+// @Param        limit    query  int      false  "limit to fetch"          default(1)
+// @Param        after    query  string   false  "higher last id fetched"  default(0)
+// @Success      200      "OK"   {array}  models.Member
 // @Failure      403      "Forbidden"
 // @Failure      500      "Server error"
 // @Router       /guilds/{guildID}/members [GET]
@@ -58,10 +58,10 @@ func GetGuildMembers(c echo.Context) error {
 }
 
 // @Summary      Get one Guild Member
-// @Tags         Members
+// @Tags        Members
 // @Description  Fetch the member of the guild.
-// @Param        guildID         path      string  true  "guild id"
-// @Param        memberID  path  string    true    "member id"
+// @Param        guildID   path  string    true  "guild id"
+// @Param        memberID  path  string    true  "member id"
 // @Success      200       "OK"  {object}  models.Member
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
@@ -87,12 +87,12 @@ func GetMember(c echo.Context) error {
 }
 
 // @Summary      Create member
-// @Tag          Members
+// @Tags         Members
 // @Description  Create a new member from a guild.
 // @Accept       json
 // @Produce      json
-// @Param        guildID  path      string                 true           "guild id"
-// @Param        user                              body    models.Member    true    "Member values"
+// @Param        guildID  path      string         true  "guild id"
+// @Param        user     body      models.Member  true  "Member values"
 // @Success      201      {object}  models.Member  "Created member"
 // @Failure      400      "Wrong values"
 // @Failure      403      "Forbidden"
@@ -117,11 +117,11 @@ func createMember(c echo.Context) error {
 }
 
 // @Summary      Reset guild's members
-// @Tag          Members
+// @Tags         Members
 // @Description  Reset level and xp for all guild's members.
 // @Accept       json
 // @Produce      json
-// @Param        guildID    path  string  true  "Guild id"
+// @Param        guildID  path  string  true  "Guild id"
 // @Success      201      "Member reset"
 // @Failure      403      "Forbidden"
 // @Failure      500      "Server Error"
@@ -139,12 +139,12 @@ func resetGuildMembers(c echo.Context) error {
 }
 
 // @Summary      Reset member from a guild
-// @Tag          Members
+// @Tags         Members
 // @Description  Reset level and xp for the specific guild's members.
 // @Accept       json
 // @Produce      json
-// @Param        guildID                   path      string  true  "Guild id"
-// @Param        memberID  path            string    true    "Guild id"
+// @Param        guildID   path            string    true  "Guild id"
+// @Param        memberID  path            string    true  "Guild id"
 // @Success      201       "Member reset"  {object}  models.Member
 // @Failure      403       "Forbidden"
 // @Failure      500       "Server Error"
@@ -174,12 +174,12 @@ func resetMember(c echo.Context) error {
 }
 
 // @Summary      Update member value
-// @Tag          Members
+// @Tags         Members
 // @Description  Update fields of a guild's member
 // @Accept       json
 // @Produce      json
-// @Param        guildID         path      string  true  "Guild id"
-// @Param        memberID  path  string    true    "Guild id"
+// @Param        guildID   path  string    true  "Guild id"
+// @Param        memberID  path  string    true  "Guild id"
 // @Success      200       "OK"  {object}  models.Member
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Fountd"
@@ -214,12 +214,12 @@ func updateMember(c echo.Context) error {
 }
 
 // @Summary      Delete guild member
-// @Tag          Members
+// @Tags         Members
 // @Description  Delete a guild member
 // @Accept       json
 // @Produce      json
-// @Param        guildID         path    string  true  "Guild id"
-// @Param        memberID  path  string  true    "Member id"
+// @Param        guildID   path  string  true  "Guild id"
+// @Param        memberID  path  string  true  "Member id"
 // @Success      206       "No Content"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Fountd"

@@ -22,7 +22,7 @@ func initGuilds() {
 }
 
 // @Summary      Get Guilds
-// @Tags         Guilds
+// @Tags        Guilds
 // @Description  Fetch all guilds.
 // @Success      200  "OK"  {array}  models.Guild
 // @Failure      403  "Forbidden"
@@ -42,11 +42,11 @@ func getGuilds(c echo.Context) error {
 }
 
 // @Summary      Get guild
-// @Tags         Guilds
+// @Tags        Guilds
 // @Description  Fetch a specific guild
-// @Param        guildID  path     string    true  "guild id"
-// @Param                 members  query     bool  false  "fetch members"
-// @Success      200      "OK"     {object}  models.Guild
+// @Param        guildID  path   string    true   "guild id"
+// @Param        members  query  bool      false  "fetch members"
+// @Success      200      "OK"   {object}  models.Guild
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Found"
 // @Failure      500      "Server error"
@@ -84,7 +84,7 @@ func getGuild(c echo.Context) error {
 }
 
 // @Summary      Create guild
-// @Tags         Guilds
+// @Tags        Guilds
 // @Description  Create a new Guild
 // @Success      201  "Created"  {object}  models.Guild
 // @Failure      400  "Bad Request"
@@ -112,13 +112,13 @@ func createGuild(c echo.Context) error {
 }
 
 // @Summary      Update guild values
-// @Tag          Members
+// @Tags         Guilds
 // @Description  Update fields of a guild
 // @Accept       json
 // @Produce      json
-// @Param        guildID        path      string                      true  "Guild id"
-// @Param        guild                    body    models.Guild  true  "Guild modifications"
-// @Success      200      "OK"  {object}  models.Member
+// @Param        guildID  path  string        true  "Guild id"
+// @Param        guild    body  models.Guild  true  "Guild modifications"
+// @Success      200      "OK"  {object}      models.Guild
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Fountd"
 // @Failure      500      "Server Error"
@@ -151,11 +151,11 @@ func updateGuild(c echo.Context) error {
 }
 
 // @Summary      Reset guild
-// @Tag          Members
+// @Tags         Guilds
 // @Description  Reset guild parameters to default values. Do not change members values.
 // @Accept       json
 // @Produce      json
-// @Param        guildID        path      string  true  "Guild id"
+// @Param        guildID  path  string    true  "Guild id"
 // @Success      200      "OK"  {object}  models.Guild
 // @Failure      403      "Forbidden"
 // @Failure      500      "Server Error"
@@ -184,12 +184,12 @@ func resetGuild(c echo.Context) error {
 	return c.JSON(http.StatusOK, guild)
 }
 
-// @Summary      Delte guild
-// @Tag          Members
+// @Summary      Delete guild
+// @Tags         Guilds
 // @Description  Delete a guild
 // @Accept       json
 // @Produce      json
-// @Param        guildID    path  string  true  "Guild id"
+// @Param        guildID  path  string  true  "Guild id"
 // @Success      206      "No Content"
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Fountd"
