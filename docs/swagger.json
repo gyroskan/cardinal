@@ -13,7 +13,7 @@
         },
         "version": "0.1"
     },
-    "host": "cardinal.gyroskan.com:5005",
+    "host": "cardinal.gyroskan.com",
     "basePath": "/api/v1",
     "paths": {
         "/guilds": {
@@ -189,6 +189,20 @@
                         "name": "guildID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "ignored channels only",
+                        "name": "ignored",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "xpBlacklist channels only",
+                        "name": "xpBlacklist",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1036,6 +1050,27 @@
                         "name": "guildID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "reward from this lvl only",
+                        "name": "reward",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "ignored roles only",
+                        "name": "ignored",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "description": "xpBlacklist roles only",
+                        "name": "xpBlacklist",
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -1282,6 +1317,26 @@
                 }
             }
         },
+        "/users/me": {
+            "get": {
+                "description": "Get the logged in user",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get Logged in User",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
         "/users/register": {
             "post": {
                 "description": "Create a new user",
@@ -1461,6 +1516,36 @@
             }
         },
         "/users/{username}/ban": {
+            "post": {
+                "description": "Update User ban. POST to unbann, DELETE to ban.",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Ban User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "username",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "NotFound"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            },
             "delete": {
                 "description": "Update User ban. POST to unbann, DELETE to ban.",
                 "tags": [
@@ -1567,12 +1652,6 @@
                 "maxWarns": {
                     "type": "integer"
                 },
-                "members": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.Member"
-                    }
-                },
                 "prefix": {
                     "type": "string"
                 },
@@ -1631,7 +1710,7 @@
                 "roleID": {
                     "type": "string"
                 },
-                "wpBlacklisted": {
+                "xpBlacklisted": {
                     "type": "boolean"
                 }
             }

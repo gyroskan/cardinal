@@ -48,10 +48,6 @@ definitions:
         type: integer
       maxWarns:
         type: integer
-      members:
-        items:
-          $ref: '#/definitions/models.Member'
-        type: array
       prefix:
         type: string
       privateWelcomeMsg:
@@ -90,7 +86,7 @@ definitions:
         type: integer
       roleID:
         type: string
-      wpBlacklisted:
+      xpBlacklisted:
         type: boolean
     type: object
   models.User:
@@ -149,7 +145,7 @@ definitions:
     type: object
   nulltype.NullTime:
     type: object
-host: cardinal.gyroskan.com:5005
+host: cardinal.gyroskan.com
 info:
   contact:
     email: gyroskan@gmail.com
@@ -275,6 +271,16 @@ paths:
         name: guildID
         required: true
         type: string
+      - default: false
+        description: ignored channels only
+        in: query
+        name: ignored
+        type: boolean
+      - default: false
+        description: xpBlacklist channels only
+        in: query
+        name: xpBlacklist
+        type: boolean
       responses:
         "200":
           description: OK
@@ -844,6 +850,21 @@ paths:
         name: guildID
         required: true
         type: string
+      - default: false
+        description: reward from this lvl only
+        in: query
+        name: reward
+        type: boolean
+      - default: false
+        description: ignored roles only
+        in: query
+        name: ignored
+        type: boolean
+      - default: false
+        description: xpBlacklist roles only
+        in: query
+        name: xpBlacklist
+        type: boolean
       responses:
         "200":
           description: OK
@@ -1092,6 +1113,26 @@ paths:
       summary: Ban User
       tags:
       - Users
+    post:
+      description: Update User ban. POST to unbann, DELETE to ban.
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "404":
+          description: NotFound
+        "500":
+          description: Server error
+      summary: Ban User
+      tags:
+      - Users
   /users/login:
     post:
       consumes:
@@ -1123,6 +1164,19 @@ paths:
         "500":
           description: Server Error
       summary: Login user
+  /users/me:
+    get:
+      description: Get the logged in user
+      responses:
+        "200":
+          description: OK
+        "403":
+          description: Forbidden
+        "500":
+          description: Server error
+      summary: Get Logged in User
+      tags:
+      - Users
   /users/register:
     post:
       consumes:
