@@ -22,7 +22,7 @@ func initChannels() {
 }
 
 // @Summary      Get Guild channels
-// @Tags        Channels
+// @Tags         Channels
 // @Description  Fetch all channels of the guild.
 // @Param        guildID      path   string   true   "guild id"
 // @Param        ignored      query  bool     false  "ignored channels only"      default(false)
@@ -62,7 +62,7 @@ func getChannels(c echo.Context) error {
 }
 
 // @Summary      Get one Guild Channel
-// @Tags        Channels
+// @Tags         Channels
 // @Description  Fetch the channel of the guild.
 // @Param        guildID    path  string    true  "guild id"
 // @Param        channelID  path  string    true  "channel id"

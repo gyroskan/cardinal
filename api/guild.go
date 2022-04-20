@@ -21,13 +21,13 @@ func initGuilds() {
 	g.DELETE("/:id", hardDeleteGuild).Name = "Hard Delete guild."
 }
 
-// @Summary      Get Guilds
-// @Tags        Guilds
+// @Summary      Get all Guilds
+// @Tags         Guilds
 // @Description  Fetch all guilds.
-// @Success      200  "OK"  {array}  models.Guild
+// @Success      200  {array}  models.Guild  "OK"
 // @Failure      403  "Forbidden"
 // @Failure      500  "Server error"
-// @Router       /guilds [GET]
+// @Router       /guilds/ [GET]
 func getGuilds(c echo.Context) error {
 	var guilds []models.Guild
 
@@ -41,12 +41,11 @@ func getGuilds(c echo.Context) error {
 	return c.JSON(http.StatusOK, guilds)
 }
 
-// @Summary      Get guild
-// @Tags        Guilds
+// @Summary      Get one guild
+// @Tags         Guilds
 // @Description  Fetch a specific guild
-// @Param        guildID  path   string    true   "guild id"
-// @Param        members  query  bool      false  "fetch members"
-// @Success      200      "OK"   {object}  models.Guild
+// @Param        guildID  path      string        true  "guild id"
+// @Success      200      {object}  models.Guild  "OK"
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Found"
 // @Failure      500      "Server error"
@@ -84,13 +83,14 @@ func getGuild(c echo.Context) error {
 }
 
 // @Summary      Create guild
-// @Tags        Guilds
-// @Description  Create a new Guild
-// @Success      201  "Created"  {object}  models.Guild
-// @Failure      400  "Bad Request"
-// @Failure      403  "Forbidden"
-// @Failure      409  "Conflict"
-// @Failure      500  "Server error"
+// @Tags         Guilds
+// @Description  Creates a new Guild with the given values
+// @param        guild  body      models.Guild  true  "Provide the guild values"
+// @Success      201    {object}  models.Guild  "Created"
+// @Failure      400    "Bad Request"
+// @Failure      403    "Forbidden"
+// @Failure      409    "Conflict"
+// @Failure      500    "Server error"
 // @Router       /guilds/ [POST]
 func createGuild(c echo.Context) error {
 	guild := new(models.Guild)
@@ -116,11 +116,11 @@ func createGuild(c echo.Context) error {
 // @Description  Update fields of a guild
 // @Accept       json
 // @Produce      json
-// @Param        guildID  path  string        true  "Guild id"
-// @Param        guild    body  models.Guild  true  "Guild modifications"
-// @Success      200      "OK"  {object}      models.Guild
+// @Param        guildID  path      string        true  "Guild id"
+// @Param        guild    body      models.Guild  true  "Guild modifications"
+// @Success      200      {object}  models.Guild  "OK"
 // @Failure      403      "Forbidden"
-// @Failure      404      "Not Fountd"
+// @Failure      404      "Not Found"
 // @Failure      500      "Server Error"
 // @Router       /guilds/{guildID} [PATCH]
 func updateGuild(c echo.Context) error {
@@ -135,6 +135,7 @@ func updateGuild(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
+	// If some fields were not provided, the previous value are kept.
 	if err := json.NewDecoder(c.Request().Body).Decode(&guild); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
@@ -152,11 +153,12 @@ func updateGuild(c echo.Context) error {
 
 // @Summary      Reset guild
 // @Tags         Guilds
-// @Description  Reset guild parameters to default values. Do not change members values.
+// @Description  Reset guild parameters to default values.
+// @Description  Do not change members values.
 // @Accept       json
 // @Produce      json
-// @Param        guildID  path  string    true  "Guild id"
-// @Success      200      "OK"  {object}  models.Guild
+// @Param        guildID  path      string        true  "Guild id"
+// @Success      200      {object}  models.Guild  "OK"
 // @Failure      403      "Forbidden"
 // @Failure      500      "Server Error"
 // @Router       /guilds/{guildID}/reset [POST]
@@ -192,7 +194,7 @@ func resetGuild(c echo.Context) error {
 // @Param        guildID  path  string  true  "Guild id"
 // @Success      206      "No Content"
 // @Failure      403      "Forbidden"
-// @Failure      404      "Not Fountd"
+// @Failure      404      "Not Found"
 // @Failure      500      "Server Error"
 // @Router       /guilds/{guildID} [DELETE]
 func hardDeleteGuild(c echo.Context) error {

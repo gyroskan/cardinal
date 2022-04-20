@@ -16,16 +16,22 @@
     "host": "cardinal.gyroskan.com",
     "basePath": "/api/v1",
     "paths": {
-        "/guilds": {
+        "/guilds/": {
             "get": {
                 "description": "Fetch all guilds.",
                 "tags": [
                     "Guilds"
                 ],
-                "summary": "Get Guilds",
+                "summary": "Get all Guilds",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Guild"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -34,18 +40,30 @@
                         "description": "Server error"
                     }
                 }
-            }
-        },
-        "/guilds/": {
+            },
             "post": {
-                "description": "Create a new Guild",
+                "description": "Creates a new Guild with the given values",
                 "tags": [
                     "Guilds"
                 ],
                 "summary": "Create guild",
+                "parameters": [
+                    {
+                        "description": "Provide the guild values",
+                        "name": "guild",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Guild"
+                        }
+                    }
+                ],
                 "responses": {
                     "201": {
-                        "description": "Created"
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.Guild"
+                        }
                     },
                     "400": {
                         "description": "Bad Request"
@@ -68,7 +86,7 @@
                 "tags": [
                     "Guilds"
                 ],
-                "summary": "Get guild",
+                "summary": "Get one guild",
                 "parameters": [
                     {
                         "type": "string",
@@ -76,17 +94,14 @@
                         "name": "guildID",
                         "in": "path",
                         "required": true
-                    },
-                    {
-                        "type": "boolean",
-                        "description": "fetch members",
-                        "name": "members",
-                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Guild"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -128,7 +143,7 @@
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -167,13 +182,16 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Guild"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -362,7 +380,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Channel"
+                    "Channels"
                 ],
                 "summary": "Update channel values",
                 "parameters": [
@@ -1048,7 +1066,7 @@
         },
         "/guilds/{guildID}/reset": {
             "post": {
-                "description": "Reset guild parameters to default values. Do not change members values.",
+                "description": "Reset guild parameters to default values.\nDo not change members values.",
                 "consumes": [
                     "application/json"
                 ],
@@ -1070,7 +1088,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Guild"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1649,13 +1670,13 @@
                     "type": "integer"
                 },
                 "banReason": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "bannedAt": {
                     "type": "string"
                 },
                 "bannerID": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "guildID": {
                     "type": "string"
@@ -1692,7 +1713,7 @@
                     "type": "integer"
                 },
                 "disabledCommands": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "guildID": {
                     "type": "string"
@@ -1701,7 +1722,7 @@
                     "type": "string"
                 },
                 "lvlChannel": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "lvlReplace": {
                     "type": "boolean"
@@ -1716,16 +1737,16 @@
                     "type": "string"
                 },
                 "privateWelcomeMsg": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "reportChannel": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "welcomeChannel": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "welcomeMsg": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 }
             }
         },
@@ -1736,7 +1757,8 @@
                     "type": "string"
                 },
                 "joinedAt": {
-                    "$ref": "#/definitions/nulltype.NullTime"
+                    "type": "string",
+                    "format": "date-time"
                 },
                 "left": {
                     "type": "integer"
@@ -1788,7 +1810,7 @@
                     "type": "string"
                 },
                 "discordID": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "email": {
                     "type": "string"
@@ -1802,7 +1824,7 @@
             "type": "object",
             "properties": {
                 "discordID": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "email": {
                     "type": "string"
@@ -1819,7 +1841,7 @@
             "type": "object",
             "properties": {
                 "discordID": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "email": {
                     "type": "string"
@@ -1845,21 +1867,22 @@
                     "type": "integer"
                 },
                 "warnReason": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 },
                 "warnedAt": {
                     "type": "string"
                 },
                 "warnerID": {
-                    "$ref": "#/definitions/nulltype.NullString"
+                    "type": "string"
                 }
             }
-        },
-        "nulltype.NullString": {
-            "type": "object"
-        },
-        "nulltype.NullTime": {
-            "type": "object"
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }

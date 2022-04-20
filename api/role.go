@@ -23,7 +23,7 @@ func initRoles() {
 }
 
 // @Summary      Get Guild roles
-// @Tags        Roles
+// @Tags         Roles
 // @Description  Fetch all roles of the guild.
 // @Param        guildID      path   string   true   "guild id"
 // @Param        reward       query  bool     false  "reward from this lvl only"  default(false)
@@ -71,7 +71,7 @@ func getRoles(c echo.Context) error {
 }
 
 // @Summary      Get one Guild role
-// @Tags        Roles
+// @Tags         Roles
 // @Description  Fetch the role of the guild.
 // @Param        guildID  path  string    true  "guild id"
 // @Param        roleID   path  string    true  "role id"

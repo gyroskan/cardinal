@@ -19,7 +19,7 @@ func initBans() {
 }
 
 // @Summary      Get Member Bans
-// @Tags        Bans
+// @Tags         Bans
 // @Description  Fetch all bans of the member.
 // @Param        guildID   path  string   true  "guild id"
 // @Param        memberID  path  string   true  "member id"
@@ -43,7 +43,7 @@ func getBans(c echo.Context) error {
 }
 
 // @Summary      Get one ban
-// @Tags        Bans
+// @Tags         Bans
 // @Description  Fetch the ban of the member.
 // @Param        guildID   path  string    true  "guild id"
 // @Param        memberID  path  string    true  "member id"

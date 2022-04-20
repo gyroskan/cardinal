@@ -38,7 +38,7 @@ const (
 type Member struct {
 	MemberID string            `json:"memberID" db:"member_id"`
 	GuildID  string            `json:"guildID" db:"guild_id"`
-	JoinedAt nulltype.NullTime `json:"joinedAt" db:"joined_at"`
+	JoinedAt nulltype.NullTime `json:"joinedAt" db:"joined_at" format:"date-time"`
 	Left     int               `json:"left" db:"left"`
 	Xp       int               `json:"xp" db:"xp"`
 	Level    int               `json:"level" db:"level"`

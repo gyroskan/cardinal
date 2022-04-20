@@ -24,7 +24,7 @@ func initMembers() {
 }
 
 // @Summary      Get Guild Members
-// @Tags        Members
+// @Tags         Members
 // @Description  Fetch all members of the guild.
 // @Param        guildID  path   string   true   "guild id"
 // @Param        limit    query  int      false  "limit to fetch"          default(1)
@@ -58,7 +58,7 @@ func GetGuildMembers(c echo.Context) error {
 }
 
 // @Summary      Get one Guild Member
-// @Tags        Members
+// @Tags         Members
 // @Description  Fetch the member of the guild.
 // @Param        guildID   path  string    true  "guild id"
 // @Param        memberID  path  string    true  "member id"

@@ -7,11 +7,11 @@ definitions:
       banID:
         type: integer
       banReason:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       bannedAt:
         type: string
       bannerID:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       guildID:
         type: string
       memberID:
@@ -35,13 +35,13 @@ definitions:
       banTime:
         type: integer
       disabledCommands:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       guildID:
         type: string
       guildName:
         type: string
       lvlChannel:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       lvlReplace:
         type: boolean
       lvlResponse:
@@ -51,20 +51,21 @@ definitions:
       prefix:
         type: string
       privateWelcomeMsg:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       reportChannel:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       welcomeChannel:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       welcomeMsg:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
     type: object
   models.Member:
     properties:
       guildID:
         type: string
       joinedAt:
-        $ref: '#/definitions/nulltype.NullTime'
+        format: date-time
+        type: string
       left:
         type: integer
       level:
@@ -98,7 +99,7 @@ definitions:
       createdAt:
         type: string
       discordID:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       email:
         type: string
       username:
@@ -107,7 +108,7 @@ definitions:
   models.UserCreation:
     properties:
       discordID:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       email:
         type: string
       password:
@@ -118,7 +119,7 @@ definitions:
   models.UserModification:
     properties:
       discordID:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       email:
         type: string
       oldPassword:
@@ -135,15 +136,11 @@ definitions:
       warnID:
         type: integer
       warnReason:
-        $ref: '#/definitions/nulltype.NullString'
+        type: string
       warnedAt:
         type: string
       warnerID:
-        $ref: '#/definitions/nulltype.NullString'
-    type: object
-  nulltype.NullString:
-    type: object
-  nulltype.NullTime:
+        type: string
     type: object
 host: cardinal.gyroskan.com
 info:
@@ -157,25 +154,37 @@ info:
   title: Cardinal API
   version: "0.1"
 paths:
-  /guilds:
+  /guilds/:
     get:
       description: Fetch all guilds.
       responses:
         "200":
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Guild'
+            type: array
         "403":
           description: Forbidden
         "500":
           description: Server error
-      summary: Get Guilds
+      summary: Get all Guilds
       tags:
       - Guilds
-  /guilds/:
     post:
-      description: Create a new Guild
+      description: Creates a new Guild with the given values
+      parameters:
+      - description: Provide the guild values
+        in: body
+        name: guild
+        required: true
+        schema:
+          $ref: '#/definitions/models.Guild'
       responses:
         "201":
           description: Created
+          schema:
+            $ref: '#/definitions/models.Guild'
         "400":
           description: Bad Request
         "403":
@@ -206,7 +215,7 @@ paths:
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
       summary: Delete guild
@@ -220,20 +229,18 @@ paths:
         name: guildID
         required: true
         type: string
-      - description: fetch members
-        in: query
-        name: members
-        type: boolean
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Guild'
         "403":
           description: Forbidden
         "404":
           description: Not Found
         "500":
           description: Server error
-      summary: Get guild
+      summary: Get one guild
       tags:
       - Guilds
     patch:
@@ -257,10 +264,12 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Guild'
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
       summary: Update guild values
@@ -410,7 +419,7 @@ paths:
           description: Server Error
       summary: Update channel values
       tags:
-      - Channel
+      - Channels
   /guilds/{guildID}/members:
     get:
       description: Fetch all members of the guild.
@@ -851,8 +860,9 @@ paths:
     post:
       consumes:
       - application/json
-      description: Reset guild parameters to default values. Do not change members
-        values.
+      description: |-
+        Reset guild parameters to default values.
+        Do not change members values.
       parameters:
       - description: Guild id
         in: path
@@ -864,6 +874,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Guild'
         "403":
           description: Forbidden
         "500":
@@ -1241,4 +1253,9 @@ paths:
       summary: Register user
       tags:
       - Users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

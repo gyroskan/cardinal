@@ -19,7 +19,7 @@ func initWarn() {
 }
 
 // @Summary      Get Member Warns
-// @Tags        Warns
+// @Tags         Warns
 // @Description  Fetch all warns of the member.
 // @Param        guildID   path  string   true  "guild id"
 // @Param        memberID  path  string   true  "member id"
@@ -43,7 +43,7 @@ func getWarns(c echo.Context) error {
 }
 
 // @Summary      Get one warn
-// @Tags        Warns
+// @Tags         Warns
 // @Description  Fetch the warn of the member.
 // @Param        guildID   path  string    true  "guild id"
 // @Param        memberID  path  string    true  "member id"

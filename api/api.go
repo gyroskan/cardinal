@@ -32,8 +32,11 @@ var (
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
-// @host      cardinal.gyroskan.com
-// @BasePath  /api/v1
+// @host                        cardinal.gyroskan.com
+// @BasePath                    /api/v1
+// @securityDefinitions.apikey  BearerAuth
+// @in                          header
+// @name                        Authorization
 func InitRouter() *echo.Echo {
 	e := echo.New()
 

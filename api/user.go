@@ -26,7 +26,7 @@ func initUsers() {
 }
 
 // @Summary      Get User
-// @Tags        Users
+// @Tags         Users
 // @Description  Get a specific user
 // @Param        username  path  string    true  "username"
 // @Success      200       "OK"  {object}  models.User
@@ -50,7 +50,7 @@ func getUser(c echo.Context) error {
 }
 
 // @Summary      Get Logged in User
-// @Tags        Users
+// @Tags         Users
 // @Description  Get the logged in user
 // @Success      200  "OK"  {object}  models.User
 // @Failure      403  "Forbidden"
@@ -71,7 +71,7 @@ func getLoggedUser(c echo.Context) error {
 }
 
 // @Summary      Get Users
-// @Tags        Users
+// @Tags         Users
 // @Description  Get a list of existing users
 // @Success      200  "OK"  {array}  models.User
 // @Failure      403  "Forbidden"
@@ -89,7 +89,7 @@ func getUsers(c echo.Context) error {
 }
 
 // @Summary      Update User
-// @Tags        Users
+// @Tags         Users
 // @Description  Update specified User fields
 // @Param        username   path  string                   true  "username"
 // @Param        userModif  body  models.UserModification  true  "fields to modify"
@@ -143,7 +143,7 @@ func updateUser(c echo.Context) error {
 }
 
 // @Summary      Update User access level
-// @Tags        Users
+// @Tags         Users
 // @Description  Update User access level
 // @Param        username      path   string    true  "username"
 // @Param        access_level  query  int       true  "access_level"
@@ -183,7 +183,7 @@ func updateAccessLvl(c echo.Context) error {
 }
 
 // @Summary      Ban User
-// @Tags        Users
+// @Tags         Users
 // @Description  Update User ban. POST to unbann, DELETE to ban.
 // @Param        username  path  string  true  "username"
 // @Success      200       "OK"
@@ -214,7 +214,7 @@ func banUser(c echo.Context) error {
 }
 
 // @Summary      Delete User
-// @Tags        Users
+// @Tags         Users
 // @Description  Delete definitively the user.
 // @Param        username  path  string  true  "username"
 // @Success      200       "OK"

@@ -1,0 +1,3 @@
+// Replace all NullString with string
+replace github.com/mattn/go-nulltype.NullString string
+replace github.com/mattn/go-nulltype.NullTime string
