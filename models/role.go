@@ -17,11 +17,11 @@ const (
 
 type (
 	Role struct {
-		RoleID        string `json:"roleID" db:"role_id"`
-		GuildID       string `json:"guildID" db:"guild_id"`
-		IsDefault     bool   `json:"isDefault" db:"is_default"`
-		Reward        int    `json:"reward" db:"reward"`
-		Ignored       bool   `json:"ignored" db:"ignored"`
-		XpBlacklisted bool   `json:"xpBlacklisted" db:"xp_blacklisted"`
+		RoleID        string `json:"roleID" db:"role_id"`               // ID of the role
+		GuildID       string `json:"guildID" db:"guild_id"`             // ID of the guild
+		IsDefault     bool   `json:"isDefault" db:"is_default"`         // Wether to give the role to new members
+		Reward        int    `json:"reward" db:"reward"`                // The level corresponding to the reward
+		Ignored       bool   `json:"ignored" db:"ignored"`              // Wether the role is ignored by the bot or not
+		XpBlacklisted bool   `json:"xpBlacklisted" db:"xp_blacklisted"` // Wether the role is blacklisted from xp or not
 	}
 )

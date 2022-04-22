@@ -30,28 +30,28 @@ const (
 
 type (
 	User struct {
-		Username     string              `json:"username" db:"username"`
-		Email        string              `json:"email" db:"email"`
-		DiscordID    nulltype.NullString `json:"discordID" db:"discord_id"`
-		PasswordHash string              `json:"-" db:"pwd_hash"`
-		Salt         string              `json:"-" db:"salt"`
-		AccessLvl    int                 `json:"accessLvl" db:"access_lvl"`
-		CreatedAt    time.Time           `json:"createdAt" db:"created_at"`
-		Banned       bool                `json:"banned" db:"banned"`
+		Username     string              `json:"username" db:"username"`    // Username of the user
+		Email        string              `json:"email" db:"email"`          // Email of the user
+		DiscordID    nulltype.NullString `json:"discordID" db:"discord_id"` // Discord ID of the user
+		PasswordHash string              `json:"-" db:"pwd_hash"`           // Password hash of the user
+		Salt         string              `json:"-" db:"salt"`               // Salt used on the password
+		AccessLvl    int                 `json:"accessLvl" db:"access_lvl"` // Access level to the api of the user
+		CreatedAt    time.Time           `json:"createdAt" db:"created_at"` // Date the user was created
+		Banned       bool                `json:"banned" db:"banned"`        // Whether the user is banned or not
 	}
 
 	UserCreation struct {
-		Username  string              `json:"username" db:"username" form:"username"`
-		Email     string              `json:"email" db:"email" form:"email"`
-		DiscordID nulltype.NullString `json:"discordID" db:"discord_id" form:"discordID"`
-		Password  string              `json:"password" db:"-" form:"password"`
+		Username  string              `json:"username" db:"username" form:"username"`     // Username of the user
+		Email     string              `json:"email" db:"email" form:"email"`              // Email of the user
+		DiscordID nulltype.NullString `json:"discordID" db:"discord_id" form:"discordID"` // Discord ID of the user
+		Password  string              `json:"password" db:"-" form:"password"`            // Password of the user
 	}
 
 	UserModification struct {
-		Email       string              `json:"email" db:"email"`
-		DiscordID   nulltype.NullString `json:"discordID" db:"discord_id"`
-		OldPassword string              `json:"oldPassword" db:"-"`
-		Password    string              `json:"password" db:"-"`
+		Email       string              `json:"email" db:"email"`          // Email of the user
+		DiscordID   nulltype.NullString `json:"discordID" db:"discord_id"` // Discord ID of the user
+		OldPassword string              `json:"oldPassword" db:"-"`        // Old password of the user
+		Password    string              `json:"password" db:"-"`           // New password of the user
 	}
 )
 
