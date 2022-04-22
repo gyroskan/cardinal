@@ -35,26 +35,26 @@ const (
 
 type (
 	Guild struct {
-		GuildID           string              `json:"guildID" db:"guild_id"`
-		GuildName         string              `json:"guildName" db:"guild_name"`
-		Prefix            string              `json:"prefix" db:"prefix"`
-		ReportChannel     nulltype.NullString `json:"reportChannel" db:"report_channel"`
-		WelcomeChannel    nulltype.NullString `json:"welcomeChannel" db:"welcome_channel"`
-		WelcomeMsg        nulltype.NullString `json:"welcomeMsg" db:"welcome_message"`
-		PrivateWelcomeMsg nulltype.NullString `json:"privateWelcomeMsg" db:"private_welcome_msg"`
-		LvlChannel        nulltype.NullString `json:"lvlChannel" db:"level_channel"`
-		LvlReplace        bool                `json:"lvlReplace" db:"level_replace"`
-		LvlResponse       int                 `json:"lvlResponse" db:"level_response"`
-		DisabledCommands  nulltype.NullString `json:"disabledCommands" db:"disabled_commands"`
-		AllowModeration   bool                `json:"allowModeration" db:"allow_moderation"`
-		MaxWarns          int                 `json:"maxWarns" db:"max_warns"`
-		BanTime           int                 `json:"banTime" db:"ban_time"`
+		GuildID           string              `json:"guildID" db:"guild_id"`                      // Guild ID
+		GuildName         string              `json:"guildName" db:"guild_name"`                  // Name of the guild
+		Prefix            string              `json:"prefix" db:"prefix"`                         // Prefix used for calling the bot
+		ReportChannel     nulltype.NullString `json:"reportChannel" db:"report_channel"`          // Channel ID for reporting
+		WelcomeChannel    nulltype.NullString `json:"welcomeChannel" db:"welcome_channel"`        // Channel ID to send welcome messages
+		WelcomeMsg        nulltype.NullString `json:"welcomeMsg" db:"welcome_message"`            // Message to send when a user joins
+		PrivateWelcomeMsg nulltype.NullString `json:"privateWelcomeMsg" db:"private_welcome_msg"` // Message to send when a user joins in DM
+		LvlChannel        nulltype.NullString `json:"lvlChannel" db:"level_channel"`              // Channel ID to send level up messages
+		LvlReplace        bool                `json:"lvlReplace" db:"level_replace"`              // Weather or not to replace previous rewards
+		LvlResponse       int                 `json:"lvlResponse" db:"level_response"`            // If the level is a multiple of this number, send a level up message
+		DisabledCommands  nulltype.NullString `json:"disabledCommands" db:"disabled_commands"`    // List of disabled commands separated by slashes
+		AllowModeration   bool                `json:"allowModeration" db:"allow_moderation"`      // Whether or not to allow moderation commands
+		MaxWarns          int                 `json:"maxWarns" db:"max_warns"`                    // Max number of warnings before a user is banned
+		BanTime           int                 `json:"banTime" db:"ban_time"`                      // Time in days to ban a user for
 		// TODO is Members field needed?
 	}
 
 	GuildPres struct {
-		GuildID   string `json:"guildID" db:"guildID"`
-		GuildName string `json:"guildName" db:"guildname"`
-		Prefix    string `json:"prefix" db:"prefix"`
+		GuildID   string `json:"guildID" db:"guildID"`     // Guild ID
+		GuildName string `json:"guildName" db:"guildname"` // Name of the guild
+		Prefix    string `json:"prefix" db:"prefix"`       // Prefix used for calling the bot
 	}
 )
