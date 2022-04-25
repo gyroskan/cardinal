@@ -26,8 +26,8 @@ func initChannels() {
 // @Description  Fetch all channels of the guild.
 // @Param        guildID      path   string   true   "guild id"
 // @Param        ignored      query  bool     false  "ignored channels only"      default(false)
-// @Param        xpBlacklist  query  bool     false  "xpBlacklist channels only"  default(false)
-// @Success      200          "OK"   {array}  models.Channel
+// @Param        xpBlacklisted  query  bool     false  "xpBlacklist channels only"  default(false)
+// @Success      200           {array}  models.Channel "OK"
 // @Failure      403          "Forbidden"
 // @Failure      500          "Server error"
 // @Router       /guilds/{guildID}/channels [GET]
@@ -38,7 +38,7 @@ func getChannels(c echo.Context) error {
 	if c.QueryParam("ignored") != "" {
 		ignored, _ = strconv.ParseBool(c.QueryParam("ignored"))
 	}
-	if c.QueryParam("xpBlacklist") != "" {
+	if c.QueryParam("xpBlacklisted") != "" {
 		xpBlacklisted, _ = strconv.ParseBool(c.QueryParam("xpBlacklist"))
 	}
 	var channels []models.Channel

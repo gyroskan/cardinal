@@ -192,7 +192,7 @@ func resetGuild(c echo.Context) error {
 // @Accept       json
 // @Produce      json
 // @Param        guildID  path  string  true  "Guild id"
-// @Success      206      "No Content"
+// @Success      204      "No Content"
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Found"
 // @Failure      500      "Server Error"
