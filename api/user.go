@@ -29,7 +29,7 @@ func initUsers() {
 // @Tags         Users
 // @Description  Get a specific user
 // @Param        username  path  string    true  "username"
-// @Success      200       "OK"  {object}  models.User
+// @Success      200       {object}  models.User "OK"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not found"
 // @Failure      500       "Server error"
@@ -52,7 +52,7 @@ func getUser(c echo.Context) error {
 // @Summary      Get Logged in User
 // @Tags         Users
 // @Description  Get the logged in user
-// @Success      200  "OK"  {object}  models.User
+// @Success      200  {object}  models.User "OK"
 // @Failure      403  "Forbidden"
 // @Failure      500  "Server error"
 // @Router       /users/me [GET]
@@ -72,8 +72,8 @@ func getLoggedUser(c echo.Context) error {
 
 // @Summary      Get Users
 // @Tags         Users
-// @Description  Get a list of existing users
-// @Success      200  "OK"  {array}  models.User
+// @Description  Get a list of all existing users
+// @Success      200  {array}  models.User "OK"
 // @Failure      403  "Forbidden"
 // @Failure      500  "Server error"
 // @Router       /users/ [GET]
@@ -92,11 +92,11 @@ func getUsers(c echo.Context) error {
 // @Tags         Users
 // @Description  Update specified User fields
 // @Param        username   path  string                   true  "username"
-// @Param        userModif  body  models.UserModification  true  "fields to modify"
-// @Success      200        "OK"  {object}                 models.User
+// @Param        userModif  body  models.UserModification  true  "User modification"
+// @Success      200        {object}                 models.User "OK"
 // @Failure      400        "Invalid values"
 // @Failure      403        "Forbidden"
-// @Failure      404        "NotFound"
+// @Failure      404        "Not Found"
 // @Failure      500        "Server error"
 // @Router       /users/{username} [PATCH]
 func updateUser(c echo.Context) error {
@@ -147,9 +147,9 @@ func updateUser(c echo.Context) error {
 // @Description  Update User access level
 // @Param        username      path   string    true  "username"
 // @Param        access_level  query  int       true  "access_level"
-// @Success      200           "OK"   {object}  models.User
+// @Success      200           {object}  models.User "OK"
 // @Failure      403           "Forbidden"
-// @Failure      404           "NotFound"
+// @Failure      404           "Not Found"
 // @Failure      500           "Server error"
 // @Router       /users/{username} [POST]
 func updateAccessLvl(c echo.Context) error {
@@ -188,7 +188,7 @@ func updateAccessLvl(c echo.Context) error {
 // @Param        username  path  string  true  "username"
 // @Success      200       "OK"
 // @Failure      403       "Forbidden"
-// @Failure      404       "NotFound"
+// @Failure      404       "Not Found"
 // @Failure      500       "Server error"
 // @Router       /users/{username}/ban [POST]
 // @Router       /users/{username}/ban [DELETE]
@@ -217,9 +217,9 @@ func banUser(c echo.Context) error {
 // @Tags         Users
 // @Description  Delete definitively the user.
 // @Param        username  path  string  true  "username"
-// @Success      200       "OK"
+// @Success      204       "OK"
 // @Failure      403       "Forbidden"
-// @Failure      404       "NotFound"
+// @Failure      404       "Not Found"
 // @Failure      500       "Server error"
 // @Router       /users/{username} [DELETE]
 func deleteUser(c echo.Context) error {

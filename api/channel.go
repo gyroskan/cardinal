@@ -24,12 +24,12 @@ func initChannels() {
 // @Summary      Get Guild channels
 // @Tags         Channels
 // @Description  Fetch all channels of the guild.
-// @Param        guildID      path   string   true   "guild id"
-// @Param        ignored      query  bool     false  "ignored channels only"      default(false)
-// @Param        xpBlacklist  query  bool     false  "xpBlacklist channels only"  default(false)
-// @Success      200          "OK"   {array}  models.Channel
-// @Failure      403          "Forbidden"
-// @Failure      500          "Server error"
+// @Param        guildID        path   string   true   "guild id"
+// @Param        ignored        query  bool     false  "ignored channels only"      default(false)
+// @Param        xpBlacklisted  query  bool     false  "xpBlacklist channels only"  default(false)
+// @Success      200            {array}  models.Channel "OK"
+// @Failure      403            "Forbidden"
+// @Failure      500            "Server error"
 // @Router       /guilds/{guildID}/channels [GET]
 func getChannels(c echo.Context) error {
 	guildID := c.Param("guildID")
@@ -38,7 +38,7 @@ func getChannels(c echo.Context) error {
 	if c.QueryParam("ignored") != "" {
 		ignored, _ = strconv.ParseBool(c.QueryParam("ignored"))
 	}
-	if c.QueryParam("xpBlacklist") != "" {
+	if c.QueryParam("xpBlacklisted") != "" {
 		xpBlacklisted, _ = strconv.ParseBool(c.QueryParam("xpBlacklist"))
 	}
 	var channels []models.Channel
@@ -127,9 +127,10 @@ func createChannel(c echo.Context) error {
 // @Produce      json
 // @Param        guildID    path  string    true  "Guild id"
 // @Param        channelID  path  string    true  "Channel id"
-// @Success      200        "OK"  {object}  models.Channel
+// @Param 		 channel    body  models.Channel true "Channel values"
+// @Success      200       {object}  models.Channel "OK"
 // @Failure      403        "Forbidden"
-// @Failure      404        "Not Fountd"
+// @Failure      404        "Not Found"
 // @Failure      500        "Server Error"
 // @Router       /guilds/{guildID}/channels/{channelID} [PATCH]
 func updateChannel(c echo.Context) error {
@@ -173,7 +174,7 @@ func updateChannel(c echo.Context) error {
 // @Param        channelID  path  string  true  "Channel id"
 // @Success      206        "No Content"
 // @Failure      403        "Forbidden"
-// @Failure      404        "Not Fountd"
+// @Failure      404        "Not Found"
 // @Failure      500        "Server Error"
 // @Router       /guilds/{guildID}/channels/{channelID} [DELETE]
 func deleteChannel(c echo.Context) error {

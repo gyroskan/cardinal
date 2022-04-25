@@ -1,4 +1,8 @@
 {
+    "schemes": [
+        "https",
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
         "description": "The API to interact with cardinal discord bot database.",
@@ -447,7 +451,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Member"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -479,7 +489,7 @@
                     },
                     {
                         "description": "Member values",
-                        "name": "user",
+                        "name": "member",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -516,7 +526,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Members"
+                    "Guilds"
                 ],
                 "summary": "Reset guild's members",
                 "parameters": [
@@ -529,7 +539,7 @@
                     }
                 ],
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "Member reset"
                     },
                     "403": {
@@ -566,7 +576,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -856,7 +869,7 @@
                 "tags": [
                     "Members"
                 ],
-                "summary": "Reset member from a guild",
+                "summary": "Reset  a member from a guild",
                 "parameters": [
                     {
                         "type": "string",
@@ -1664,24 +1677,31 @@
             "type": "object",
             "properties": {
                 "autoBan": {
+                    "description": "Whether the ban was automatic or not",
                     "type": "boolean"
                 },
                 "banID": {
+                    "description": "ID of the ban",
                     "type": "integer"
                 },
                 "banReason": {
+                    "description": "Reason for the ban",
                     "type": "string"
                 },
                 "bannedAt": {
+                    "description": "Date the member was banned",
                     "type": "string"
                 },
                 "bannerID": {
+                    "description": "ID of the user who banned the member",
                     "type": "string"
                 },
                 "guildID": {
+                    "description": "ID of the guild",
                     "type": "string"
                 },
                 "memberID": {
+                    "description": "ID of the member",
                     "type": "string"
                 }
             }
@@ -1690,15 +1710,19 @@
             "type": "object",
             "properties": {
                 "channelID": {
+                    "description": "ID of the channel",
                     "type": "string"
                 },
                 "guildID": {
+                    "description": "ID of the guild",
                     "type": "string"
                 },
                 "ignored": {
+                    "description": "Wether the channel is ignored by the bot or not",
                     "type": "boolean"
                 },
                 "wpBlacklisted": {
+                    "description": "Wether the channel is blacklisted from xp or not",
                     "type": "boolean"
                 }
             }
@@ -1707,45 +1731,59 @@
             "type": "object",
             "properties": {
                 "allowModeration": {
+                    "description": "Whether or not to allow moderation commands",
                     "type": "boolean"
                 },
                 "banTime": {
+                    "description": "Time in days to ban a user for",
                     "type": "integer"
                 },
                 "disabledCommands": {
+                    "description": "List of disabled commands separated by slashes",
                     "type": "string"
                 },
                 "guildID": {
+                    "description": "Guild ID",
                     "type": "string"
                 },
                 "guildName": {
+                    "description": "Name of the guild",
                     "type": "string"
                 },
                 "lvlChannel": {
+                    "description": "Channel ID to send level up messages",
                     "type": "string"
                 },
                 "lvlReplace": {
+                    "description": "Weather or not to replace previous rewards",
                     "type": "boolean"
                 },
                 "lvlResponse": {
+                    "description": "If the level is a multiple of this number, send a level up message",
                     "type": "integer"
                 },
                 "maxWarns": {
+                    "description": "Max number of warnings before a user is banned",
                     "type": "integer"
                 },
                 "prefix": {
+                    "description": "Prefix used for calling the bot",
                     "type": "string"
                 },
                 "privateWelcomeMsg": {
+                    "description": "Message to send when a user joins in DM",
                     "type": "string"
                 },
                 "reportChannel": {
+                    "description": "Channel ID for reporting",
                     "type": "string"
                 },
                 "welcomeChannel": {
+                    "description": "Channel ID to send welcome messages",
                     "type": "string"
                 },
                 "welcomeMsg": {
+                    "description": "Message to send when a user joins",
                     "type": "string"
                 }
             }
@@ -1754,22 +1792,28 @@
             "type": "object",
             "properties": {
                 "guildID": {
+                    "description": "Guild ID",
                     "type": "string"
                 },
                 "joinedAt": {
+                    "description": "Date for when the member joined the guild",
                     "type": "string",
                     "format": "date-time"
                 },
                 "left": {
+                    "description": "Number of times the member left the guild",
                     "type": "integer"
                 },
                 "level": {
+                    "description": "Level of the member",
                     "type": "integer"
                 },
                 "memberID": {
+                    "description": "Member ID",
                     "type": "string"
                 },
                 "xp": {
+                    "description": "Amount of xp the member has",
                     "type": "integer"
                 }
             }
@@ -1778,21 +1822,27 @@
             "type": "object",
             "properties": {
                 "guildID": {
+                    "description": "ID of the guild",
                     "type": "string"
                 },
                 "ignored": {
+                    "description": "Wether the role is ignored by the bot or not",
                     "type": "boolean"
                 },
                 "isDefault": {
+                    "description": "Wether to give the role to new members",
                     "type": "boolean"
                 },
                 "reward": {
+                    "description": "The level corresponding to the reward",
                     "type": "integer"
                 },
                 "roleID": {
+                    "description": "ID of the role",
                     "type": "string"
                 },
                 "xpBlacklisted": {
+                    "description": "Wether the role is blacklisted from xp or not",
                     "type": "boolean"
                 }
             }
@@ -1801,21 +1851,27 @@
             "type": "object",
             "properties": {
                 "accessLvl": {
+                    "description": "Access level to the api of the user",
                     "type": "integer"
                 },
                 "banned": {
+                    "description": "Whether the user is banned or not",
                     "type": "boolean"
                 },
                 "createdAt": {
+                    "description": "Date the user was created",
                     "type": "string"
                 },
                 "discordID": {
+                    "description": "Discord ID of the user",
                     "type": "string"
                 },
                 "email": {
+                    "description": "Email of the user",
                     "type": "string"
                 },
                 "username": {
+                    "description": "Username of the user",
                     "type": "string"
                 }
             }
@@ -1824,15 +1880,19 @@
             "type": "object",
             "properties": {
                 "discordID": {
+                    "description": "Discord ID of the user",
                     "type": "string"
                 },
                 "email": {
+                    "description": "Email of the user",
                     "type": "string"
                 },
                 "password": {
+                    "description": "Password of the user",
                     "type": "string"
                 },
                 "username": {
+                    "description": "Username of the user",
                     "type": "string"
                 }
             }
@@ -1841,15 +1901,19 @@
             "type": "object",
             "properties": {
                 "discordID": {
+                    "description": "Discord ID of the user",
                     "type": "string"
                 },
                 "email": {
+                    "description": "Email of the user",
                     "type": "string"
                 },
                 "oldPassword": {
+                    "description": "Old password of the user",
                     "type": "string"
                 },
                 "password": {
+                    "description": "New password of the user",
                     "type": "string"
                 }
             }
@@ -1858,21 +1922,27 @@
             "type": "object",
             "properties": {
                 "guildID": {
+                    "description": "ID of the guild",
                     "type": "string"
                 },
                 "memberID": {
+                    "description": "ID of the member",
                     "type": "string"
                 },
                 "warnID": {
+                    "description": "ID of the warn",
                     "type": "integer"
                 },
                 "warnReason": {
+                    "description": "Reason for the warn",
                     "type": "string"
                 },
                 "warnedAt": {
+                    "description": "Date the member was warned",
                     "type": "string"
                 },
                 "warnerID": {
+                    "description": "ID of the user who warned the member",
                     "type": "string"
                 }
             }

@@ -23,7 +23,7 @@ func initWarn() {
 // @Description  Fetch all warns of the member.
 // @Param        guildID   path  string   true  "guild id"
 // @Param        memberID  path  string   true  "member id"
-// @Success      200       "OK"  {array}  models.Warn
+// @Success      200       {array}  models.Warn "OK"
 // @Failure      403       "Forbidden"
 // @Failure      500       "Server error"
 // @Router       /guilds/{guildID}/members/{memberID}/warns [GET]
@@ -48,7 +48,7 @@ func getWarns(c echo.Context) error {
 // @Param        guildID   path  string    true  "guild id"
 // @Param        memberID  path  string    true  "member id"
 // @Param        warnID    path  string    true  "warn id"
-// @Success      200       "OK"  {object}  models.Warn
+// @Success      200       {object}  models.Warn "OK"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
 // @Failure      500       "Server error"
@@ -79,6 +79,7 @@ func getWarn(c echo.Context) error {
 // @Produce      json
 // @Param        guildID   path      string       true  "guild id"
 // @Param        memberID  path      string       true  "member id"
+// @Param 		 warn 	body      models.Warn  true  "warn values"
 // @Success      201       {object}  models.Warn  "Created warn"
 // @Failure      400       "Wrong values"
 // @Failure      403       "Forbidden"
@@ -126,7 +127,7 @@ func createWarn(c echo.Context) error {
 // @Param        guildID   path  string  true  "Guild id"
 // @Param        memberID  path  string  true  "member id"
 // @Param        warnID    path  string  true  "warn id"
-// @Success      206       "No Content"
+// @Success      204       "No Content"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
 // @Failure      500       "Server Error"

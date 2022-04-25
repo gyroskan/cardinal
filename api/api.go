@@ -32,6 +32,7 @@ var (
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT
 
+// @Schemes                     https http
 // @host                        cardinal.gyroskan.com
 // @BasePath                    /api/v1
 // @securityDefinitions.apikey  BearerAuth
