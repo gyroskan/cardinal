@@ -25,11 +25,11 @@ func initRoles() {
 // @Summary      Get Guild roles
 // @Tags         Roles
 // @Description  Fetch all roles of the guild.
-// @Param        guildID        path   string   true   "guild id"
-// @Param        reward         query  int     false  "reward for this lvl only"  default(0)
-// @Param        ignored        query  bool     false  "ignored roles only"         default(false)
-// @Param        xpBlacklisted  query  bool     false  "xpBlacklisted roles only"     default(false)
-// @Success      200            {array}  models.Roles "OK"
+// @Param        guildID        path     string        true   "guild id"
+// @Param        reward         query    int           false  "reward for this lvl only"  default(0)
+// @Param        ignored        query    bool          false  "ignored roles only"        default(false)
+// @Param        xpBlacklisted  query    bool          false  "xpBlacklisted roles only"  default(false)
+// @Success      200            {array}  models.Role  "OK"
 // @Failure      403            "Forbidden"
 // @Failure      500            "Server error"
 // @Router       /guilds/{guildID}/roles [GET]
@@ -73,9 +73,9 @@ func getRoles(c echo.Context) error {
 // @Summary      Get one Guild role
 // @Tags         Roles
 // @Description  Fetch the role of the guild.
-// @Param        guildID  path  string    true  "guild id"
-// @Param        roleID   path  string    true  "role id"
-// @Success      200       {object}  models.Role "OK"
+// @Param        guildID  path      string       true  "guild id"
+// @Param        roleID   path      string       true  "role id"
+// @Success      200      {object}  models.Role  "OK"
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Found"
 // @Failure      500      "Server error"
@@ -133,10 +133,10 @@ func createRole(c echo.Context) error {
 // @Description  Update fields of a guild's role
 // @Accept       json
 // @Produce      json
-// @Param        guildID  path  string    true  "Guild id"
-// @Param        roleID   path  string    true  "role id"
-// @Param        role     body  models.Role  true  "Role values"
-// @Success      200      {object}  models.Role "OK"
+// @Param        guildID  path      string       true  "Guild id"
+// @Param        roleID   path      string       true  "role id"
+// @Param        role     body      models.Role  true  "Role values"
+// @Success      200      {object}  models.Role  "OK"
 // @Failure      403      "Forbidden"
 // @Failure      404      "Not Found"
 // @Failure      500      "Server Error"

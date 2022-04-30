@@ -140,7 +140,7 @@
                     }
                 ],
                 "responses": {
-                    "206": {
+                    "204": {
                         "description": "No Content"
                     },
                     "403": {
@@ -229,13 +229,19 @@
                         "type": "boolean",
                         "default": false,
                         "description": "xpBlacklist channels only",
-                        "name": "xpBlacklist",
+                        "name": "xpBlacklisted",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Channel"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -368,7 +374,7 @@
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -401,17 +407,29 @@
                         "name": "channelID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Channel values",
+                        "name": "channel",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Channel"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Channel"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -526,9 +544,9 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Guilds"
+                    "Members"
                 ],
-                "summary": "Reset guild's members",
+                "summary": "Reset all guild's members",
                 "parameters": [
                     {
                         "type": "string",
@@ -603,7 +621,7 @@
                 "tags": [
                     "Members"
                 ],
-                "summary": "Delete guild member",
+                "summary": "Delete a guild member",
                 "parameters": [
                     {
                         "type": "string",
@@ -621,14 +639,14 @@
                     }
                 ],
                 "responses": {
-                    "206": {
+                    "204": {
                         "description": "No Content"
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -646,7 +664,7 @@
                 "tags": [
                     "Members"
                 ],
-                "summary": "Update member value",
+                "summary": "Update member",
                 "parameters": [
                     {
                         "type": "string",
@@ -661,17 +679,29 @@
                         "name": "memberID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Member values",
+                        "name": "member",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -704,7 +734,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Ban"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -740,6 +776,15 @@
                         "name": "memberID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "ban",
+                        "name": "ban",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Ban"
+                        }
                     }
                 ],
                 "responses": {
@@ -793,7 +838,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Ban"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -842,7 +890,7 @@
                     }
                 ],
                 "responses": {
-                    "206": {
+                    "204": {
                         "description": "No Content"
                     },
                     "403": {
@@ -859,7 +907,7 @@
         },
         "/guilds/{guildID}/members/{memberID}/reset": {
             "post": {
-                "description": "Reset level and xp for the specific guild's members.",
+                "description": "Reset level and xp for the specific guild's member.",
                 "consumes": [
                     "application/json"
                 ],
@@ -869,7 +917,7 @@
                 "tags": [
                     "Members"
                 ],
-                "summary": "Reset  a member from a guild",
+                "summary": "Reset a member from a guild",
                 "parameters": [
                     {
                         "type": "string",
@@ -888,10 +936,16 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Member reset"
+                        "description": "Member reset",
+                        "schema": {
+                            "$ref": "#/definitions/models.Member"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -924,7 +978,13 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Warn"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -960,6 +1020,15 @@
                         "name": "memberID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "warn values",
+                        "name": "warn",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Warn"
+                        }
                     }
                 ],
                 "responses": {
@@ -1013,7 +1082,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Warn"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1062,7 +1134,7 @@
                     }
                 ],
                 "responses": {
-                    "206": {
+                    "204": {
                         "description": "No Content"
                     },
                     "403": {
@@ -1131,9 +1203,9 @@
                         "required": true
                     },
                     {
-                        "type": "boolean",
-                        "default": false,
-                        "description": "reward from this lvl only",
+                        "type": "integer",
+                        "default": 0,
+                        "description": "reward for this lvl only",
                         "name": "reward",
                         "in": "query"
                     },
@@ -1147,14 +1219,20 @@
                     {
                         "type": "boolean",
                         "default": false,
-                        "description": "xpBlacklist roles only",
-                        "name": "xpBlacklist",
+                        "description": "xpBlacklisted roles only",
+                        "name": "xpBlacklisted",
                         "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Role"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1238,7 +1316,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Role"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1262,7 +1343,7 @@
                 "tags": [
                     "Roles"
                 ],
-                "summary": "Delete guild role",
+                "summary": "Delete a guild role",
                 "parameters": [
                     {
                         "type": "string",
@@ -1280,14 +1361,14 @@
                     }
                 ],
                 "responses": {
-                    "206": {
+                    "204": {
                         "description": "No Content"
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -1320,17 +1401,29 @@
                         "name": "roleID",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Role values",
+                        "name": "role",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Role"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Role"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "Not Fountd"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server Error"
@@ -1340,14 +1433,20 @@
         },
         "/users/": {
             "get": {
-                "description": "Get a list of existing users",
+                "description": "Get a list of all existing users",
                 "tags": [
                     "Users"
                 ],
                 "summary": "Get Users",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.User"
+                            }
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1400,7 +1499,7 @@
                         }
                     },
                     "400": {
-                        "description": "login invalid"
+                        "description": "Invalid logins"
                     },
                     "500": {
                         "description": "Server Error"
@@ -1417,7 +1516,10 @@
                 "summary": "Get Logged in User",
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1460,7 +1562,7 @@
                         }
                     },
                     "400": {
-                        "description": "Wrong values"
+                        "description": "Invalid values"
                     },
                     "500": {
                         "description": "Server Error"
@@ -1486,7 +1588,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
@@ -1523,13 +1628,16 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "NotFound"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server error"
@@ -1552,14 +1660,14 @@
                     }
                 ],
                 "responses": {
-                    "200": {
+                    "204": {
                         "description": "OK"
                     },
                     "403": {
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "NotFound"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server error"
@@ -1581,7 +1689,7 @@
                         "required": true
                     },
                     {
-                        "description": "fields to modify",
+                        "description": "User modification",
                         "name": "userModif",
                         "in": "body",
                         "required": true,
@@ -1592,7 +1700,10 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
                     },
                     "400": {
                         "description": "Invalid values"
@@ -1601,7 +1712,7 @@
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "NotFound"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server error"
@@ -1633,7 +1744,7 @@
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "NotFound"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server error"
@@ -1663,7 +1774,7 @@
                         "description": "Forbidden"
                     },
                     "404": {
-                        "description": "NotFound"
+                        "description": "Not Found"
                     },
                     "500": {
                         "description": "Server error"

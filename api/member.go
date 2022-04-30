@@ -26,10 +26,10 @@ func initMembers() {
 // @Summary      Get Guild Members
 // @Tags         Members
 // @Description  Fetch all members of the guild.
-// @Param        guildID  path   string   true   "guild id"
-// @Param        limit    query  int      false  "limit to fetch"          default(1)
-// @Param        after    query  string   false  "higher last id fetched"  default(0)
-// @Success      200      {array}  models.Member "OK"
+// @Param        guildID  path     string         true   "guild id"
+// @Param        limit    query    int            false  "limit to fetch"          default(1)
+// @Param        after    query    string         false  "higher last id fetched"  default(0)
+// @Success      200      {array}  models.Member  "OK"
 // @Failure      403      "Forbidden"
 // @Failure      500      "Server error"
 // @Router       /guilds/{guildID}/members [GET]
@@ -60,9 +60,9 @@ func GetGuildMembers(c echo.Context) error {
 // @Summary      Get one Guild Member
 // @Tags         Members
 // @Description  Fetch the member of the guild.
-// @Param        guildID   path  string    true  "guild id"
-// @Param        memberID  path  string    true  "member id"
-// @Success      200      {object}  models.Member "OK"
+// @Param        guildID   path      string         true  "guild id"
+// @Param        memberID  path      string         true  "member id"
+// @Success      200       {object}  models.Member  "OK"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
 // @Failure      500       "Server error"
@@ -92,7 +92,7 @@ func GetMember(c echo.Context) error {
 // @Accept       json
 // @Produce      json
 // @Param        guildID  path      string         true  "guild id"
-// @Param        member     body      models.Member  true  "Member values"
+// @Param        member   body      models.Member  true  "Member values"
 // @Success      201      {object}  models.Member  "Created member"
 // @Failure      400      "Wrong values"
 // @Failure      403      "Forbidden"
@@ -143,11 +143,11 @@ func resetGuildMembers(c echo.Context) error {
 // @Description  Reset level and xp for the specific guild's member.
 // @Accept       json
 // @Produce      json
-// @Param        guildID   path            string    true  "Guild id"
-// @Param        memberID  path            string    true  "Guild id"
-// @Success      201      {object}  models.Member "Member reset"
+// @Param        guildID   path      string         true  "Guild id"
+// @Param        memberID  path      string         true  "Guild id"
+// @Success      201       {object}  models.Member  "Member reset"
 // @Failure      403       "Forbidden"
-// @Failure      404	   "Not Found"
+// @Failure      404       "Not Found"
 // @Failure      500       "Server Error"
 // @Router       /guilds/{guildID}/members/{memberID}/reset [POST]
 func resetMember(c echo.Context) error {
@@ -179,10 +179,10 @@ func resetMember(c echo.Context) error {
 // @Description  Update fields of a guild's member
 // @Accept       json
 // @Produce      json
-// @Param        guildID   path  string    true  "Guild id"
-// @Param        memberID  path  string    true  "Guild id"
-// @Param        member     body  models.Member  true  "Member values"
-// @Success      200       {object}  models.Member "OK"
+// @Param        guildID   path      string         true  "Guild id"
+// @Param        memberID  path      string         true  "Guild id"
+// @Param        member    body      models.Member  true  "Member values"
+// @Success      200       {object}  models.Member  "OK"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
 // @Failure      500       "Server Error"

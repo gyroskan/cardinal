@@ -28,8 +28,8 @@ func initUsers() {
 // @Summary      Get User
 // @Tags         Users
 // @Description  Get a specific user
-// @Param        username  path  string    true  "username"
-// @Success      200       {object}  models.User "OK"
+// @Param        username  path      string       true  "username"
+// @Success      200       {object}  models.User  "OK"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not found"
 // @Failure      500       "Server error"
@@ -52,7 +52,7 @@ func getUser(c echo.Context) error {
 // @Summary      Get Logged in User
 // @Tags         Users
 // @Description  Get the logged in user
-// @Success      200  {object}  models.User "OK"
+// @Success      200  {object}  models.User  "OK"
 // @Failure      403  "Forbidden"
 // @Failure      500  "Server error"
 // @Router       /users/me [GET]
@@ -73,7 +73,7 @@ func getLoggedUser(c echo.Context) error {
 // @Summary      Get Users
 // @Tags         Users
 // @Description  Get a list of all existing users
-// @Success      200  {array}  models.User "OK"
+// @Success      200  {array}  models.User  "OK"
 // @Failure      403  "Forbidden"
 // @Failure      500  "Server error"
 // @Router       /users/ [GET]
@@ -91,9 +91,9 @@ func getUsers(c echo.Context) error {
 // @Summary      Update User
 // @Tags         Users
 // @Description  Update specified User fields
-// @Param        username   path  string                   true  "username"
-// @Param        userModif  body  models.UserModification  true  "User modification"
-// @Success      200        {object}                 models.User "OK"
+// @Param        username   path      string                   true  "username"
+// @Param        userModif  body      models.UserModification  true  "User modification"
+// @Success      200        {object}  models.User              "OK"
 // @Failure      400        "Invalid values"
 // @Failure      403        "Forbidden"
 // @Failure      404        "Not Found"
@@ -145,9 +145,9 @@ func updateUser(c echo.Context) error {
 // @Summary      Update User access level
 // @Tags         Users
 // @Description  Update User access level
-// @Param        username      path   string    true  "username"
-// @Param        access_level  query  int       true  "access_level"
-// @Success      200           {object}  models.User "OK"
+// @Param        username      path      string       true  "username"
+// @Param        access_level  query     int          true  "access_level"
+// @Success      200           {object}  models.User  "OK"
 // @Failure      403           "Forbidden"
 // @Failure      404           "Not Found"
 // @Failure      500           "Server error"

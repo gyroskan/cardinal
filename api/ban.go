@@ -21,9 +21,9 @@ func initBans() {
 // @Summary      Get Member Bans
 // @Tags         Bans
 // @Description  Fetch all bans of the member.
-// @Param        guildID   path  string   true  "guild id"
-// @Param        memberID  path  string   true  "member id"
-// @Success      200         {array}  models.Ban "OK"
+// @Param        guildID   path     string      true  "guild id"
+// @Param        memberID  path     string      true  "member id"
+// @Success      200       {array}  models.Ban  "OK"
 // @Failure      403       "Forbidden"
 // @Failure      500       "Server error"
 // @Router       /guilds/{guildID}/members/{memberID}/bans [GET]
@@ -45,10 +45,10 @@ func getBans(c echo.Context) error {
 // @Summary      Get one ban
 // @Tags         Bans
 // @Description  Fetch the ban of the member.
-// @Param        guildID   path  string    true  "guild id"
-// @Param        memberID  path  string    true  "member id"
-// @Param        banID     path  string    true  "ban id"
-// @Success      200       {object}  models.Ban "OK"
+// @Param        guildID   path      string      true  "guild id"
+// @Param        memberID  path      string      true  "member id"
+// @Param        banID     path      string      true  "ban id"
+// @Success      200       {object}  models.Ban  "OK"
 // @Failure      403       "Forbidden"
 // @Failure      404       "Not Found"
 // @Failure      500       "Server error"
@@ -79,7 +79,7 @@ func getBan(c echo.Context) error {
 // @Produce      json
 // @Param        guildID   path      string      true  "guild id"
 // @Param        memberID  path      string      true  "member id"
-// @Param        ban	   body      models.Ban  true  "ban"
+// @Param        ban       body      models.Ban  true  "ban"
 // @Success      201       {object}  models.Ban  "Created role"
 // @Failure      400       "Wrong values"
 // @Failure      403       "Forbidden"

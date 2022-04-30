@@ -267,7 +267,7 @@ paths:
       produces:
       - application/json
       responses:
-        "206":
+        "204":
           description: No Content
         "403":
           description: Forbidden
@@ -349,11 +349,15 @@ paths:
       - default: false
         description: xpBlacklist channels only
         in: query
-        name: xpBlacklist
+        name: xpBlacklisted
         type: boolean
       responses:
         "200":
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Channel'
+            type: array
         "403":
           description: Forbidden
         "500":
@@ -417,7 +421,7 @@ paths:
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
       summary: Delete guild channel
@@ -463,15 +467,23 @@ paths:
         name: channelID
         required: true
         type: string
+      - description: Channel values
+        in: body
+        name: channel
+        required: true
+        schema:
+          $ref: '#/definitions/models.Channel'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Channel'
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
       summary: Update channel values
@@ -561,15 +573,15 @@ paths:
       produces:
       - application/json
       responses:
-        "206":
+        "204":
           description: No Content
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
-      summary: Delete guild member
+      summary: Delete a guild member
       tags:
       - Members
     get:
@@ -614,18 +626,26 @@ paths:
         name: memberID
         required: true
         type: string
+      - description: Member values
+        in: body
+        name: member
+        required: true
+        schema:
+          $ref: '#/definitions/models.Member'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Member'
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
-      summary: Update member value
+      summary: Update member
       tags:
       - Members
   /guilds/{guildID}/members/{memberID}/bans:
@@ -645,6 +665,10 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Ban'
+            type: array
         "403":
           description: Forbidden
         "500":
@@ -667,6 +691,12 @@ paths:
         name: memberID
         required: true
         type: string
+      - description: ban
+        in: body
+        name: ban
+        required: true
+        schema:
+          $ref: '#/definitions/models.Ban'
       produces:
       - application/json
       responses:
@@ -707,7 +737,7 @@ paths:
       produces:
       - application/json
       responses:
-        "206":
+        "204":
           description: No Content
         "403":
           description: Forbidden
@@ -739,6 +769,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Ban'
         "403":
           description: Forbidden
         "404":
@@ -752,7 +784,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: Reset level and xp for the specific guild's members.
+      description: Reset level and xp for the specific guild's member.
       parameters:
       - description: Guild id
         in: path
@@ -769,11 +801,15 @@ paths:
       responses:
         "201":
           description: Member reset
+          schema:
+            $ref: '#/definitions/models.Member'
         "403":
           description: Forbidden
+        "404":
+          description: Not Found
         "500":
           description: Server Error
-      summary: Reset  a member from a guild
+      summary: Reset a member from a guild
       tags:
       - Members
   /guilds/{guildID}/members/{memberID}/warns:
@@ -793,6 +829,10 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Warn'
+            type: array
         "403":
           description: Forbidden
         "500":
@@ -815,6 +855,12 @@ paths:
         name: memberID
         required: true
         type: string
+      - description: warn values
+        in: body
+        name: warn
+        required: true
+        schema:
+          $ref: '#/definitions/models.Warn'
       produces:
       - application/json
       responses:
@@ -855,7 +901,7 @@ paths:
       produces:
       - application/json
       responses:
-        "206":
+        "204":
           description: No Content
         "403":
           description: Forbidden
@@ -887,6 +933,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Warn'
         "403":
           description: Forbidden
         "404":
@@ -916,9 +964,9 @@ paths:
           description: Forbidden
         "500":
           description: Server Error
-      summary: Reset guild's members
+      summary: Reset all guild's members
       tags:
-      - Guilds
+      - Members
   /guilds/{guildID}/reset:
     post:
       consumes:
@@ -955,24 +1003,28 @@ paths:
         name: guildID
         required: true
         type: string
-      - default: false
-        description: reward from this lvl only
+      - default: 0
+        description: reward for this lvl only
         in: query
         name: reward
-        type: boolean
+        type: integer
       - default: false
         description: ignored roles only
         in: query
         name: ignored
         type: boolean
       - default: false
-        description: xpBlacklist roles only
+        description: xpBlacklisted roles only
         in: query
-        name: xpBlacklist
+        name: xpBlacklisted
         type: boolean
       responses:
         "200":
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Role'
+            type: array
         "403":
           description: Forbidden
         "500":
@@ -1031,15 +1083,15 @@ paths:
       produces:
       - application/json
       responses:
-        "206":
+        "204":
           description: No Content
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
-      summary: Delete guild role
+      summary: Delete a guild role
       tags:
       - Roles
     get:
@@ -1058,6 +1110,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Role'
         "403":
           description: Forbidden
         "404":
@@ -1082,15 +1136,23 @@ paths:
         name: roleID
         required: true
         type: string
+      - description: Role values
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.Role'
         "403":
           description: Forbidden
         "404":
-          description: Not Fountd
+          description: Not Found
         "500":
           description: Server Error
       summary: Update role values
@@ -1098,10 +1160,14 @@ paths:
       - Roles
   /users/:
     get:
-      description: Get a list of existing users
+      description: Get a list of all existing users
       responses:
         "200":
           description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
         "403":
           description: Forbidden
         "500":
@@ -1119,12 +1185,12 @@ paths:
         required: true
         type: string
       responses:
-        "200":
+        "204":
           description: OK
         "403":
           description: Forbidden
         "404":
-          description: NotFound
+          description: Not Found
         "500":
           description: Server error
       summary: Delete User
@@ -1141,6 +1207,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.User'
         "403":
           description: Forbidden
         "404":
@@ -1158,7 +1226,7 @@ paths:
         name: username
         required: true
         type: string
-      - description: fields to modify
+      - description: User modification
         in: body
         name: userModif
         required: true
@@ -1167,12 +1235,14 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.User'
         "400":
           description: Invalid values
         "403":
           description: Forbidden
         "404":
-          description: NotFound
+          description: Not Found
         "500":
           description: Server error
       summary: Update User
@@ -1194,10 +1264,12 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.User'
         "403":
           description: Forbidden
         "404":
-          description: NotFound
+          description: Not Found
         "500":
           description: Server error
       summary: Update User access level
@@ -1218,7 +1290,7 @@ paths:
         "403":
           description: Forbidden
         "404":
-          description: NotFound
+          description: Not Found
         "500":
           description: Server error
       summary: Ban User
@@ -1238,7 +1310,7 @@ paths:
         "403":
           description: Forbidden
         "404":
-          description: NotFound
+          description: Not Found
         "500":
           description: Server error
       summary: Ban User
@@ -1271,7 +1343,7 @@ paths:
           schema:
             type: string
         "400":
-          description: login invalid
+          description: Invalid logins
         "500":
           description: Server Error
       summary: Login user
@@ -1283,6 +1355,8 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/models.User'
         "403":
           description: Forbidden
         "500":
@@ -1310,7 +1384,7 @@ paths:
           schema:
             $ref: '#/definitions/models.User'
         "400":
-          description: Wrong values
+          description: Invalid values
         "500":
           description: Server Error
       summary: Register user

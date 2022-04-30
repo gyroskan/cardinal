@@ -24,10 +24,10 @@ func initChannels() {
 // @Summary      Get Guild channels
 // @Tags         Channels
 // @Description  Fetch all channels of the guild.
-// @Param        guildID        path   string   true   "guild id"
-// @Param        ignored        query  bool     false  "ignored channels only"      default(false)
-// @Param        xpBlacklisted  query  bool     false  "xpBlacklist channels only"  default(false)
-// @Success      200            {array}  models.Channel "OK"
+// @Param        guildID        path     string          true   "guild id"
+// @Param        ignored        query    bool            false  "ignored channels only"      default(false)
+// @Param        xpBlacklisted  query    bool            false  "xpBlacklist channels only"  default(false)
+// @Success      200            {array}  models.Channel  "OK"
 // @Failure      403            "Forbidden"
 // @Failure      500            "Server error"
 // @Router       /guilds/{guildID}/channels [GET]
@@ -125,10 +125,10 @@ func createChannel(c echo.Context) error {
 // @Description  Update fields of a guild's channel
 // @Accept       json
 // @Produce      json
-// @Param        guildID    path  string    true  "Guild id"
-// @Param        channelID  path  string    true  "Channel id"
-// @Param 		 channel    body  models.Channel true "Channel values"
-// @Success      200       {object}  models.Channel "OK"
+// @Param        guildID    path      string          true  "Guild id"
+// @Param        channelID  path      string          true  "Channel id"
+// @Param        channel    body      models.Channel  true  "Channel values"
+// @Success      200        {object}  models.Channel  "OK"
 // @Failure      403        "Forbidden"
 // @Failure      404        "Not Found"
 // @Failure      500        "Server Error"
