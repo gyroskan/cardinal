@@ -35,8 +35,14 @@ func hashPassword(password string, salt []byte) string {
 
 func isAdmin(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		user := c.Get("user").(*jwt.Token)
-		claims := user.Claims.(*JwtCustomClaims)
+		user, success := c.Get("user").(*jwt.Token)
+		if !success {
+			return echo.ErrForbidden
+		}
+		claims, success := user.Claims.(*JwtCustomClaims)
+		if !success {
+			return echo.ErrForbidden
+		}
 		accessLevel := claims.Access_level
 		if accessLevel != 0 {
 			return echo.ErrForbidden
@@ -47,8 +53,14 @@ func isAdmin(next echo.HandlerFunc) echo.HandlerFunc {
 
 func isAdminOrLoggedIn(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		user := c.Get("user").(*jwt.Token)
-		claims := user.Claims.(*JwtCustomClaims)
+		user, success := c.Get("user").(*jwt.Token)
+		if !success {
+			return echo.ErrForbidden
+		}
+		claims, success := user.Claims.(*JwtCustomClaims)
+		if !success {
+			return echo.ErrForbidden
+		}
 		accessLevel := claims.Access_level
 		if accessLevel != 0 && c.Param("username") != claims.Username {
 			return echo.ErrForbidden

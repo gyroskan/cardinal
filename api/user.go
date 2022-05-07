@@ -57,8 +57,16 @@ func getUser(c echo.Context) error {
 // @Failure      500  "Server error"
 // @Router       /users/me [GET]
 func getLoggedUser(c echo.Context) error {
-	u := c.Get("user").(*jwt.Token)
-	claims := u.Claims.(*JwtCustomClaims)
+	u, success := c.Get("user").(*jwt.Token)
+	if !success {
+		log.Warn("Invalid token reached getLoggedUser")
+		return c.JSON(http.StatusBadRequest, echo.Map{"error": "Invalid token."})
+	}
+	claims, success := u.Claims.(*JwtCustomClaims)
+	if !success {
+		log.Warn("Invalid token claims reached getLoggedUser")
+		return c.JSON(http.StatusBadRequest, echo.Map{"error": "Invalid token."})
+	}
 	username := claims.Username
 	var user models.User
 
