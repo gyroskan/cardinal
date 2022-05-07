@@ -20,7 +20,7 @@
 tmp
 .vscode
 .idea
-.swp
+*.swp
 routes.json
 
 # build
