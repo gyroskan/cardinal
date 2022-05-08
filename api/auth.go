@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
 	"github.com/go-sql-driver/mysql"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
 	"github.com/labstack/echo/v4"

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	_ "github.com/gyroskan/cardinal/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version   = "v1"
+	version   = "v1.0.1"
 	base_path = "/api/v1"
 )
 
@@ -23,7 +23,7 @@ var (
 )
 
 // @title Cardinal API
-// @version 0.1
+// @version 1.0.1
 // @description The API to interact with cardinal discord bot database.
 
 // @contact.name API Support

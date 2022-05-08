@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 	"github.com/gyroskan/cardinal/db"
 	"github.com/gyroskan/cardinal/models"
 	"github.com/labstack/echo/v4"
