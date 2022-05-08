@@ -1,8 +1,6 @@
 package api
 
 import (
-	"fmt"
-	"log"
 	"net/http"
 	"strings"
 
@@ -10,6 +8,7 @@ import (
 	_ "github.com/gyroskan/cardinal/docs"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"github.com/labstack/gommon/log"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
@@ -97,8 +96,8 @@ func InitRouter() *echo.Echo {
 func Run() {
 	e := InitRouter()
 
+	log.Info("Started cardinal API " + version + ", made by gyroskan!")
 	if err := e.Start(":5005"); err != nil {
 		log.Fatal("unable to start api. ", err)
 	}
-	fmt.Println("Started cardinal API " + version + ", made by gyroskan!")
 }
