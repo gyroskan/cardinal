@@ -20,6 +20,6 @@ type (
 		ChannelID     string `json:"channelID" db:"channel_id"`         // ID of the channel
 		GuildID       string `json:"guildID" db:"guild_id"`             // ID of the guild
 		Ignored       bool   `json:"ignored" db:"ignored"`              // Wether the channel is ignored by the bot or not
-		XpBlacklisted bool   `json:"wpBlacklisted" db:"xp_blacklisted"` // Wether the channel is blacklisted from xp or not
+		XpBlacklisted bool   `json:"xpBlacklisted" db:"xp_blacklisted"` // Wether the channel is blacklisted from xp or not
 	}
 )

@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	version   = "v1.0.1"
+	version   = "v1.0.2"
 	base_path = "/api/v1"
 )
 
