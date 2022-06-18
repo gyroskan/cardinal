@@ -52,7 +52,7 @@ services:
       MARIADB_ROOT_PASSWORD: root
       MARIADB_DATABASE: cardinal
     volumes:
-      - ./data:/var/liv/mysql
+      - ./data:/var/lib/mysql
     networks:
       - db
 
