@@ -93,7 +93,7 @@ func getGuild(c echo.Context) error {
 // @Failure      500    "Server error"
 // @Router       /guilds/ [POST]
 func createGuild(c echo.Context) error {
-	guild := new(models.Guild)
+	var guild models.Guild
 	if err := c.Bind(&guild); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, echo.Map{"error": err, "guild": guild})
 	}

@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	version   = "v1.0.2"
+	version   = "v1.0.3"
 	base_path = "/api/v1"
 )
 
@@ -22,7 +22,7 @@ var (
 )
 
 // @title Cardinal API
-// @version 1.0.1
+// @version 1.0.3
 // @description The API to interact with cardinal discord bot database.
 
 // @contact.name API Support
